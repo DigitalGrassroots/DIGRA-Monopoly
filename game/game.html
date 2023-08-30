@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Components</title>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Alata&family=Grandstander:wght@100;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" type="text/css" href="board.css">
+	<link rel="stylesheet" type="text/css" href="game.css">
+
+	<!-- <script type="text/javascript" src="script.js"></script> -->
+	<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<style type="text/css">
+	.table{
+		perspective: 1500px;
+		position: absolute;
+		transform: scale(0.7) translate(25%);
+		margin-top: -220px;
+	}
+	.board{
+		transform-style: preserve-3d;
+		transform: rotateX(45deg) rotateZ(0deg) rotateY(0deg);
+		transition: 0.5s;
+	}
+
+	.table{
+		perspective: none;
+	}
+
+	.board{
+		transform-style: flat;
+		transform: rotateX(0deg) rotateZ(0deg) rotateY(0deg);
+	}
+</style>
+
+<div class="settings-black" id="settingsBlack" onclick="toggleSettings()">
+	<div style="color:#fff;padding: 150px 200px;font-size: 30px;">Settings</div>
+</div>
+
+
+<div class="vignette" id="vignette"></div>
+
+<div class="game-btn toggle-settings" id="settingsTrigger" onclick="toggleSettings()"><img src="assets/settings-icon.png" style="width:30px;margin-top: 5px;"></div>
+
+<div class="game-btn toggle-3d" onclick="toggle3D()"><img src="assets/dice-outline.png" style="width:30px;margin-top: 5px;"></div>
+
+<div class="game-btn toggle-hand"><img src="assets/hand-icon.png" style="width:30px;margin-top: 5px;"></div>
+
+<div class="game-btn left-turn" id="rotateAnticlockwise">&#8249;</div>
+<div class="game-btn right-turn" id="rotateClockwise">&#8250;</div>
+
+
+
+<div class="table" id="table">
+
+	<div class="board" id="board">
+		<div class="center">
+
+<!-- 			<div class="community-chest-deck">
+				<h2 class="label">Community Chest</h2>
+				<div class="deck"></div>
+			</div> -->
+
+			<!-- <h1 class="title">MONOPOLY</h1> -->
+
+<!-- 			<div class="chance-deck">
+				<h2 class="label">Chance</h2>
+				<div class="deck"></div>
+			</div> -->
+
+		</div>
+
+		<div class="space corner go">
+			<div class="container">
+				<div class="instructions">Collect D200 as you pass</div>
+				<img src="assets/go.png" style="transform: scale(0.8) translateY(-55px) rotate(45deg);">
+			</div>
+		</div>
+
+		<div class="row horizontal-row bottom-row">
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar light-blue"></div>
+					<div class="name" style="text-transform: none;">FoE</div>
+					<div class="price">D100</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar light-blue"></div>
+					<div class="name">DATA <br>COST</div>
+					<div class="price">D100</div>
+				</div>
+			</div>
+			<div class="space chance">
+				<div class="container">
+					<div class="name">Chance</div>
+					<img src="assets/chance.png" style="transform: translate(3px, 0);">
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar light-blue"></div>
+					<div class="name">DIGITAL LITERACY</div>
+					<div class="price">D100</div>
+				</div>
+			</div>
+			<div class="space railroad">
+				<div class="container">
+					<div class="name">COMMUNITY NETWORKS</div>
+					<!-- <i class="drawing fa fa-subway"></i> -->
+					<div class="price">D200</div>
+				</div>
+			</div>
+			<div class="space fee income-tax">
+				<div class="container">
+					<div class="name">INTERNET TAX</div>
+					<img src="assets/wifi1.png" style="width:30px">
+					<div class="instructions">D200</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar dark-purple"></div>
+					<div class="name">INTERNET ACCESS</div>
+					<div class="price">D60</div>
+				</div>
+			</div>
+			<div class="space community-chest">
+				<div class="container">
+					<div class="name">Community Chest</div>
+					<img src="assets/community-chest.png">
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar dark-purple"></div>
+					<div class="name three-line-name">GDPR</div>
+					<div class="price">D50</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="space corner jail">
+			<div class="just">Just</div>
+			<div class="drawing">
+				<div class="container">
+					<img src="assets/jail.png" style="transform: rotate(-45deg) scale(0.65);">
+<!-- 
+					<div class="name">In</div>
+
+					<div class="window">
+						<div class="bar"></div>
+						<div class="bar"></div>
+						<div class="bar"></div>
+					</div>
+
+					<div class="name">Jail</div>
+ -->
+
+				</div>
+			</div>
+			<div class="visiting">Visiting</div>
+		</div>
+
+		<div class="row vertical-row left-row">
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar orange"></div>
+					<div class="name">Privacy</div>
+					<div class="price">D200</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar orange"></div>
+					<div class="name">INTERNET SHUT</div>
+					<div class="price">D180</div>
+				</div>
+			</div>
+			<div class="space community-chest">
+				<div class="container">
+					<div class="name">Community Chest</div>
+					<img src="assets/community-chest.png">
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar orange"></div>
+					<div class="name">CENSORSHIP</div>
+					<div class="price">D180</div>
+				</div>
+			</div>
+			<div class="space railroad">
+				<div class="container">
+					<div class="name long-name">DIGITAL CITIZENSHIP</div>
+					<img src="assets/digital-citizenship.png" style="width:40px;transform: rotate(-90deg) translate(0px, 20px);">
+					<div class="price">D200</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar purple"></div>
+					<div class="name">FOSS</div>
+					<div class="price">D160</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar purple"></div>
+					<div class="name">DIGITAL DIVIDEND</div>
+					<div class="price">D140</div>
+				</div>
+			</div>
+			<div class="space utility electric-company">
+				<div class="container">
+					<div class="name">ISPS</div>
+					<!-- <i class="drawing fa fa-lightbulb-o"></i> -->
+					<div class="price">D150</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar purple"></div>
+					<div class="name">OPEN DATA</div>
+					<div class="price">D140</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="space corner free-parking">
+			<div class="container">
+				<div class="name">ZERO</div>
+				<img src="assets/parking.png" style="width:60px;transform:rotate(45deg) translateX(25px) translateY(-20px);">
+				<div class="name">Parking</div>
+			</div>
+		</div>
+
+		<div class="row horizontal-row top-row">
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar red"></div>
+					<div class="name">ENCRYPTION</div>
+					<div class="price">D220</div>
+				</div>
+			</div>
+			<div class="space chance">
+				<div class="container">
+					<div class="name">Chance</div>
+					<img src="assets/chance2.png" style="transform: rotate(180deg) translate(-3px, -5px);">
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar red"></div>
+					<div class="name">SURVEILLANCE</div>
+					<div class="price">D220</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar red"></div>
+					<div class="name">NET NEUTRALITY</div>
+					<div class="price">D200</div>
+				</div>
+			</div>
+			<div class="space railroad">
+				<div class="container">
+					<div class="name">INTERNET GOVERNANCE</div>
+					<img src="assets/wifi1.png" style="width: 40px;transform: translate(20px, 0);">
+					<div class="price">D200</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar yellow"></div>
+					<div class="name">LOCAL CONTENT</div>
+					<div class="price">D260</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar yellow"></div>
+					<div class="name">CYBER TERRORISM</div>
+					<div class="price">D260</div>
+				</div>
+			</div>
+			<div class="space utility waterworks">
+				<div class="container">
+					<div class="name">INTERNET COURT</div>
+					<img src="assets/wifi1.png" style="width: 40px;transform: translate(20px, 0);">
+					<div class="price">D120</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar yellow"></div>
+					<div class="name">COPYRIGHT</div>
+					<div class="price">D280</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="space corner go-to-jail">
+			<div class="container">
+				<div class="name">Go To</div>
+				<img src="assets/police.png" style="width: 80px; transform: translate(25px) rotate(-45deg);">
+				<div class="name">Jail 419</div>
+			</div>
+		</div>
+
+		<div class="row vertical-row right-row">
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar green"></div>
+					<div class="name">INCLUSITIVITY</div>
+					<div class="price">D300</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar green"></div>
+					<div class="name three-line-name">CHILDRENS RIGHTS</div>
+					<div class="price">D300</div>
+				</div>
+			</div>
+			<div class="space community-chest">
+				<div class="container">
+					<div class="name">Community Chest</div>
+					<img src="assets/community-chest.png">
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar green"></div>
+					<div class="name long-name">CYBERBULLYING</div>
+					<div class="price">D320</div>
+				</div>
+			</div>
+			<div class="space chance">
+				<div class="container">
+					<div class="name">Chance</div>
+					<img src="assets/chance3.png" style="transform:rotate(90deg) translate(5px, -5px);">
+				</div>
+			</div>
+			<div class="space railroad">
+				<div class="container">
+					<div class="name">INTERNET OF THINGS</div>
+					<img src="assets/wifi1.png" style="width:30px;transform: translate(25px);">
+					<div class="price">D200</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar dark-blue"></div>
+					<div class="name">HATE SPEECH</div>
+					<div class="price">D350</div>
+				</div>
+			</div>
+			<div class="space fee luxury-tax">
+				<div class="container">
+					<div class="name">OPEN INTERNET</div>
+					<div class="instructions">D150</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container">
+					<div class="color-bar dark-blue"></div>
+					<div class="name">BIG DATA</div>
+					<div class="price">D400</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</body>
+
+
+<script type="text/javascript" src="board.js"></script>

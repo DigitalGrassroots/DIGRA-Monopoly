@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Components</title>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@100;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<script type="text/javascript" src="script.js"></script>
+
+
+</head>
+<body>
+
+<style type="text/css">
+.slide{
+  width: 100%;
+  max-width: 100%;
+  margin-right: 30px;
+}
+
+.slider-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.slides-container {
+  height: 500px;
+  width: 350px;
+  max-width: 70%;
+  display: flex;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  margin: auto;
+  margin-top: -30px;
+  padding: 0;
+}
+
+</style>
+
+
+<div class="go-back" onclick="pager('play-with.html')">&#8249; Go Back</div>
+<div class="body-splash"></div>
+
+
+<img src="../images/die1.png" class="game-die1">
+<img src="../images/die2.png" class="game-die2">
+
+<img src="images/money-2.png" class="money-2">
+
+<div id="page">
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<img src="images/money-1.png" class="money-1">
+
+
+<div style="margin-top:-30px" class="header">Choose your game name</div>
+
+<section class="slider-wrapper">
+  
+<div class="slides-container" id="slides-container" style="transform: scale(0.9);">
+
+
+
+<div class="slide select-players-div">
+	<div class="close-x" onclick="pager('play-with.html')">x</div>
+	<div style="clear:both"></div>
+
+	<div class="title2">PLAYER 1</div>
+
+	<div class="form-row">
+		<div class="form-left">NAME</div>
+		<div class="form-right">
+			<input type="" name="">
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div class="form-left">COLOR</div>
+		<div class="form-right">
+			<div class="color-pickers">
+				<div class="color-picker" style="background:#A15A39"></div>
+				<div class="color-picker" style="background:#000"></div>
+				<div class="color-picker" style="background:#9B030C"></div>
+				<div class="color-picker" style="background:#39BEEB"></div>
+				<div class="color-picker" style="background:#A739EB"></div>
+				<div class="color-picker" style="background:#DBC109"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="form-row">
+		<div class="form-left">TOKENS</div>
+		<div class="form-right">
+			<div class="tokens">
+				<img src="../images/TOKEN.png">
+				<img src="../images/TOKEN-1.png">
+				<img src="../images/TOKEN-2.png">
+				<img src="../images/TOKEN-3.png">
+				<img src="../images/TOKEN-4.png">
+				<img src="../images/TOKEN-5.png">
+				<img src="../images/TOKEN-6.png">
+				<img src="../images/TOKEN-7.png">
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="select-btn-flex">
+	<div class="select-btn" onclick="">&#8249; Prev</div>
+	<div class="select-btn" onclick="nextPlayer()">Next &#8250;</div>
+	</div>
+</div>
+<!-- end DIV -->
+
+
+
+
+<div class="slide select-players-div">
+	<div class="close-x" onclick="pager('play-with.html')">x</div>
+	<div style="clear:both"></div>
+
+	<div class="title2">PLAYER 2</div>
+
+	<div class="form-row">
+		<div class="form-left">NAME</div>
+		<div class="form-right">
+			<input type="" name="">
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div class="form-left">COLOR</div>
+		<div class="form-right">
+			<div class="color-pickers">
+				<div class="color-picker" style="background:#A15A39"></div>
+				<div class="color-picker" style="background:#000"></div>
+				<div class="color-picker" style="background:#9B030C"></div>
+				<div class="color-picker" style="background:#39BEEB"></div>
+				<div class="color-picker" style="background:#A739EB"></div>
+				<div class="color-picker" style="background:#DBC109"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="form-row">
+		<div class="form-left">TOKENS</div>
+		<div class="form-right">
+			<div class="tokens">
+				<img src="../images/TOKEN.png">
+				<img src="../images/TOKEN-1.png">
+				<img src="../images/TOKEN-2.png">
+				<img src="../images/TOKEN-3.png">
+				<img src="../images/TOKEN-4.png">
+				<img src="../images/TOKEN-5.png">
+				<img src="../images/TOKEN-6.png">
+				<img src="../images/TOKEN-7.png">
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="select-btn-flex">
+	<div class="select-btn" onclick="prevPlayer()">&#8249; Prev</div>
+	<div class="select-btn" onclick="nextPlayer()">Next &#8250;</div>
+	</div>
+
+</div>
+<!-- end DIV -->
+
+
+
+<div class="slide select-players-div">
+	<div class="close-x" onclick="pager('play-with.html')">x</div>
+	<div style="clear:both"></div>
+
+	<div class="title2">PLAYER 2</div>
+
+	<div class="form-row">
+		<div class="form-left">NAME</div>
+		<div class="form-right">
+			<input type="" name="">
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div class="form-left">COLOR</div>
+		<div class="form-right">
+			<div class="color-pickers">
+				<div class="color-picker" style="background:#A15A39"></div>
+				<div class="color-picker" style="background:#000"></div>
+				<div class="color-picker" style="background:#9B030C"></div>
+				<div class="color-picker" style="background:#39BEEB"></div>
+				<div class="color-picker" style="background:#A739EB"></div>
+				<div class="color-picker" style="background:#DBC109"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="form-row">
+		<div class="form-left">TOKENS</div>
+		<div class="form-right">
+			<div class="tokens">
+				<img src="../images/TOKEN.png">
+				<img src="../images/TOKEN-1.png">
+				<img src="../images/TOKEN-2.png">
+				<img src="../images/TOKEN-3.png">
+				<img src="../images/TOKEN-4.png">
+				<img src="../images/TOKEN-5.png">
+				<img src="../images/TOKEN-6.png">
+				<img src="../images/TOKEN-7.png">
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="select-btn-flex">
+	<div class="select-btn" onclick="prevPlayer()">&#8249; Prev</div>
+	<div class="select-btn" onclick="pager('all-set.html')">Next &#8250;</div>
+	</div>
+
+</div>
+<!-- end DIV -->
+
+
+
+  </div>
+</section>
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+const slidesContainer = document.getElementById("slides-container");
+const slide = document.querySelector(".slide");
+
+function nextPlayer(){
+  const slideWidth = slide.clientWidth+30;
+  slidesContainer.scrollLeft += slideWidth;
+}
+
+
+function prevPlayer(){
+  const slideWidth = slide.clientWidth+30;
+  slidesContainer.scrollLeft -= slideWidth;
+}
+
+</script>
