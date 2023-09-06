@@ -43,7 +43,7 @@ function toggle3D(){
 	}
 }
 
-// toggle3D();
+toggle3D();
 
 settings_view = 'off';
 const settingsBlack = document.getElementById('settingsBlack');
