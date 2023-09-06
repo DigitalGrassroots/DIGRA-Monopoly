@@ -1,61 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Dice Rolls</title>
-</head>
-<body>
-
-	<a href="index.html">Back</a>
-
-
-<br>
-<br>
-<br>
-<br>
-
-
-<style type="text/css">
-	.dice-container {
-	display: flex;
-}
-
-.dice {
-	width: 80px;
-	height: 80px;
-	position: relative;
-	margin: 5px;
-	border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-}
-
-.dice-dot {
-	--top: 0%;
-	--left: 0%;
-
-	width: 15px;
-	height: 15px;
-	background-color: #000000;
-	border-radius: 50%;
-
-	/* Dot Positioning */
-	position: absolute;
-	top: var(--top);
-	left: var(--left);
-	transform: translateX(calc(var(--left) * -1)) translateY(calc(var(--top) * -1));
-}
-
-.btn-roll-dice {
-	margin-top: 10px;
-}
-</style>
-
-
-	<button type="button" class="btn-roll-dice">Roll Dice</button>
-	<div class="dice-container"></div>
-
-<script type="text/javascript">
 
 	function createDice(number) {
 	const dotPositionMatrix = {
@@ -114,30 +56,29 @@ function randomizeDice(diceContainer, numberOfDice) {
 	diceContainer.innerHTML = "";
 
 	for (let i = 0; i < numberOfDice; i++) {
-		// setTimeout(function(){
 		const random = Math.floor((Math.random() * 6) + 1);
 		const dice = createDice(random);
 
 		diceContainer.appendChild(dice);
-			
-		// }, 500);
 	}
 }
 
 const NUMBER_OF_DICE = 2;
 const diceContainer = document.querySelector(".dice-container");
-const btnRollDice = document.querySelector(".btn-roll-dice");
+const diceDiv = document.getElementById('diceDiv');
 
 randomizeDice(diceContainer, NUMBER_OF_DICE);
 
-btnRollDice.addEventListener("click", () => {
+function rollDice(){
+diceDiv.style.display = `block`;
 	const interval = setInterval(() => {
 		randomizeDice(diceContainer, NUMBER_OF_DICE);
 	}, 50);
 
-	setTimeout(() => clearInterval(interval), 5000);
-});
-</script>
-
-</body>
-</html>
+	setTimeout(function(){
+		clearInterval(interval);
+		setTimeout(function(){
+			diceDiv.style.display = `none`;
+		}, 3000);
+	}, 1000);
+};

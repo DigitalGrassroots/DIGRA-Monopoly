@@ -29,7 +29,7 @@
 
 .left-turn{
 	top: 50%;
-	left: 100px;
+	left: 20%;
 	transform: translateY(-50%);
 	transition: 0.3s;
 	display: none;
@@ -37,7 +37,7 @@
 
 .right-turn{
 	top: 50%;
-	right: 100px;
+	right: 22%;
 	transform: translateY(-50%);
 	display: none;
 }
@@ -77,6 +77,7 @@
 	opacity: 0;
 	background: rgb(0, 0, 0, 0.9);
 	transition: 0.5s;
+	display: none;
 }
 
 .pulse {
@@ -100,4 +101,62 @@
 		transform: scale(0.95) translateX(-50%);
 		box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
 	}
+}
+
+.dice-back{
+	position: fixed;
+	z-index: 4;
+	width: 100vw;
+	height: 100vw;
+	display: none;
+}
+
+.dice-container {
+	display: flex;
+	width: 160px;
+	height: 90px;
+	left: 50%;
+	top: 50%;
+	margin: auto;
+	margin-top: 300px;
+/*	background: red;*/
+/*	position: relative;*/
+/*	transform: translate(-50%,-50%);*/
+}
+
+.dice-shadow{
+	box-shadow: 0 0 200px 200px rgb(0, 0, 0, 0.5);
+	width: 1px;
+	height: 1px;
+/*	position: absolute;*/
+	transform: translate(50vw, 50vh);
+}
+
+.dice {
+	width: 80px;
+	height: 80px;
+	position: relative;
+	margin: 5px;
+	background: #fff;
+	border-radius: 10px;
+}
+
+.dice-dot {
+	--top: 0%;
+	--left: 0%;
+
+	width: 15px;
+	height: 15px;
+	background-color: #000000;
+	border-radius: 50%;
+
+	/* Dot Positioning */
+	position: absolute;
+	top: var(--top);
+	left: var(--left);
+	transform: translateX(calc(var(--left) * -1)) translateY(calc(var(--top) * -1));
+}
+
+.btn-roll-dice {
+	margin-top: 10px;
 }
