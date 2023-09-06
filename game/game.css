@@ -29,7 +29,7 @@
 
 .left-turn{
 	top: 50%;
-	left: 100px;
+	left: 20%;
 	transform: translateY(-50%);
 	transition: 0.3s;
 	display: none;
@@ -37,7 +37,7 @@
 
 .right-turn{
 	top: 50%;
-	right: 100px;
+	right: 22%;
 	transform: translateY(-50%);
 	display: none;
 }

@@ -52,10 +52,11 @@
 </style>
 
 
-	<div class="dice-container"></div>
 	<button type="button" class="btn-roll-dice">Roll Dice</button>
+	<div class="dice-container"></div>
 
 <script type="text/javascript">
+
 	function createDice(number) {
 	const dotPositionMatrix = {
 		1: [
@@ -113,10 +114,13 @@ function randomizeDice(diceContainer, numberOfDice) {
 	diceContainer.innerHTML = "";
 
 	for (let i = 0; i < numberOfDice; i++) {
+		// setTimeout(function(){
 		const random = Math.floor((Math.random() * 6) + 1);
 		const dice = createDice(random);
 
 		diceContainer.appendChild(dice);
+			
+		// }, 500);
 	}
 }
 
@@ -131,7 +135,7 @@ btnRollDice.addEventListener("click", () => {
 		randomizeDice(diceContainer, NUMBER_OF_DICE);
 	}, 50);
 
-	setTimeout(() => clearInterval(interval), 1000);
+	setTimeout(() => clearInterval(interval), 5000);
 });
 </script>
 
