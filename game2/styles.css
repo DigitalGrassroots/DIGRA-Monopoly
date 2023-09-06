@@ -201,16 +201,6 @@ td {
 }
 
 
-#menu a {
-	color: #FFFFFF;
-	text-decoration: none;
-	display: block;
-	height: 100%;
-	width: 100%;
-	padding-top: 8px;
-}
-
-
 #popup {
 	text-align: center;
 	word-wrap: break-word;

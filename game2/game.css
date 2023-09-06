@@ -327,19 +327,26 @@
 
 .menu-item{
 	color: #fff;
+	background: #F56666;
 	font-family: 'Grandstander', sans-serif;
 	font-weight: 700;
 	font-size: 15px;
-	padding: 2px 30px 10px 30px;
+	padding: 10px 30px;
 	border-radius: 50px;
 	border: 9px solid #FFAFD3;
-	background: #F56666;
 	text-transform: none;
 	box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.1);
 	transition: 0.3s;
 	cursor: pointer;
 }
+
+
+.menu-item-active{
+
+}
+
 .menu-item:hover{
+	color: #fff;
 	background: #EF820D;
 }
 
