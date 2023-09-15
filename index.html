@@ -33,7 +33,7 @@
 		<div class="nav-right">
 			<div>Home</div>
 			<div>Rules</div>
-			<div>About Digital Grassroots</div>
+			<div>About Us</div>
 			</a>
 		</div>
 		
@@ -51,12 +51,203 @@
 		<div class="hero-title">
 			Welcome to Digital Rights <span style="color:#F5BB06;">Monopoly</span>
 			<div class="hero-text">Play with friends and have new experiences</div>
+
+			<div class="splash-buttons">
+				
+			<a href="game/index.html">
+			<div class="play-btn sm-btn">
+				<div class="play-btn-txt">Play</div>
+				<div class="play-btn-i"><i class='bx bx-chevron-right'></i></div>
+			</div>
+			</a>
+
+			<a href="#">
+			<div class="play-btn about-btn sm-btn">
+				<div class="play-btn-txt">About Game</div>
+				<div class="play-btn-i"><i class='bx bx-chevron-right'></i></div>
+			</div>
+			</a>
+
+
+			</div>
+
+		</div>
+
+
+		<img src="assets/images/die1.png" class="die1 scroller">
+	</div>
+	</div>
+
+
+	<!-- SECTION 2 -->
+
+	<div class="section2">
+
+		<!-- <div class="section2-radial"></div> -->
+
+		<div class="section2-left">
+			<img src="assets/images/spline-globe.png" class="spline-globe1 scroller">
+			<div class="gradient-rect">
+				<img src="assets/images/diamond.png" class="diamond1">
+			</div>
+			<div class="section2-img1"></div>
+		</div>
+		<div class="section2-right">
+		<div class="section2-right-pad">
+			<div class="section2-title">We Increase <br>Digital Literacy</div>
+			<div class="section2-text">Digital Grassroots is youth-led. We work with young people to increase digital literacy in their local community.</div>
+
+			<div class="play-btn about-btn2">
+				<div class="play-btn-txt">About Us</div>
+			</div>
+		</div>
 		</div>
 
 
 	</div>
+
+	<!-- END SECTION 2 -->
+
+
+
+	<!-- START SECTION 3 -->
+	<div class="section3">
+		<img src="assets/images/die2.png" class="die2 scroller">
+		<div class="section3-text">
+			<div class="section3-text1">Learn the rules of the game and compete with friends</div>
+			<div class="section3-text2">The Monopoly rules apply.. except with a little twist. <br>Read about the game and become a master player!</div>
+			<br>
+
+			<div class="splash-buttons">
+				
+			<div class="play-btn btn3">
+				<div class="play-btn-txt">Game Rules</div>
+			</div>
+
+
+			</div>
+		</div>
 	</div>
 
+
+
+
+	<!-- SECTION 4 -->
+
+	<div class="section2">
+		<img src="assets/images/spline-globe.png" class="spline-globe2 scroller">
+
+		<div class="section2-right">
+		<div class="section2-right-pad">
+			<div class="section2-title section4-title">PLAY WITH FRIENDS ANYWHERE</div>
+			<div class="section2-text">With your PC you can play with friends wherever and whenever with just a click of a button!</div>
+
+			<div class="play-btn about-btn2">
+				<div class="play-btn-txt">PLAY NOW</div>
+			</div>
+
+			<br>
+			<br>
+			<br>
+			<br>
+		</div>
+		</div>
+
+		<div class="section2-left">
+			<div class="gradient-rect gradient-rect2 gamer-scroll2"></div>
+			<div class="gamers gamer-scroll"></div>
+		</div>
+
+		<img src="assets/images/spline-donut.png" class="spline-donut scroller2">
+	</div>
+
+	<!-- END SECTION 4 -->
+
+
+
+	<!-- START SECTION 5 -->
+	<div class="section5">
+		<img src="assets/images/die3.png" class="die3 scroller3">
+		<div class="section5-text">
+			BECOME PART OF OUR COMMUNITY
+			<div class="play-btn join-btn">
+				<div class="play-btn-txt">JOIN THE COMMUNITY</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- FOOTER -->
+	<div class="footer">
+		<div class="footer-left">
+			<div>Privacy Plicy</div>
+			<div>Terms and Conditions</div>
+		</div>
+		<div class="footer-right">Copyright © <b>Digital Grassroots</b></div>
+	<img src="assets/images/gradient-ellipse.png" class="gradient-ellipse">
+	</div>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/lax.js" ></script>
+
+	<script>
+	  window.onload = function () {
+	    lax.init()
+
+	    // Add a driver that we use to control our animations
+	    lax.addDriver('scrollY', function () {
+	      return window.scrollY
+	    })
+
+	    // Add animation bindings to elements
+	    lax.addElements('.scroller', {
+	      scrollY: {
+	        translateY: [
+	          ["elInY", "elOutY"],
+	          [200, -200],
+	        ]
+	      }
+	    });
+
+	    lax.addElements('.scroller2', {
+	      scrollY: {
+	        translateY: [
+	          ["elInY", "elOutY"],
+	          [100, -300],
+	        ]
+	      }
+	    });
+
+	    lax.addElements('.scroller3', {
+	      scrollY: {
+	        translateY: [
+	          ["elInY", "elOutY"],
+	          [0, 120],
+	        ]
+	      }
+	    });
+
+	    lax.addElements('.gamer-scroll', {
+	      scrollY: {
+	        translateX: [
+	          ["elInY", "elOutY"],
+	          [0, -120],
+	        ]
+	      }
+	    })
+
+	    lax.addElements('.gamer-scroll2', {
+	      scrollY: {
+	        translateX: [
+	          ["elInY", "elOutY"],
+	          [0, 50],
+	        ]
+	      }
+	    })
+	  }
+	</script>
 
 </body>
 </html>
