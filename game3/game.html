@@ -1,0 +1,1182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Digitalgrassroots | Monopoly</title>
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+	<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+	<link href="https://fonts.googleapis.com/css2?family=Alata&family=Grandstander:wght@100;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+	<script src="jquery.min.js"></script>
+	<script type="text/javascript" src="classicedition.js"></script>
+	<!-- Comment out the previous line and uncomment the next one to enable the New York City Edition -->
+	<!-- <script type="text/javascript" src="newyorkcityedition.js"></script> -->
+	<script type="text/javascript" src="ai.js"></script>
+	<script type="text/javascript" src="monopoly.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+	<link rel="stylesheet" type="text/css" href="setup.css" />
+
+
+
+	<link rel="stylesheet" type="text/css" href="board.css">
+	<link rel="stylesheet" type="text/css" href="game.css">
+</head>
+
+<body>
+
+<div class="input-black" id="inputBlack" onclick="closeInputDiv()"></div>
+
+<div class="buy-black" id="buyBlack">
+
+	<div class="buy-flex">
+
+		<div class="buy-deed"></div>
+		<div class="buy-choice">
+			<div class="buy-choice-header">PROPERTY</div>
+		<div class="buy-choice-pad">
+			<div class="buy-choice-title">WOULD YOU LIKE TO PAY FOR <span id="buy-choice-property">INTERNET ACCESS</span>?</div>
+
+			<div class="buy-buttons">
+				<div class="buy-button">Purchase</div>
+				<div class="buy-button buy-button2" onclick="toggleBuy()">Not now</div>
+			</div>
+		</div>
+		</div>
+
+	</div>
+
+</div>
+
+<!-- vignette -->
+<div class="vignette" id="vignette"></div>
+
+<!-- buttons -->
+<div class="game-btn toggle-settings top-btns" id="settingsTrigger" onclick="toggleSettings()"><img src="assets/settings-icon.png" style="width:25px;margin-top: 5px;"></div>
+
+<div class="game-btn toggle-3d top-btns" onclick="toggle3D()"><img src="assets/dice-outline.png" style="width:25px;margin-top: 5px;"></div>
+
+<div class="game-btn toggle-hand top-btns" id="tradeTrigger" onclick="toggleTrade()"><img src="assets/hand-icon.png" style="width:25px;margin-top: 5px;"></div>
+
+<!-- left right -->
+<div class="game-btn left-turn" style="display:none" id="rotateAnticlockwise">&#8249;</div>
+<div class="game-btn right-turn" style="display:none" id="rotateClockwise">&#8250;</div>
+
+
+<!-- dicey -->
+<div class="dice-back" id="diceDiv">
+	<div class="dice-shadow"></div>
+	<div class="dice-container"></div>
+</div>
+
+
+
+
+<div class="settings-black" id="settingsBlack" onclick="toggleSettings()">
+	<div style="color:#fff;padding: 150px 200px;font-size: 30px;">Settings</div>
+</div>
+
+<div class="settings-black" id="tradeBlack" onclick="toggleTrade()">
+	<div style="color:#fff;padding: 150px 200px;font-size: 30px;">Trade</div>
+</div>
+
+
+
+	<div id="popupbackground"></div>
+	<div id="popupwrap">
+		<div id="popup">
+			<div style="position: relative;">
+				<!-- <img id="popupclose" src="Images/close.png" title="Close" alt="x" onclick="hide('popupbackground'); hide('popupwrap');" /> -->
+				<div id="popuptext"></div>
+
+				<div id="popupdrag"></div>
+			</div>
+		</div>
+	</div>
+
+	<div id="statsbackground"></div>
+	<div id="statswrap">
+		<div id="stats">
+			<div style="position: relative;">
+				<img id="statsclose" src="images/close.png" title="Close" alt="x" />
+				<div id="statstext"></div>
+				<div id="statsdrag"></div>
+			</div>
+		</div>
+	</div>
+
+	<p id="noscript">
+		Note: This page will not function without JavaScript.
+	</p>
+
+	<div id="refresh">
+		Refresh this page to start a new game.
+	</div>
+
+	<!-- <div id="enlarge"></div> -->
+
+	<div id="deed">
+		<div id="deed-normal" style="display: none;">
+			<div id="deed-header">
+				<div style="margin: 5px; font-size: 11px;">T I T L E&nbsp;&nbsp;D E E D</div>
+				<div id="deed-name"></div>
+			</div>
+			<table id="deed-table">
+				<tr>
+					<td>
+						PRICE&nbsp;D<span id=""></span>
+					</td>
+					<td>
+						RENT&nbsp;D<span id="deed-baserent">12</span>.
+					</td>
+				</tr>
+				<tr colspan="2">
+					<td colspan="2">
+						<div style="width:100%;height: 2px;background: black;"></div>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: left;">With 1 Policy</td>
+					<td style="text-align: right;">D<span id="deed-rent1">60</span>.</td>
+				</tr>
+				<tr>
+					<td style="text-align: left;">With 2 Policies</td>
+					<td style="text-align: right;">D<span id="deed-rent2">180</span>.</td>
+				</tr>
+				<tr>
+					<td style="text-align: left;">With 3 Policies</td>
+					<td style="text-align: right;">D<span id="deed-rent3">500</span>.</td>
+				</tr>
+				<tr>
+					<td style="text-align: left;">With 4 Policies</td>
+					<td style="text-align: right;">D<span id="deed-rent4">700</span>.</td>
+				</tr>
+				<tr>
+					<td style="text-align: left;">With Law</td>
+					<td style="text-align: right;">D<span id="deed-rent5">700</span>.</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<!-- <div style="margin-bottom: 8px;">With HOTEL D<span id="deed-rent5">900</span>.</div> -->
+						<div>Mortgage Value D<span id="deed-mortgage">80</span>.</div>
+						<div>Policies cost D<span id="deed-houseprice">100</span>. each</div>
+						<div>Law costs, D<span id="deed-hotelprice">100</span>. plus 4 Policies</div>
+						<div style="font-size: 9px; font-style: italic; margin-top: 5px;">If a player owns ALL the Lots of any Color-Group, the rent is Doubled on Unimproved Lots in that group.</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="deed-mortgaged">
+			<div id="deed-mortgaged-name"></div>
+			<p>&bull;</p>
+			<div>MORTGAGED</div>
+			<div> for D<span id="deed-mortgaged-mortgage">80</span></div>
+			<p>&bull;</p>
+			<div style="font-style: italic; font-size: 13px; margin: 10px;">Card must be turned this side up if property is mortgaged</div>
+		</div>
+
+		<div id="deed-special">
+			<div id="deed-special-name"></div>
+			<div id="deed-special-text"></div>
+			<div id="deed-special-footer">
+				Mortgage Value
+				<span style="float: right;">D<span id="deed-special-mortgage">100</span>.</span>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<!-- board -->
+<div class="table" id="table">
+
+	<div class="board" id="gameboard">
+
+		<div class="center"></div>
+
+		<div class="space corner go">
+
+		<img class="player-icon" id="icon1" src="assets/token1.png">
+		<img class="player-icon" id="icon2" src="assets/token2.png">
+		<img class="player-icon" id="icon3" src="assets/token3.png">
+		<img class="player-icon" id="icon4" src="assets/token4.png">
+
+			<div class="container">
+				<div style="border:0 !important;transform: rotate(45deg) translateY(10px);margin-left: 80px;" id="cell0">
+				</div>
+					
+				<div class="instructions">Collect D200 as you pass</div>
+				<img src="assets/go.png" style="transform: scale(0.8) translateY(-55px) rotate(45deg);">
+			</div>
+		</div>
+
+		<div class="row horizontal-row bottom-row">
+			<div class="space property">
+				<div class="container" id="cell9">
+					<div class="color-bar light-blue"></div>
+					<div class="name" style="text-transform: none;">FoE</div>
+					<div class="price">D100</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell8">
+					<div class="color-bar light-blue"></div>
+					<div class="name">DATA <br>COST</div>
+					<div class="price">D100</div>
+				</div>
+			</div>
+			<div class="space chance">
+				<div class="container" id="cell7">
+					<div class="name">Chance</div>
+					<img src="assets/chance.png" style="transform: translate(3px, 0);">
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell6">
+					<div class="color-bar light-blue"></div>
+					<div class="name">DIGITAL LITERACY</div>
+					<div class="price">D100</div>
+				</div>
+			</div>
+			<div class="space railroad">
+				<div class="container" id="cell5">
+					<div class="name">COMMUNITY NETWORKS</div>
+					<!-- <i class="drawing fa fa-subway"></i> -->
+					<div class="price">D200</div>
+				</div>
+			</div>
+			<div class="space fee income-tax">
+				<div class="container" id="cell4">
+					<div class="name">INTERNET TAX</div>
+					<img src="assets/wifi1.png" style="width:30px">
+					<div class="instructions">D200</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell3">
+					<div class="color-bar dark-purple"></div>
+					<div class="name">INTERNET ACCESS</div>
+					<div class="price">D60</div>
+				</div>
+			</div>
+			<div class="space community-chest">
+				<div class="container" id="cell2">
+					<div class="name">Community Chest</div>
+					<img src="assets/community-chest.png">
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell1">
+					<div class="color-bar dark-purple"></div>
+					<div class="name three-line-name">GDPR</div>
+					<div class="price">D50</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="space corner jail" id="cell10">
+			<div class="just">Just</div>
+			<div class="drawing">
+				<div class="container" id="jail">
+					<img src="assets/jail.png" style="transform: rotate(-45deg) scale(0.65) translate(110px, -80px);">
+				</div>
+			</div>
+			<div class="visiting">Visiting</div>
+		</div>
+
+		<div class="row vertical-row left-row">
+			<div class="space property" id="cell19">
+				<div class="container">
+					<div class="color-bar orange"></div>
+					<div class="name">Privacy</div>
+					<div class="price">D200</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell18">
+					<div class="color-bar orange"></div>
+					<div class="name">INTERNET SHUT</div>
+					<div class="price">D180</div>
+				</div>
+			</div>
+			<div class="space community-chest">
+				<div class="container" id="cell17">
+					<div class="name">Community Chest</div>
+					<img src="assets/community-chest.png">
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell16">
+					<div class="color-bar orange"></div>
+					<div class="name">CENSORSHIP</div>
+					<div class="price">D180</div>
+				</div>
+			</div>
+			<div class="space railroad">
+				<div class="container" id="cell15">
+					<div class="name long-name">DIGITAL CITIZENSHIP</div>
+					<img src="assets/digital-citizenship.png" style="width:40px;transform: rotate(-90deg) translate(0px, 20px);">
+					<div class="price">D200</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell14">
+					<div class="color-bar purple"></div>
+					<div class="name">FOSS</div>
+					<div class="price">D160</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell13">
+					<div class="color-bar purple"></div>
+					<div class="name">DIGITAL DIVIDEND</div>
+					<div class="price">D140</div>
+				</div>
+			</div>
+			<div class="space utility electric-company">
+				<div class="container" id="cell12">
+					<div class="name">ISPS</div>
+					<!-- <i class="drawing fa fa-lightbulb-o"></i> -->
+					<div class="price">D150</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell11">
+					<div class="color-bar purple"></div>
+					<div class="name">OPEN DATA</div>
+					<div class="price">D140</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="space corner free-parking">
+			<div class="container" id="cell20">
+				<div class="name">ZERO</div>
+				<img src="assets/parking.png" style="width:60px;transform:rotate(45deg) translateX(25px) translateY(-20px);">
+				<div class="name">Parking</div>
+			</div>
+		</div>
+
+		<div class="row horizontal-row top-row">
+			<div class="space property">
+				<div class="container" id="cell21">
+					<div class="color-bar red"></div>
+					<div class="name">ENCRYPTION</div>
+					<div class="price">D220</div>
+				</div>
+			</div>
+			<div class="space chance">
+				<div class="container" id="cell22">
+					<div class="name">Chance</div>
+					<img src="assets/chance2.png" style="transform: rotate(180deg) translate(-3px, -5px);">
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell23">
+					<div class="color-bar red"></div>
+					<div class="name">SURVEILLANCE</div>
+					<div class="price">D220</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell24">
+					<div class="color-bar red"></div>
+					<div class="name">NET NEUTRALITY</div>
+					<div class="price">D200</div>
+				</div>
+			</div>
+			<div class="space railroad">
+				<div class="container" id="cell25">
+					<div class="name">INTERNET GOVERNANCE</div>
+					<img src="assets/wifi1.png" style="width: 40px;transform: translate(20px, 0);">
+					<div class="price">D200</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell26">
+					<div class="color-bar yellow"></div>
+					<div class="name">LOCAL CONTENT</div>
+					<div class="price">D260</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell27">
+					<div class="color-bar yellow"></div>
+					<div class="name">CYBER TERRORISM</div>
+					<div class="price">D260</div>
+				</div>
+			</div>
+			<div class="space utility waterworks">
+				<div class="container" id="cell28">
+					<div class="name">INTERNET COURT</div>
+					<img src="assets/wifi1.png" style="width: 40px;transform: translate(20px, 0);">
+					<div class="price">D120</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell29">
+					<div class="color-bar yellow"></div>
+					<div class="name">COPYRIGHT</div>
+					<div class="price">D280</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="space corner go-to-jail">
+			<div class="container" id="cell30">
+				<div class="name">Go To</div>
+				<img src="assets/police.png" style="width: 80px; transform: translate(25px) rotate(-45deg);">
+				<div class="name">Jail 419</div>
+			</div>
+		</div>
+
+		<div class="row vertical-row right-row">
+			<div class="space property">
+				<div class="container" id="cell31">
+					<div class="color-bar green"></div>
+					<div class="name">INCLUSITIVITY</div>
+					<div class="price">D300</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell32">
+					<div class="color-bar green"></div>
+					<div class="name three-line-name">CHILDRENS RIGHTS</div>
+					<div class="price">D300</div>
+				</div>
+			</div>
+			<div class="space community-chest">
+				<div class="container" id="cell33">
+					<div class="name">Community Chest</div>
+					<img src="assets/community-chest.png">
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell34">
+					<div class="color-bar green"></div>
+					<div class="name long-name">CYBERBULLYING</div>
+					<div class="price">D320</div>
+				</div>
+			</div>
+			<div class="space chance">
+				<div class="container" id="cell35">
+					<div class="name">Chance</div>
+					<img src="assets/chance3.png" style="transform:rotate(90deg) translate(5px, -5px);">
+				</div>
+			</div>
+			<div class="space railroad">
+				<div class="container" id="cell36">
+					<div class="name">INTERNET OF THINGS</div>
+					<img src="assets/wifi1.png" style="width:30px;transform: translate(25px);">
+					<div class="price">D200</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell37">
+					<div class="color-bar dark-blue"></div>
+					<div class="name">HATE SPEECH</div>
+					<div class="price">D350</div>
+				</div>
+			</div>
+			<div class="space fee luxury-tax">
+				<div class="container" id="cell38">
+					<div class="name">OPEN INTERNET</div>
+					<div class="instructions">D150</div>
+				</div>
+			</div>
+			<div class="space property">
+				<div class="container" id="cell39">
+					<div class="color-bar dark-blue"></div>
+					<div class="name">BIG DATA</div>
+					<div class="price">D400</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="player-stats" id="playerStats">
+
+	<div class="player-stat" id="p1stat">
+		<img id="p1icon1" src="assets/">
+		<div class="player-name" id="p1moneyname1">PLAYER 1</div>
+		<div class="player-money" id="p1money1">D2500</div>
+	</div>
+	
+	<div class="player-stat" id="p2stat">
+		<img id="p2icon1" src="assets/">
+		<div class="player-name" id="p2moneyname1">PLAYER 2</div>
+		<div class="player-money" id="p2money1">D2500</div>
+	</div>
+	
+	<div class="player-stat" id="p3stat">
+		<img id="p3icon1" src="assets/">
+		<div class="player-name" id="p3moneyname1">PLAYER 3</div>
+		<div class="player-money" id="p3money1">D2500</div>
+	</div>
+	
+	<div class="player-stat" id="p4stat">
+		<img id="p4icon1" src="assets/">
+		<div class="player-name" id="p4moneyname1">PLAYER 4</div>
+		<div class="player-money" id="p4money1">D2500</div>
+	</div>
+	
+	<div class="player-stat" id="p5stat">
+		<img id="p5icon1" src="assets/">
+		<div class="player-name" id="p5moneyname1">PLAYER 5</div>
+		<div class="player-money" id="p5money1">D2500</div>
+	</div>
+	
+	<div class="player-stat" id="p6stat">
+		<img id="p6icon1" src="assets/">
+		<div class="player-name" id="p6moneyname1">PLAYER 6</div>
+		<div class="player-money" id="p6money1">D2500</div>
+	</div>
+	
+	<div class="player-stat" id="p7stat">
+		<img id="p7icon1" src="assets/">
+		<div class="player-name" id="p7moneyname1">PLAYER 7</div>
+		<div class="player-money" id="p7money1">D2500</div>
+	</div>
+	
+	<div class="player-stat" id="p8stat">
+		<img id="p8icon1" src="assets/">
+		<div class="player-name" id="p8moneyname1">PLAYER 8</div>
+		<div class="player-money" id="p8money1">D2500</div>
+	</div>
+
+</div>
+
+
+	</table>
+
+	<div id="moneybarwrap" style="display:none">
+		<div id="moneybar">
+			<table>
+				<tr id="moneybarrow1" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p1arrow" class="money-bar-arrow" alt=">"/></td>
+					<td id="p1moneybar" class="moneybarcell">
+						<div><span id="p1moneyname" >Player 1</span>:</div>
+						<div>D<span id="p1money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow2" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p2arrow" class="money-bar-arrow" alt=">" /></td>
+					<td id="p2moneybar" class="moneybarcell">
+						<div><span id="p2moneyname" >Player 2</span>:</div>
+						<div>D<span id="p2money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow3" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p3arrow" class="money-bar-arrow" alt=">" /></td>
+					<td id="p3moneybar" class="moneybarcell">
+						<div><span id="p3moneyname" >Player 3</span>:</div>
+						<div>D<span id="p3money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow4" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p4arrow" class="money-bar-arrow" alt=">" /></td>
+					<td id="p4moneybar" class="moneybarcell">
+						<div><span id="p4moneyname" >Player 4</span>:</div>
+						<div>D<span id="p4money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow5" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p5arrow" class="money-bar-arrow" alt=">" /></td>
+					<td id="p5moneybar" class="moneybarcell">
+						<div><span id="p5moneyname" >Player 5</span>:</div>
+						<div>D<span id="p5money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow6" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p6arrow" class="money-bar-arrow" alt=">" /></td>
+					<td id="p6moneybar" class="moneybarcell">
+						<div><span id="p6moneyname" >Player 6</span>:</div>
+						<div>D<span id="p6money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow7" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p7arrow" class="money-bar-arrow" alt=">" /></td>
+					<td id="p7moneybar" class="moneybarcell">
+						<div><span id="p7moneyname" >Player 7</span>:</div>
+						<div>D<span id="p7money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow8" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p8arrow" class="money-bar-arrow" alt=">" /></td>
+					<td id="p8moneybar" class="moneybarcell">
+						<div><span id="p8moneyname" >Player 8</span>:</div>
+						<div>D<span id="p8money">1500</span></div>
+					</td>
+				</tr>
+				<tr style="display:none" id="moneybarrowbutton">
+					<td class="moneybararrowcell">&nbsp;</td>
+					<td style="border: none;">
+						<input type="button" id="viewstats" value="View stats" title="View a pop-up window that shows a list of each player's properties." />
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div id="setup">
+		<div class="setup-div">
+
+		<div class="setup-top">
+		<div class="setup-title">Select number of players.</div>
+		<div class="setup-title-text">You can add up to 8 players</div>
+		</div>
+
+
+		<!-- PLAYER 1 SELECT -->
+		<div id="player1input" class="player-input">
+			<div class="player-input-title" style="margin-top: 15px;color: #800022;">Player 1:</div> 
+			<!--  -->
+			<input type="text" id="player1name" title="Player name" maxlength="16" placeholder="Player Name" />
+			<!--  -->
+			<label class="player-input-grp" for="player1color">
+				<div class="player-input-title">Player Color</div> 
+					<input type="color" class="player-input-color-tag" id="player1color" style="padding:0" value="#ff0000" onchange="document.getElementById('changecolor1').style.backgroundColor = this.value">
+					<div id="changecolor1" class="player-input-color"></div>
+			</label>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerModeDiv1')">
+				<div class="player-input-title" id="playerModeLabel1">Player Type</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+				<select id="player1ai" onchange="document.getElementById('player1name').disabled = this.value !== '0';" style="display:none">
+					<option value="0" selected="selected">Human</option>
+					<option value="1">AI (Test)</option>
+				</select>
+			</div>
+			<div class="player-mode" id="playerModeDiv1">
+					<div class="player-mode-div" onclick="addPlayerMode('1', 0)">Human</div>
+					<div class="player-mode-div" onclick="addPlayerMode('1', 1)">Computer</div>
+			</div>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerTokenDiv1')">
+				<div class="player-input-title player-token-img" id="playerTokenLabel1">Token</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+			</div>
+			<div class="player-mode player-token-div" id="playerTokenDiv1">
+				<img src="assets/token1.png" onclick="addPlayerToken('1', 1)">
+				<img src="assets/token2.png" onclick="addPlayerToken('1', 2)">
+				<img src="assets/token3.png" onclick="addPlayerToken('1', 3)">
+				<img src="assets/token4.png" onclick="addPlayerToken('1', 4)">
+				<img src="assets/token5.png" onclick="addPlayerToken('1', 5)">
+				<img src="assets/token6.png" onclick="addPlayerToken('1', 6)">
+				<img src="assets/token7.png" onclick="addPlayerToken('1', 7)">
+				<img src="assets/token8.png" onclick="addPlayerToken('1', 8)">
+			</div>
+			<input type="radio" id="player1icon" value="1" checked hidden>
+		</div>
+		<!--  -->
+
+
+		<!-- PLAYER 2 SELECT -->
+		<div id="player2input" class="player-input">
+			<div class="player-input-title" style="margin-top: 15px;color: #800022;">Player 2:</div> 
+			<!--  -->
+			<input type="text" id="player2name" title="Player name" maxlength="16" placeholder="Player 2 Name" />
+			<!--  -->
+			<label class="player-input-grp" for="player2color">
+				<div class="player-input-title">Player Color</div> 
+					<input type="color" class="player-input-color-tag" id="player2color" style="padding:0" value="#0b03fc" onchange="document.getElementById('changecolor2').style.backgroundColor = this.value">
+					<div id="changecolor2" style="background:#0b03fc" class="player-input-color"></div>
+			</label>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerModeDiv2')">
+				<div class="player-input-title" id="playerModeLabel2">Player Type</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+				<select id="player2ai" onchange="document.getElementById('player2name').disabled = this.value !== '0';" style="display:none">
+					<option value="0" selected="selected">Human</option>
+					<option value="1">AI (Test)</option>
+				</select>
+			</div>
+			<div class="player-mode" id="playerModeDiv2">
+					<div class="player-mode-div" onclick="addPlayerMode('2', 0)">Human</div>
+					<div class="player-mode-div" onclick="addPlayerMode('2', 1)">Computer</div>
+			</div>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerTokenDiv2')">
+				<div class="player-input-title player-token-img" id="playerTokenLabel2">Token</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+			</div>
+			<div class="player-mode player-token-div" id="playerTokenDiv2">
+				<img src="assets/token1.png" onclick="addPlayerToken('2', 1)">
+				<img src="assets/token2.png" onclick="addPlayerToken('2', 2)">
+				<img src="assets/token3.png" onclick="addPlayerToken('2', 3)">
+				<img src="assets/token4.png" onclick="addPlayerToken('2', 4)">
+				<img src="assets/token5.png" onclick="addPlayerToken('2', 5)">
+				<img src="assets/token6.png" onclick="addPlayerToken('2', 6)">
+				<img src="assets/token7.png" onclick="addPlayerToken('2', 7)">
+				<img src="assets/token8.png" onclick="addPlayerToken('2', 8)">
+			</div>
+			<input type="radio" id="player2icon" value="1" checked hidden>
+		</div>
+		<!--  -->
+
+
+		<!-- PLAYER 3 SELECT -->
+		<div id="player3input" class="player-input">
+			<div class="player-input-title" style="margin-top: 15px;color: #800022;">Player 3:</div> 
+			<!--  -->
+			<input type="text" id="player3name" title="Player name" maxlength="16" placeholder="Player 3 Name" />
+			<!--  -->
+			<label class="player-input-grp" for="player3color">
+				<div class="player-input-title">Player Color</div> 
+					<input type="color" class="player-input-color-tag" id="player3color" style="padding:0" value="#fc9003" onchange="document.getElementById('changecolor3').style.backgroundColor = this.value">
+					<div id="changecolor3" style="background:#fc9003" class="player-input-color"></div>
+			</label>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerModeDiv3')">
+				<div class="player-input-title" id="playerModeLabel3">Player Type</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+				<select id="player3ai" onchange="document.getElementById('player3name').disabled = this.value !== '0';" style="display:none">
+					<option value="0" selected="selected">Human</option>
+					<option value="1">AI (Test)</option>
+				</select>
+			</div>
+			<div class="player-mode" id="playerModeDiv3">
+					<div class="player-mode-div" onclick="addPlayerMode('3', 0)">Human</div>
+					<div class="player-mode-div" onclick="addPlayerMode('3', 1)">Computer</div>
+			</div>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerTokenDiv3')">
+				<div class="player-input-title player-token-img" id="playerTokenLabel3">Token</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+			</div>
+			<div class="player-mode player-token-div" id="playerTokenDiv3">
+				<img src="assets/token1.png" onclick="addPlayerToken('3', 1)">
+				<img src="assets/token2.png" onclick="addPlayerToken('3', 2)">
+				<img src="assets/token3.png" onclick="addPlayerToken('3', 3)">
+				<img src="assets/token4.png" onclick="addPlayerToken('3', 4)">
+				<img src="assets/token5.png" onclick="addPlayerToken('3', 5)">
+				<img src="assets/token6.png" onclick="addPlayerToken('3', 6)">
+				<img src="assets/token7.png" onclick="addPlayerToken('3', 7)">
+				<img src="assets/token8.png" onclick="addPlayerToken('3', 8)">
+			</div>
+			<input type="radio" id="player3icon" value="1" checked hidden>
+		</div>
+		<!--  -->
+
+
+
+
+
+		<!-- PLAYER 4 SELECT -->
+		<div id="player4input" class="player-input">
+			<div class="player-input-title" style="margin-top: 15px;color: #800022;">Player 4:</div> 
+			<!--  -->
+			<input type="text" id="player4name" title="Player name" maxlength="16" placeholder="Player 4 Name" />
+			<!--  -->
+			<label class="player-input-grp" for="player4color">
+				<div class="player-input-title">Player Color</div> 
+					<input type="color" class="player-input-color-tag" id="player4color" style="padding:0" value="#37ff00" onchange="document.getElementById('changecolor4').style.backgroundColor = this.value">
+					<div id="changecolor4" style="background:#37ff00" class="player-input-color"></div>
+			</label>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerModeDiv4')">
+				<div class="player-input-title" id="playerModeLabel4">Player Type</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+				<select id="player4ai" onchange="document.getElementById('player4name').disabled = this.value !== '0';" style="display:none">
+					<option value="0" selected="selected">Human</option>
+					<option value="1">AI (Test)</option>
+				</select>
+			</div>
+			<div class="player-mode" id="playerModeDiv4">
+					<div class="player-mode-div" onclick="addPlayerMode('4', 0)">Human</div>
+					<div class="player-mode-div" onclick="addPlayerMode('4', 1)">Computer</div>
+			</div>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerTokenDiv4')">
+				<div class="player-input-title player-token-img" id="playerTokenLabel4">Token</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+			</div>
+			<div class="player-mode player-token-div" id="playerTokenDiv4">
+				<img src="assets/token1.png" onclick="addPlayerToken('4', 1)">
+				<img src="assets/token2.png" onclick="addPlayerToken('4', 2)">
+				<img src="assets/token3.png" onclick="addPlayerToken('4', 3)">
+				<img src="assets/token4.png" onclick="addPlayerToken('4', 4)">
+				<img src="assets/token5.png" onclick="addPlayerToken('4', 5)">
+				<img src="assets/token6.png" onclick="addPlayerToken('4', 6)">
+				<img src="assets/token7.png" onclick="addPlayerToken('4', 7)">
+				<img src="assets/token8.png" onclick="addPlayerToken('4', 8)">
+			</div>
+			<input type="radio" id="player4icon" value="1" checked hidden>
+		</div>
+		<!--  -->
+
+
+
+
+
+		<!-- PLAYER 5 SELECT -->
+		<div id="player5input" class="player-input">
+			<div class="player-input-title" style="margin-top: 15px;color: #800022;">Player 5:</div> 
+			<!--  -->
+			<input type="text" id="player5name" title="Player 5 name" maxlength="16" placeholder="Player 5 Name" />
+			<!--  -->
+			<label class="player-input-grp" for="player5color">
+				<div class="player-input-title">Player Color</div> 
+					<input type="color" class="player-input-color-tag" id="player5color" style="padding:0" value="#79ff00" onchange="document.getElementById('changecolor5').style.backgroundColor = this.value">
+					<div id="changecolor5" style="background:#79ff00" class="player-input-color"></div>
+			</label>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerModeDiv5')">
+				<div class="player-input-title" id="playerModeLabel5">Player Type</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+				<select id="player5ai" onchange="document.getElementById('player5name').disabled = this.value !== '0';" style="display:none">
+					<option value="0" selected="selected">Human</option>
+					<option value="1">AI (Test)</option>
+				</select>
+			</div>
+			<div class="player-mode" id="playerModeDiv5">
+					<div class="player-mode-div" onclick="addPlayerMode('5', 0)">Human</div>
+					<div class="player-mode-div" onclick="addPlayerMode('5', 1)">Computer</div>
+			</div>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerTokenDiv5')">
+				<div class="player-input-title player-token-img" id="playerTokenLabel5">Token</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+			</div>
+			<div class="player-mode player-token-div" id="playerTokenDiv5">
+				<img src="assets/token1.png" onclick="addPlayerToken('5', 1)">
+				<img src="assets/token2.png" onclick="addPlayerToken('5', 2)">
+				<img src="assets/token3.png" onclick="addPlayerToken('5', 3)">
+				<img src="assets/token4.png" onclick="addPlayerToken('5', 4)">
+				<img src="assets/token5.png" onclick="addPlayerToken('5', 5)">
+				<img src="assets/token6.png" onclick="addPlayerToken('5', 6)">
+				<img src="assets/token7.png" onclick="addPlayerToken('5', 7)">
+				<img src="assets/token8.png" onclick="addPlayerToken('5', 8)">
+			</div>
+			<input type="radio" id="player5icon" value="1" checked hidden>
+		</div>
+		<!--  -->
+
+
+
+
+
+
+		<!-- PLAYER 6 SELECT -->
+		<div id="player6input" class="player-input">
+			<div class="player-input-title" style="margin-top: 15px;color: #800022;">Player 6:</div> 
+			<!--  -->
+			<input type="text" id="player6name" title="Player 6 name" maxlength="16" placeholder="Player 6 Name" />
+			<!--  -->
+			<label class="player-input-grp" for="player6color">
+				<div class="player-input-title">Player Color</div> 
+					<input type="color" class="player-input-color-tag" id="player6color" style="padding:0" value="#cdf501" onchange="document.getElementById('changecolor6').style.backgroundColor = this.value">
+					<div id="changecolor6" style="background:#cdf501" class="player-input-color"></div>
+			</label>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerModeDiv6')">
+				<div class="player-input-title" id="playerModeLabel6">Player Type</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+				<select id="player6ai" onchange="document.getElementById('player6name').disabled = this.value !== '0';" style="display:none">
+					<option value="0" selected="selected">Human</option>
+					<option value="1">AI (Test)</option>
+				</select>
+			</div>
+			<div class="player-mode" id="playerModeDiv6">
+					<div class="player-mode-div" onclick="addPlayerMode('6', 0)">Human</div>
+					<div class="player-mode-div" onclick="addPlayerMode('6', 1)">Computer</div>
+			</div>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerTokenDiv6')">
+				<div class="player-input-title player-token-img" id="playerTokenLabel6">Token</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+			</div>
+			<div class="player-mode player-token-div" id="playerTokenDiv6">
+				<img src="assets/token1.png" onclick="addPlayerToken('6', 1)">
+				<img src="assets/token2.png" onclick="addPlayerToken('6', 2)">
+				<img src="assets/token3.png" onclick="addPlayerToken('6', 3)">
+				<img src="assets/token4.png" onclick="addPlayerToken('6', 4)">
+				<img src="assets/token5.png" onclick="addPlayerToken('6', 5)">
+				<img src="assets/token6.png" onclick="addPlayerToken('6', 6)">
+				<img src="assets/token7.png" onclick="addPlayerToken('6', 7)">
+				<img src="assets/token8.png" onclick="addPlayerToken('6', 8)">
+			</div>
+			<input type="radio" id="player6icon" value="1" checked hidden>
+		</div>
+		<!--  -->
+
+
+
+
+
+
+
+
+		<!-- PLAYER 7 SELECT -->
+		<div id="player7input" class="player-input">
+			<div class="player-input-title" style="margin-top: 15px;color: #800022;">Player 7:</div> 
+			<!--  -->
+			<input type="text" id="player7name" title="Player 7 name" maxlength="16" placeholder="Player 7 Name" />
+			<!--  -->
+			<label class="player-input-grp" for="player7color">
+				<div class="player-input-title">Player Color</div> 
+					<input type="color" class="player-input-color-tag" id="player7color" style="padding:0" value="#ddd501" onchange="document.getElementById('changecolor7').style.backgroundColor = this.value">
+					<div id="changecolor7" style="background:#ddd501" class="player-input-color"></div>
+			</label>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerModeDiv7')">
+				<div class="player-input-title" id="playerModeLabel7">Player Type</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+				<select id="player7ai" onchange="document.getElementById('player7name').disabled = this.value !== '0';" style="display:none">
+					<option value="0" selected="selected">Human</option>
+					<option value="1">AI (Test)</option>
+				</select>
+			</div>
+			<div class="player-mode" id="playerModeDiv7">
+					<div class="player-mode-div" onclick="addPlayerMode('7', 0)">Human</div>
+					<div class="player-mode-div" onclick="addPlayerMode('7', 1)">Computer</div>
+			</div>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerTokenDiv7')">
+				<div class="player-input-title player-token-img" id="playerTokenLabel7">Token</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+			</div>
+			<div class="player-mode player-token-div" id="playerTokenDiv7">
+				<img src="assets/token1.png" onclick="addPlayerToken('7', 1)">
+				<img src="assets/token2.png" onclick="addPlayerToken('7', 2)">
+				<img src="assets/token3.png" onclick="addPlayerToken('7', 3)">
+				<img src="assets/token4.png" onclick="addPlayerToken('7', 4)">
+				<img src="assets/token5.png" onclick="addPlayerToken('7', 5)">
+				<img src="assets/token6.png" onclick="addPlayerToken('7', 6)">
+				<img src="assets/token7.png" onclick="addPlayerToken('7', 7)">
+				<img src="assets/token8.png" onclick="addPlayerToken('7', 8)">
+			</div>
+			<input type="radio" id="player7icon" value="1" checked hidden>
+		</div>
+		<!--  -->
+
+
+
+
+
+
+
+		<!-- PLAYER 8 SELECT -->
+		<div id="player8input" class="player-input">
+			<div class="player-input-title" style="margin-top: 15px;color: #800022;">Player 8:</div> 
+			<!--  -->
+			<input type="text" id="player8name" title="Player name" maxlength="16" placeholder="Player 8 Name" />
+			<!--  -->
+			<label class="player-input-grp" for="player8color">
+				<div class="player-input-title">Player Color</div> 
+					<input type="color" class="player-input-color-tag" id="player8color" style="padding:0" value="#418bca" onchange="document.getElementById('changecolor8').style.backgroundColor = this.value">
+					<div id="changecolor8" style="background:#418bca" class="player-input-color"></div>
+			</label>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerModeDiv8')">
+				<div class="player-input-title" id="playerModeLabel8">Player Type</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+				<select id="player8ai" onchange="document.getElementById('player4name').disabled = this.value !== '0';" style="display:none">
+					<option value="0" selected="selected">Human</option>
+					<option value="1">AI (Test)</option>
+				</select>
+			</div>
+			<div class="player-mode" id="playerModeDiv8">
+					<div class="player-mode-div" onclick="addPlayerMode('8', 0)">Human</div>
+					<div class="player-mode-div" onclick="addPlayerMode('8', 1)">Computer</div>
+			</div>
+			<!--  -->
+			<div class="player-input-grp" onclick="openPlayerMode('playerTokenDiv8')">
+				<div class="player-input-title player-token-img" id="playerTokenLabel8">Token</div> 
+
+				<div class="player-input-dropdown"><img src="images/down-caret.png"></div>	
+			</div>
+			<div class="player-mode player-token-div" id="playerTokenDiv8">
+				<img src="assets/token1.png" onclick="addPlayerToken('8', 1)">
+				<img src="assets/token2.png" onclick="addPlayerToken('8', 2)">
+				<img src="assets/token3.png" onclick="addPlayerToken('8', 3)">
+				<img src="assets/token4.png" onclick="addPlayerToken('8', 4)">
+				<img src="assets/token5.png" onclick="addPlayerToken('8', 5)">
+				<img src="assets/token6.png" onclick="addPlayerToken('8', 6)">
+				<img src="assets/token7.png" onclick="addPlayerToken('8', 7)">
+				<img src="assets/token8.png" onclick="addPlayerToken('8', 8)">
+			</div>
+			<input type="radio" id="player8icon" value="1" checked hidden>
+		</div>
+		<!--  -->
+
+
+
+
+
+
+		<br>
+		<br>
+		<br>
+		<br>
+
+		<div class="setup-buttons">
+			<div>Add Player +
+				
+
+			<select id="playernumber" title="Select the number of players for the game.">
+				<option>2</option>
+				<option>3</option>
+				<option selected="selected">4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+			</select>
+			</div>
+			<div class="setup-btn" onclick="setup();">Start Game</div>
+		</div>
+
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		</div>
+
+	</div>
+
+
+
+
+
+
+	<div id="control">
+		<div style="padding-top: 8px;margin-left: 50px;" >
+			<input type="button" class="endTurn" id="nextbutton" title="Roll the dice and move your token accordingly." value="Roll Dice"/>
+			<input type="button" class="endTurn" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="Resign" onclick="game.resign();" />
+		</div>
+
+		<div id="quickstats" style="display: none;">
+				<div><span id="pname" >Player 1</span>:</div>
+				<div><span id="pmoney">D1500</span></div>
+		</div>
+
+
+		<br>
+
+		<div id="menu">
+			<div id="menutable">
+
+					<div class="menu-item menu-item-active" id="buy-menu-item">
+
+						<span href="javascript:void(0);" title="View alerts and buy the property you landed on.">Activity</span>
+					</div>
+
+					<div class="menu-item" id="manage-menu-iem" style="display:none">
+
+						<span href="javascript:void(0);" title="View, mortgage, and improve your property. ">Manage</span>
+					</div>
+
+					<div style="display:none" class="menu-item" id="trade-menu-item">
+
+						<a href="javascript:void(0);" title="Exchange property with other players.">Trade</a>
+					</div>
+
+			</div>
+		</div>
+
+		<div class="menu-content">
+		<div class="menu-content-pad">
+		<div class="menu-content-dashed">
+
+		<div id="buy">
+			<div id="alert">
+
+				<!-- <div>PLAYER 3 LOST $15 FROM CHANCE.</div> -->
+
+			</div>
+			<div id="landed"></div>
+		</div>
+
+		<div id="manage">
+			<div id="option">
+				<div id="buildings" title="Available buildings"></div>
+				<input type="button" value="Buy house" id="buyhousebutton"/>
+				<input type="button" value="Mortgage" id="mortgagebutton" />
+				<input type="button" value="Sell house" id="sellhousebutton"/>
+			</div>
+			<div id="owned"></div>
+		</div>
+
+
+
+		<div>
+			<div id="die0" title="Die" class="die die-no-img"></div>
+			<div id="die1" title="Die" class="die die-no-img"></div>
+			<a onclick="toggleBuy()">Testing Microphone</a>
+		</div>
+
+		<div style="clear: both;"></div>
+
+		</div>
+		</div>
+		</div>
+		<!-- end menu content -->
+
+	</div>
+
+	<div id="trade">
+		<table style="border-spacing: 3px;">
+			<tr>
+				<td class="trade-cell">
+					<div id="trade-leftp-name"></div>
+				</td>
+				<td class="trade-cell">
+					<div id="trade-rightp-name"></div>
+				</td>
+			</tr>
+			<tr>
+				<td class="trade-cell">
+					D&nbsp;<input id="trade-leftp-money" value="0" title="Enter amount to exchange with the other player." />
+				</td>
+				<td class="trade-cell">
+					D&nbsp;<input id="trade-rightp-money" value="0" title="Enter amount to exchange with the other player." />
+				</td>
+			</tr>
+			<tr>
+				<td id="trade-leftp-property" class="trade-cell"></td>
+				<td id="trade-rightp-property" class="trade-cell"></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="trade-cell">
+					<input type="button" id="proposetradebutton" value="Propose Trade" onclick="game.proposeTrade();" title="Exchange the money and properties that are checked above." />
+					<input type="button" id="canceltradebutton" value="Cancel Trade" onclick='game.cancelTrade();' title="Cancel the trade." />
+					<input type="button" id="accepttradebutton" value="Accept Trade" onclick="game.acceptTrade();" title="Accept the proposed trade." />
+					<input type="button" id="rejecttradebutton" value="Reject Trade" onclick='game.cancelTrade();' title="Reject the proposed trade." />
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+</html>
+
+	<script type="text/javascript" src="board.js"></script>
