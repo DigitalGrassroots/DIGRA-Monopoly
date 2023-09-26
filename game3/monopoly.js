@@ -1113,7 +1113,7 @@ function Player(name, color, icon) {
 	this.icon = icon;
 	this.oldposition = 0;
 	this.position = 0;
-	this.money = 1500;
+	this.money = 2500;
 	this.creditor = -1;
 	this.jail = false;
 	this.jailroll = 0;
