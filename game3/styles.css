@@ -212,19 +212,32 @@ td {
 	letter-spacing: 0.01em;
 	-webkit-user-select: none;
 	user-select: none;
-	width: 300px;
+	width: 500px;
 	max-width: 70%;
-	border: 7px solid #EF820D;
-	background: #fff;
+	border: 7px solid #AA556C;
+	background: #FFEBF4;
 	padding: 17px;
 	padding-bottom: 35px;
 	font-family: 'Grandstander', sans-serif;
 	font-weight: 700;
+	border-radius: 50px;
+	text-align: left;
+	text-transform: none;
+	background: #FFEBF4 url(assets/popup.png) left bottom no-repeat;
+	background-size: 45%;
+}
+
+.popupimg{
+	width: 40%;
+	height: 95%;
+	margin-top: -17px;
+	float: left;
+	position: absolute;
 }
 
 
 #popup input{
-	padding: 12px 0;
+/*	padding: 12px 0;
 	background: #3C383D;
 	color: #fff;
 	text-align: center;
@@ -233,18 +246,19 @@ td {
 	border-radius: 15px;
 	font-family: 'Grandstander', sans-serif;
 	font-weight: 700;
-	margin-top: 20px;
+	margin-top: 20px;*/
+	float: right;
 }
 #popup input:hover{
-	background: black;
+/*	background: black;
 	box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.1);
-	cursor: pointer;
+	cursor: pointer;*/
 }
 
 
 #popupwrap {
 	position: absolute;
-	top: 255px;
+	top: 195px;
 	left: 0px;
 	width: 100%;
 	display: none;
@@ -256,6 +270,7 @@ td {
 
 #popuptext {
 	overflow-x: auto;
+	padding-left: 150px;
 }
 
 /* #popupclose {
