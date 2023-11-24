@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Digital Grassroots Monopoly Game</title>
+
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@100;400;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="css/setup.css">
+
+
+</head>
+<body>
+
+
+<style type="text/css">
+	.views{
+		display: none;
+	}
+
+/*	.view3{
+		display: block;
+	}*/
+</style>
+
+<div class="sure-black" id="sureBlack">
+	<div class="sure-box">
+		Are you sure you want to quit?
+		<div class="sure-flex">
+			<a href="index.html"><div class="sure-btn">Yes</div></a>
+			<div class="sure-btn" onclick="closeExit()">No</div>
+		</div>
+	</div>
+</div>
+
+<div class="exit-btn back-btn">
+	<div class="exit-square"><</div>
+	<div class="exit-text">Back</div>
+</div>
+
+<div class="exit-btn" onclick="showExit()">
+	<div class="exit-square">x</div>
+	<div class="exit-text">Quit</div>
+</div>
+
+
+<center>
+
+
+	<div class="views view1" id="view1">
+	<img id="viewImg1" src="images/logo-center.png">
+
+	<div id="progress">
+		<div class="progress-back">
+			<div class="progress-inner" id="progressInner"></div>
+		</div>
+		<div class="progress-loading">Loading...</div>
+	</div>
+	</div>
+
+
+
+	<!--  -->
+	<div class="views view2" id="view2">
+		<div id="gamebtn1" class="load-game-btn">Load Last Game</div>
+		<div id="gamebtn2" class="load-game-btn" onclick="hideView2().then(function(){showView3();});">New Game</div>
+	</div>
+
+
+	<!--  -->
+	<div class="views view3" id="view3">
+	<img src="images/choose-player.png" id="viewImg3">
+	<div class="title1" id="viewTitle3">How many players?</div>
+	<div class="players-select">
+		<div class="player-select" onclick="selectPlayerCount(2)" id="view3btn2">2</div>
+		<div class="player-select" onclick="selectPlayerCount(3)" id="view3btn3">3</div>
+		<div class="player-select" onclick="selectPlayerCount(4)" id="view3btn4">4</div>
+		<div class="player-select" onclick="selectPlayerCount(5)" id="view3btn5">5</div>
+		<div class="player-select" onclick="selectPlayerCount(6)" id="view3btn6">6</div>
+		<div class="player-select" onclick="selectPlayerCount(7)" id="view3btn7">7</div>
+		<div class="player-select" onclick="selectPlayerCount(8)" id="view3btn8">8</div>
+	</div>
+	<div class="view3-height"></div>
+	<div class="btn-primary btn-primary-disabled" id="btn3" onclick="if(selectedPlayerCount>0){hideView3().then(function(){showView4()})};">Next</div>
+		
+	</div>
+
+
+	<!--  -->
+	<div class="views view4" id="view4">
+		<div class="player-topcircles">
+			<div class="player-topcircle">?</div>
+			<div class="player-topcircle">?</div>
+			<div class="player-topcircle">?</div>
+			<div class="player-topcircle">?</div>
+			<div class="player-topcircle">?</div>
+			<div class="player-topcircle">?</div>
+			<div class="player-topcircle">?</div>
+			<div class="player-topcircle">?</div>
+		</div>
+
+		<div class="player-name-title">Player 1</div>
+
+		<div class="player-edit-row">
+			<div class="player-input-div">
+				Please type in your name
+				<br>
+				<input type="" style="margin-left: -10px;" class="player-name-input" name="" placeholder="Type in your name">
+			</div>
+			<div class="player-type-div">
+				<b>Human &nbsp;&nbsp;&nbsp; Computer</b>
+				<br>
+				<br>
+				<div style="margin-top: 5px;" class="toggle-border">
+				  <input id="one" type="checkbox">
+				  <label for="one">
+				    <div class="handle"></div>
+				  </label>
+				</div>
+			</div>
+		</div>
+
+		<div class="player-carousel">
+			
+
+<div class="carousel-container">
+
+<button class="carousel-btn" id="prevBtn">
+  <div class="carousel-btn-box">
+    <span class="carousel-btn-elem">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 40">
+        <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+      </svg>
+    </span>
+    <span class="carousel-btn-elem">
+      <svg viewBox="0 0 46 40">
+        <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+      </svg>
+    </span>
+  </div>
+</button>
+
+  <div class="carousel-track" id="carouselTrack">
+
+    <div class="carousel-item">
+      <div><img class="view4-profile" src="images/avatar1.png"></div>
+      <div>
+      	<div class="view4-text1">THE BANKER: You have a passion for digital advocacy in the financial industry. You are good with numbers so monopoly should be a breeze!</div>
+      	<div class="view4-text2">
+      		*Start with D3500 intead of D2500<br>
+			*Policies cost 5% less
+		</div>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <div><img class="view4-profile" src="images/avatar6.png"></div>
+      <div>
+      	<div class="view4-text1">You are a student with a passion for digital rights. As a student, you know what it means to succeed under pressure so bring it on!</div>
+      	<div class="view4-text2">
+      		*Start with D3500 intead of D2500<br>
+			*Policies cost 5% less
+		</div>
+      </div>
+    </div>
+
+  </div>
+
+<button class="carousel-btn" id="nextBtn">
+  <div class="carousel-btn-box">
+    <span class="carousel-btn-elem">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 40">
+        <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+      </svg>
+    </span>
+    <span class="carousel-btn-elem">
+      <svg viewBox="0 0 46 40">
+        <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+      </svg>
+    </span>
+  </div>
+</button>
+</div>
+
+		</div>
+
+	</div>
+
+
+
+
+</center>
+
+
+<script type="text/javascript">
+	var view1 = document.getElementById('view1');
+	var view2 = document.getElementById('view2');
+	var view3 = document.getElementById('view3');
+	var view4 = document.getElementById('view4');
+
+
+    var progressInner = document.getElementById("progressInner");
+    var progressWidth = 20;
+
+
+    var viewImg3 = document.getElementById("viewImg3");
+    var viewTitle3 = document.getElementById("viewTitle3");
+    var playerSelects = document.getElementsByClassName('player-select');
+
+	var btn3 = document.getElementById('btn3');
+
+	var selectedPlayerCount = 0;
+
+	view4.style.display = 'block';
+    if (1==2) {
+	setTimeout(function(){
+	    var progressInterval = setInterval(frame, 10);
+	    function frame() {
+	      if (progressWidth >= 100) {
+	        clearInterval(progressInterval);
+
+			setTimeout(function(){
+	        hideView1().then(function(){
+	        	showView2();
+	        });
+			}, 1000);
+
+	      } else {
+	        progressWidth++;
+	        progressInner.style.width = progressWidth + "%";
+	      }
+	    }
+	}, 1000)
+    }
+
+    function hideView1(){
+    	var viewImg1 = document.getElementById('viewImg1');
+    	var progress = document.getElementById('progress');
+    	return new Promise(function(resolve) {
+
+	    	viewImg1.style.opacity = 0;
+	    	setTimeout(function(){
+		    	progress.style.opacity = 0;
+		    	setTimeout(function(){
+			    	view1.style.display = 'none';
+			    	console.log('hv1')
+		    		resolve();
+		    	}, 300);
+
+	    	}, 300);
+	    })
+    }
+
+    function showView2(){
+	    	gamebtn1.style.opacity = 0;
+	    	gamebtn2.style.opacity = 0;
+    	return new Promise(function(resolve) {
+	    	view2.style.display = "block";
+
+	    	setTimeout(function(){
+		    	gamebtn1.style.opacity = 1;
+		    	setTimeout(function(){
+			    	gamebtn2.style.opacity = 1;
+			    	console.log('sv2')
+		    		resolve();
+		    	}, 100);
+
+	    	}, 500);
+
+	    })
+    }
+
+    function hideView2(){
+    	return new Promise(function(resolve) {
+	    	gamebtn1.style.opacity = 0;
+	    	setTimeout(function(){
+		    	gamebtn2.style.opacity = 0;
+		    	setTimeout(function(){
+			    	view2.style.display = 'none';
+			    	console.log('hv2')
+		    		resolve();
+		    	}, 500);
+
+	    	}, 300);
+	    })
+    }
+
+    function showView3(){
+	    for (var i = playerSelects.length - 1; i >= 0; i--) {
+	    	playerSelects[i].style.opacity = 0;
+	    }
+
+        viewImg3.style.opacity = 0;
+        viewTitle3.style.opacity = 0;
+        btn3.style.opacity = 0;
+
+        view3.style.display = 'block';
+    	return new Promise(function(resolve) {
+			setTimeout(function(){
+	        viewImg3.style.opacity = 1;
+
+		        setTimeout(function(){
+		        viewTitle3.style.opacity = 1;
+
+		        setTimeout(function(){
+		        	playerSelects[0].style.opacity = 1;
+		        setTimeout(function(){
+		        	playerSelects[1].style.opacity = 1;
+		        setTimeout(function(){
+		        	playerSelects[2].style.opacity = 1;
+		        setTimeout(function(){
+		        	playerSelects[3].style.opacity = 1;
+		        setTimeout(function(){
+		        	playerSelects[4].style.opacity = 1;
+		        setTimeout(function(){
+		        	btn3.style.opacity = 1;
+		        	playerSelects[5].style.opacity = 1;
+		        setTimeout(function(){
+		        	playerSelects[6].style.opacity = 1;
+			        resolve();
+				}, 75);
+				}, 50);
+				}, 50);
+				}, 100);
+				}, 100);
+				}, 75);
+				}, 50);
+
+				}, 200);
+
+			}, 500);
+	    })
+    }
+
+
+    function hideView3(){
+    	return new Promise(function(resolve) {
+			setTimeout(function(){
+		        btn3.style.opacity = 0;
+
+		        setTimeout(function(){
+		        	playerSelects[0].style.opacity = 0;
+		        setTimeout(function(){
+		        	playerSelects[1].style.opacity = 0;
+		        setTimeout(function(){
+		        	playerSelects[2].style.opacity = 0;
+		        setTimeout(function(){
+		        	playerSelects[3].style.opacity = 0;
+		        setTimeout(function(){
+			        viewTitle3.style.opacity = 0;
+		        	playerSelects[4].style.opacity = 0;
+		        setTimeout(function(){
+		        	playerSelects[5].style.opacity = 0;
+		        setTimeout(function(){
+		        	playerSelects[6].style.opacity = 0;
+			        viewImg3.style.opacity = 0;
+			        setTimeout(function(){
+			        view3.style.display = 'none';
+				        resolve();
+					}, 800);
+				}, 75);
+				}, 50);
+				}, 50);
+				}, 100);
+				}, 100);
+				}, 75);
+				}, 50);
+
+			}, 300);
+	    })
+    }
+
+
+    function selectPlayerCount(e){
+
+	    for (var i = playerSelects.length - 1; i >= 0; i--) {
+	    	playerSelects[i].classList.remove('player-select-selected');
+	    }	
+    	document.getElementById("view3btn"+e).classList.add('player-select-selected');
+    	selectedPlayerCount = e;
+
+    	btn3.classList.remove('btn-primary-disabled');
+
+    }
+
+    function showView4(){
+    	view4.style.display = "block";
+    }
+
+
+
+   // carousel
+  const track = document.getElementById('carouselTrack');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  let currentIndex = 0;
+
+  function updateCarousel() {
+    track.style.transform = `translateX(${-currentIndex * 100}%)`;
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + track.children.length) % track.children.length;
+    updateCarousel();
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % track.children.length;
+    updateCarousel();
+  }
+
+  // Event listeners for prev and next buttons
+  prevBtn.addEventListener('click', prevSlide);
+  nextBtn.addEventListener('click', nextSlide);
+
+
+  // exit
+  function showExit(){
+  	document.getElementById('sureBlack').style.display = "block";
+  }
+  function closeExit(){
+  	document.getElementById('sureBlack').style.display = "none";
+  }
+
+</script>
+
+</body>
+</html>
