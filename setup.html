@@ -65,7 +65,7 @@
 
 	<!--  -->
 	<div class="views view2" id="view2">
-		<div id="gamebtn1" class="load-game-btn">Load Last Game</div>
+		<div id="gamebtn1" class="load-game-btn" style="color:rgb(0, 0, 0, 0.2);border-color: rgb(0, 0, 0, 0.2);cursor: crosshair;">Load Last Game</div>
 		<div id="gamebtn2" class="load-game-btn" onclick="hideView2().then(function(){showView3();});">New Game</div>
 	</div>
 
@@ -214,8 +214,8 @@
 
 	var selectedPlayerCount = 0;
 
-	view4.style.display = 'block';
-    if (1==2) {
+	view1.style.display = 'block';
+    if (1==1) {
 	setTimeout(function(){
 	    var progressInterval = setInterval(frame, 10);
 	    function frame() {
