@@ -35,8 +35,8 @@ var btn3 = document.getElementById('btn3');
 
 var selectedPlayerCount = 0;
 
-view4.style.display = 'block';
-  if (1==2) {
+view1.style.display = 'block';
+  if (1==1) {
 setTimeout(function(){
     var progressInterval = setInterval(frame, 10);
     function frame() {
