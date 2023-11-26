@@ -26,168 +26,306 @@
 	}*/
 </style>
 
-<div class="sure-black" id="sureBlack">
-	<div class="sure-box">
+<div class="setup-sure-black" id="sureBlack">
+	<div class="setup-sure-box">
 		Are you sure you want to quit?
-		<div class="sure-flex">
-			<a href="index.html"><div class="sure-btn">Yes</div></a>
-			<div class="sure-btn" onclick="closeExit()">No</div>
+		<div class="setup-sure-flex">
+			<a href="index.html"><div class="setup-sure-btn">Yes</div></a>
+			<div class="setup-sure-btn" onclick="closeExit()">No</div>
 		</div>
 	</div>
 </div>
 
-<div class="exit-btn back-btn">
-	<div class="exit-square"><</div>
-	<div class="exit-text">Back</div>
+<div class="setup-exit-btn setup-back-btn" onclick="goBack()">
+	<div class="setup-exit-square"><</div>
+	<div class="setup-exit-text">Back</div>
 </div>
 
-<div class="exit-btn" onclick="showExit()">
-	<div class="exit-square">x</div>
-	<div class="exit-text">Quit</div>
+<div class="setup-exit-btn" onclick="showExit()">
+	<div class="setup-exit-square">x</div>
+	<div class="setup-exit-text">Quit</div>
 </div>
 
 
 <center>
 
 
-	<div class="views view1" id="view1">
+	<div class="setup-views setup-view1" id="view1">
 	<img id="viewImg1" src="images/logo-center.png">
 
 	<div id="progress">
-		<div class="progress-back">
-			<div class="progress-inner" id="progressInner"></div>
+		<div class="setup-progress-back">
+			<div class="setup-progress-inner" id="progressInner"></div>
 		</div>
-		<div class="progress-loading">Loading...</div>
+		<div class="setup-progress-loading">Loading...</div>
 	</div>
 	</div>
 
 
 
 	<!--  -->
-	<div class="views view2" id="view2">
-		<div id="gamebtn1" class="load-game-btn" style="color:rgb(0, 0, 0, 0.2);border-color: rgb(0, 0, 0, 0.2);cursor: crosshair;">Load Last Game</div>
-		<div id="gamebtn2" class="load-game-btn" onclick="hideView2().then(function(){showView3();});">New Game</div>
+	<div class="setup-views setup-view2" id="view2">
+		<div id="gamebtn1" class="setup-load-game-btn" style="color:rgb(0, 0, 0, 0.2);border-color: rgb(0, 0, 0, 0.2);cursor: not-allowed;">Load Last Game</div>
+		<div id="gamebtn2" class="setup-load-game-btn" onclick="hideView2().then(function(){showView3();});">New Game</div>
 	</div>
 
 
 	<!--  -->
-	<div class="views view3" id="view3">
+	<div class="setup-views setup-view3" id="view3">
 	<img src="images/choose-player.png" id="viewImg3">
-	<div class="title1" id="viewTitle3">How many players?</div>
-	<div class="players-select">
-		<div class="player-select" onclick="selectPlayerCount(2)" id="view3btn2">2</div>
-		<div class="player-select" onclick="selectPlayerCount(3)" id="view3btn3">3</div>
-		<div class="player-select" onclick="selectPlayerCount(4)" id="view3btn4">4</div>
-		<div class="player-select" onclick="selectPlayerCount(5)" id="view3btn5">5</div>
-		<div class="player-select" onclick="selectPlayerCount(6)" id="view3btn6">6</div>
-		<div class="player-select" onclick="selectPlayerCount(7)" id="view3btn7">7</div>
-		<div class="player-select" onclick="selectPlayerCount(8)" id="view3btn8">8</div>
+	<div class="setup-title1" id="viewTitle3">How many players?</div>
+	<div class="setup-players-select">
+		<div class="setup-player-select" onclick="selectPlayerCount(2)" id="view3btn2">2</div>
+		<div class="setup-player-select" onclick="selectPlayerCount(3)" id="view3btn3">3</div>
+		<div class="setup-player-select" onclick="selectPlayerCount(4)" id="view3btn4">4</div>
+		<div class="setup-player-select" onclick="selectPlayerCount(5)" id="view3btn5">5</div>
+		<div class="setup-player-select" onclick="selectPlayerCount(6)" id="view3btn6">6</div>
+		<div class="setup-player-select" onclick="selectPlayerCount(7)" id="view3btn7">7</div>
+		<div class="setup-player-select" onclick="selectPlayerCount(8)" id="view3btn8">8</div>
 	</div>
-	<div class="view3-height"></div>
-	<div class="btn-primary btn-primary-disabled" id="btn3" onclick="if(selectedPlayerCount>0){hideView3().then(function(){showView4()})};">Next</div>
+	<div class="setup-view3-height"></div>
+	<div class="setup-btn-primary setup-btn-primary-disabled" id="btn3" onclick="if(selectedPlayerCount>0){hideView3().then(function(){showView4()})};">Next</div>
 		
 	</div>
 
 
 	<!--  -->
-	<div class="views view4" id="view4">
-		<div class="player-topcircles">
-			<div class="player-topcircle">?</div>
-			<div class="player-topcircle">?</div>
-			<div class="player-topcircle">?</div>
-			<div class="player-topcircle">?</div>
-			<div class="player-topcircle">?</div>
-			<div class="player-topcircle">?</div>
-			<div class="player-topcircle">?</div>
-			<div class="player-topcircle">?</div>
+	<div class="setup-views setup-view4" id="view4">
+		<div class="setup-player-topcircles" id="view4Fade1">
+
+			<div class="setup-player-topdiv" id="playerSelect1">
+				<div class="setup-player-topcircle setup-player-topcircle-active" id="playerTopCircle1" onclick="showPlayer(1)">?</div>
+				<div class="setup-player-topname" id="playerTopName1">&nbsp;</div>
+			</div>
+
+			<div class="setup-player-topdiv" id="playerSelect2">
+				<div class="setup-player-topcircle" id="playerTopCircle2" onclick="showPlayer(2)">?</div>
+				<div class="setup-player-topname" id="playerTopName2">&nbsp;</div>
+			</div>
+
+
+			<div class="setup-player-topdiv" id="playerSelect3">
+				<div class="setup-player-topcircle" id="playerTopCircle3" onclick="showPlayer(3)">?</div>
+				<div class="setup-player-topname" id="playerTopName3">&nbsp;</div>
+			</div>
+
+			<div class="setup-player-topdiv" id="playerSelect4">
+				<div class="setup-player-topcircle" id="playerTopCircle4" onclick="showPlayer(4)">?</div>
+				<div class="setup-player-topname" id="playerTopName4">&nbsp;</div>
+			</div>
+
+			<div class="setup-player-topdiv" id="playerSelect5">
+				<div class="setup-player-topcircle" id="playerTopCircle5" onclick="showPlayer(5)">?</div>
+				<div class="setup-player-topname" id="playerTopName5">&nbsp;</div>
+			</div>
+
+			<div class="setup-player-topdiv" id="playerSelect6">
+				<div class="setup-player-topcircle" id="playerTopCircle6" onclick="showPlayer(6)">?</div>
+				<div class="setup-player-topname" id="playerTopName6">&nbsp;</div>
+			</div>
+
+			<div class="setup-player-topdiv" id="playerSelect7">
+				<div class="setup-player-topcircle" id="playerTopCircle7" onclick="showPlayer(7)">?</div>
+				<div class="setup-player-topname" id="playerTopName7">&nbsp;</div>
+			</div>
+
+			<div class="setup-player-topdiv" id="playerSelect8">
+				<div class="setup-player-topcircle" id="playerTopCircle8" onclick="showPlayer(8)">?</div>
+				<div class="setup-player-topname" id="playerTopName8">&nbsp;</div>
+			</div>
+
 		</div>
 
-		<div class="player-name-title">Player 1</div>
+	<div id="view4Fade2">
+		<div class="setup-player-name-title">Player <span id="playerIndex">1</span></div>
 
-		<div class="player-edit-row">
-			<div class="player-input-div">
+		<div class="setup-player-edit-row">
+			<div class="setup-player-input-div">
 				Please type in your name
 				<br>
-				<input type="" style="margin-left: -10px;" class="player-name-input" name="" placeholder="Type in your name">
+				<input type="" style="margin-left: -10px;" class="setup-player-name-input" name="" placeholder="Type in your name" id="playerNameInput" onkeyup="insertName()">
 			</div>
-			<div class="player-type-div">
+			<div class="setup-player-type-div">
 				<b>Human &nbsp;&nbsp;&nbsp; Computer</b>
 				<br>
 				<br>
-				<div style="margin-top: 5px;" class="toggle-border">
-				  <input id="one" type="checkbox">
-				  <label for="one">
-				    <div class="handle"></div>
+				<div style="margin-top: 5px;" class="setup-toggle-border">
+				  <input id="playerType" type="checkbox" onchange="insertPlayerType()">
+				  <label for="playerType">
+				    <div class="setup-handle"></div>
 				  </label>
 				</div>
 			</div>
 		</div>
-
-		<div class="player-carousel">
-			
-
-<div class="carousel-container">
-
-<button class="carousel-btn" id="prevBtn">
-  <div class="carousel-btn-box">
-    <span class="carousel-btn-elem">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 40">
-        <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
-      </svg>
-    </span>
-    <span class="carousel-btn-elem">
-      <svg viewBox="0 0 46 40">
-        <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
-      </svg>
-    </span>
-  </div>
-</button>
-
-  <div class="carousel-track" id="carouselTrack">
-
-    <div class="carousel-item">
-      <div><img class="view4-profile" src="images/avatar1.png"></div>
-      <div>
-      	<div class="view4-text1">THE BANKER: You have a passion for digital advocacy in the financial industry. You are good with numbers so monopoly should be a breeze!</div>
-      	<div class="view4-text2">
-      		*Start with D3500 intead of D2500<br>
-			*Policies cost 5% less
-		</div>
-      </div>
-    </div>
-
-    <div class="carousel-item">
-      <div><img class="view4-profile" src="images/avatar6.png"></div>
-      <div>
-      	<div class="view4-text1">You are a student with a passion for digital rights. As a student, you know what it means to succeed under pressure so bring it on!</div>
-      	<div class="view4-text2">
-      		*Start with D3500 intead of D2500<br>
-			*Policies cost 5% less
-		</div>
-      </div>
-    </div>
-
-  </div>
-
-<button class="carousel-btn" id="nextBtn">
-  <div class="carousel-btn-box">
-    <span class="carousel-btn-elem">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 40">
-        <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
-      </svg>
-    </span>
-    <span class="carousel-btn-elem">
-      <svg viewBox="0 0 46 40">
-        <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
-      </svg>
-    </span>
-  </div>
-</button>
-</div>
-
-		</div>
-
 	</div>
+
+<div class="setup-player-carousel" id="view4Fade3">
+		
+	<div class="setup-carousel-container">
+
+			<button class="setup-carousel-btn" id="prevBtn">
+			  <div class="setup-carousel-btn-box">
+			    <span class="setup-carousel-btn-elem">
+			      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 40">
+			        <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+			      </svg>
+			    </span>
+			    <span class="setup-carousel-btn-elem">
+			      <svg viewBox="0 0 46 40">
+			        <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+			      </svg>
+			    </span>
+			  </div>
+			</button>
+
+			  <div class="setup-carousel-track" id="carouselTrack">
+
+				  	<!--  -->
+				    <div class="setup-carousel-item">
+				    <div class="setup-carousel-card">
+				      <div class="setup-carousel-avatar"><img class="setup-view4-profile" src="images/avatar1.png"></div>
+				      <div class="setup-carousel-text">
+				      	<div class="setup-view4-text1">A young black African female with a degree in computer science. Comes from a middle-class family but faces societal gender biases.</div>
+				      	<div class="setup-view4-text2">
+				      		*Starts the game with D200 extra<br>
+									*10% off on digital right issues >  D100
+				      </div>
+							</div>
+				    </div>
+				      <label class="setup-select-label">
+				      	<div onclick="insertAvatar(1)" id="avatarCheck1" class="setup-select-btn">SELECT</div>
+				      </label>
+				    </div>
+
+						<!--  -->
+				    <div class="setup-carousel-item">
+				    <div class="setup-carousel-card">
+				      <div class="setup-carousel-avatar"><img class="setup-view4-profile" src="images/avatar2.png"></div>
+				      <div class="setup-carousel-text">
+				      	<div class="setup-view4-text1">A <b>college student</b> studying political science, part-time journalist, and son of a local shop owner</div>
+				      	<div class="setup-view4-text2">
+				      		*5% off on all rent<br>
+									*Rolls double at the start of the game
+								</div>
+				      </div>
+				    </div>
+				      <label class="setup-select-label">
+				      	<div onclick="insertAvatar(2)" id="avatarCheck2" class="setup-select-btn">SELECT</div>
+				      </label>
+				    </div>
+
+						<!--  -->
+				    <div class="setup-carousel-item">
+				    <div class="setup-carousel-card">
+				      <div class="setup-carousel-avatar"><img class="setup-view4-profile" src="images/avatar3.png"></div>
+				      <div class="setup-carousel-text">
+				      	<div class="setup-view4-text1">A <b>rural school teacher</b> from a conservative family, who is the first woman in her family to receive a college education.</div>
+				      	<div class="setup-view4-text2">
+				      		*5% off on all rent<br>
+									*Rolls double at the start of the game
+								</div>
+				      </div>
+				    </div>
+				      <label class="setup-select-label">
+				      	<div onclick="insertAvatar(3)" id="avatarCheck3" class="setup-select-btn">SELECT</div>
+				      </label>
+				    </div>
+
+						<!--  -->
+				    <div class="setup-carousel-item">
+				    <div class="setup-carousel-card">
+				      <div class="setup-carousel-avatar"><img class="setup-view4-profile" src="images/avatar4.png"></div>
+				      <div class="setup-carousel-text">
+				      	<div class="setup-view4-text1">You are a <b>social media influencer</b></div>
+				      	<div class="setup-view4-text2">
+				      		*50% off purchase of first digital right issue<br>
+									*Free purchase and rent of Censorship during gameplay
+
+								</div>
+				      </div>
+				    </div>
+				      <label class="setup-select-label">
+				      	<div onclick="insertAvatar(4)" id="avatarCheck4" class="setup-select-btn">SELECT</div>
+				      </label>
+				    </div>
+
+						<!--  -->
+				    <div class="setup-carousel-item">
+				    <div class="setup-carousel-card">
+				      <div class="setup-carousel-avatar"><img class="setup-view4-profile" src="images/avatar5.png"></div>
+				      <div class="setup-carousel-text">
+				      	<div class="setup-view4-text1">You are a <b>Software Developer</b></div>
+				      	<div class="setup-view4-text2">
+				      		*Free purchase and rent of Internet of Things during gameplay.<br>
+									*Collects 50 extra for every Internet Property owed for rent
+
+								</div>
+				      </div>
+				    </div>
+				      <label class="setup-select-label">
+				      	<div onclick="insertAvatar(5)" id="avatarCheck5" class="setup-select-btn">SELECT</div>
+				      </label>
+				    </div>
+
+						<!--  -->
+				    <div class="setup-carousel-item">
+				    <div class="setup-carousel-card">
+				      <div class="setup-carousel-avatar"><img class="setup-view4-profile" src="images/avatar6.png"></div>
+				      <div class="setup-carousel-text">
+				      	<div class="setup-view4-text1">You are an <b>Ambassador</b> of a marginalized, remote tribe</div>
+				      	<div class="setup-view4-text2">
+				      		*20% off each policy and law<br>
+									*Always starts the game first
+								</div>
+				      </div>
+				    </div>
+				      <label class="setup-select-label">
+				      	<div onclick="insertAvatar(6)" id="avatarCheck6" class="setup-select-btn">SELECT</div>
+				      </label>
+				    </div>
+
+						<!--  -->
+				    <div class="setup-carousel-item">
+				    <div class="setup-carousel-card">
+				      <div class="setup-carousel-avatar"><img class="setup-view4-profile" src="images/avatar7.png"></div>
+				      <div class="setup-carousel-text">
+				      	<div class="setup-view4-text1">You are a <b>Journalist</b></div>
+				      	<div class="setup-view4-text2">
+				      		*Free purchase and rent of Local Content during gameplay. <br>
+									*No fee for unmortgaging issues
+
+								</div>
+				      </div>
+				    </div>
+				      <label class="setup-select-label">
+				      	<div onclick="insertAvatar(7)" id="avatarCheck7" class="setup-select-btn">SELECT</div>
+				      </label>
+				    </div>
+
+
+
+				  </div>
+
+					<button class="setup-carousel-btn" id="nextBtn">
+					  <div class="setup-carousel-btn-box">
+					    <span class="setup-carousel-btn-elem">
+					      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 40">
+					        <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+					      </svg>
+					    </span>
+					    <span class="setup-carousel-btn-elem">
+					      <svg viewBox="0 0 46 40">
+					        <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+					      </svg>
+					    </span>
+					  </div>
+					</button>
+					</div>
+
+							</div>
+
+<div class="setup-next-btn setup-next-btn-disabled" onclick="play()" id="proceedBtn">Next</div>
+</div>
 
 
 
@@ -195,238 +333,7 @@
 </center>
 
 
-<script type="text/javascript">
-	var view1 = document.getElementById('view1');
-	var view2 = document.getElementById('view2');
-	var view3 = document.getElementById('view3');
-	var view4 = document.getElementById('view4');
-
-
-    var progressInner = document.getElementById("progressInner");
-    var progressWidth = 20;
-
-
-    var viewImg3 = document.getElementById("viewImg3");
-    var viewTitle3 = document.getElementById("viewTitle3");
-    var playerSelects = document.getElementsByClassName('player-select');
-
-	var btn3 = document.getElementById('btn3');
-
-	var selectedPlayerCount = 0;
-
-	view1.style.display = 'block';
-    if (1==1) {
-	setTimeout(function(){
-	    var progressInterval = setInterval(frame, 10);
-	    function frame() {
-	      if (progressWidth >= 100) {
-	        clearInterval(progressInterval);
-
-			setTimeout(function(){
-	        hideView1().then(function(){
-	        	showView2();
-	        });
-			}, 1000);
-
-	      } else {
-	        progressWidth++;
-	        progressInner.style.width = progressWidth + "%";
-	      }
-	    }
-	}, 1000)
-    }
-
-    function hideView1(){
-    	var viewImg1 = document.getElementById('viewImg1');
-    	var progress = document.getElementById('progress');
-    	return new Promise(function(resolve) {
-
-	    	viewImg1.style.opacity = 0;
-	    	setTimeout(function(){
-		    	progress.style.opacity = 0;
-		    	setTimeout(function(){
-			    	view1.style.display = 'none';
-			    	console.log('hv1')
-		    		resolve();
-		    	}, 300);
-
-	    	}, 300);
-	    })
-    }
-
-    function showView2(){
-	    	gamebtn1.style.opacity = 0;
-	    	gamebtn2.style.opacity = 0;
-    	return new Promise(function(resolve) {
-	    	view2.style.display = "block";
-
-	    	setTimeout(function(){
-		    	gamebtn1.style.opacity = 1;
-		    	setTimeout(function(){
-			    	gamebtn2.style.opacity = 1;
-			    	console.log('sv2')
-		    		resolve();
-		    	}, 100);
-
-	    	}, 500);
-
-	    })
-    }
-
-    function hideView2(){
-    	return new Promise(function(resolve) {
-	    	gamebtn1.style.opacity = 0;
-	    	setTimeout(function(){
-		    	gamebtn2.style.opacity = 0;
-		    	setTimeout(function(){
-			    	view2.style.display = 'none';
-			    	console.log('hv2')
-		    		resolve();
-		    	}, 500);
-
-	    	}, 300);
-	    })
-    }
-
-    function showView3(){
-	    for (var i = playerSelects.length - 1; i >= 0; i--) {
-	    	playerSelects[i].style.opacity = 0;
-	    }
-
-        viewImg3.style.opacity = 0;
-        viewTitle3.style.opacity = 0;
-        btn3.style.opacity = 0;
-
-        view3.style.display = 'block';
-    	return new Promise(function(resolve) {
-			setTimeout(function(){
-	        viewImg3.style.opacity = 1;
-
-		        setTimeout(function(){
-		        viewTitle3.style.opacity = 1;
-
-		        setTimeout(function(){
-		        	playerSelects[0].style.opacity = 1;
-		        setTimeout(function(){
-		        	playerSelects[1].style.opacity = 1;
-		        setTimeout(function(){
-		        	playerSelects[2].style.opacity = 1;
-		        setTimeout(function(){
-		        	playerSelects[3].style.opacity = 1;
-		        setTimeout(function(){
-		        	playerSelects[4].style.opacity = 1;
-		        setTimeout(function(){
-		        	btn3.style.opacity = 1;
-		        	playerSelects[5].style.opacity = 1;
-		        setTimeout(function(){
-		        	playerSelects[6].style.opacity = 1;
-			        resolve();
-				}, 75);
-				}, 50);
-				}, 50);
-				}, 100);
-				}, 100);
-				}, 75);
-				}, 50);
-
-				}, 200);
-
-			}, 500);
-	    })
-    }
-
-
-    function hideView3(){
-    	return new Promise(function(resolve) {
-			setTimeout(function(){
-		        btn3.style.opacity = 0;
-
-		        setTimeout(function(){
-		        	playerSelects[0].style.opacity = 0;
-		        setTimeout(function(){
-		        	playerSelects[1].style.opacity = 0;
-		        setTimeout(function(){
-		        	playerSelects[2].style.opacity = 0;
-		        setTimeout(function(){
-		        	playerSelects[3].style.opacity = 0;
-		        setTimeout(function(){
-			        viewTitle3.style.opacity = 0;
-		        	playerSelects[4].style.opacity = 0;
-		        setTimeout(function(){
-		        	playerSelects[5].style.opacity = 0;
-		        setTimeout(function(){
-		        	playerSelects[6].style.opacity = 0;
-			        viewImg3.style.opacity = 0;
-			        setTimeout(function(){
-			        view3.style.display = 'none';
-				        resolve();
-					}, 800);
-				}, 75);
-				}, 50);
-				}, 50);
-				}, 100);
-				}, 100);
-				}, 75);
-				}, 50);
-
-			}, 300);
-	    })
-    }
-
-
-    function selectPlayerCount(e){
-
-	    for (var i = playerSelects.length - 1; i >= 0; i--) {
-	    	playerSelects[i].classList.remove('player-select-selected');
-	    }	
-    	document.getElementById("view3btn"+e).classList.add('player-select-selected');
-    	selectedPlayerCount = e;
-
-    	btn3.classList.remove('btn-primary-disabled');
-
-    }
-
-    function showView4(){
-    	view4.style.display = "block";
-    }
-
-
-
-   // carousel
-  const track = document.getElementById('carouselTrack');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-
-  let currentIndex = 0;
-
-  function updateCarousel() {
-    track.style.transform = `translateX(${-currentIndex * 100}%)`;
-  }
-
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + track.children.length) % track.children.length;
-    updateCarousel();
-  }
-
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % track.children.length;
-    updateCarousel();
-  }
-
-  // Event listeners for prev and next buttons
-  prevBtn.addEventListener('click', prevSlide);
-  nextBtn.addEventListener('click', nextSlide);
-
-
-  // exit
-  function showExit(){
-  	document.getElementById('sureBlack').style.display = "block";
-  }
-  function closeExit(){
-  	document.getElementById('sureBlack').style.display = "none";
-  }
-
-</script>
+<script type="text/javascript" src="js/setup.js"></script>
 
 </body>
 </html>
