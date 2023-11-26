@@ -434,6 +434,11 @@ function play(){
 		var gameObject = decodeURIComponent(cookieValue);
 		console.log(gameObject);
 
+		hideView4();
+		setTimeout(function(){
+			window.location.href = "game.html";
+		}, 500)
+
 	}
 }
 		// console.log(document.cookie);
