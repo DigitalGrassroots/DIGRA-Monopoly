@@ -48,7 +48,7 @@ a{
 	left: 50%;
 	top: 20px;
 	position: relative;
-	transform: translate(-50%, 0%) scale(3);
+	transform: translate(-50%, 0%) scale(1.0);
 }
 
 .tile:hover{
