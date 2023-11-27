@@ -421,7 +421,13 @@ if (proceedState) {
 function play(){
 	if (checkProcess()) {
 		console.log('ddf');
-		var dataString = JSON.stringify(players);
+
+		var dataString = JSON.stringify(
+			{
+				"playerCount" : playerCount,
+				players,
+				}
+			);
 		// console.log(dataString);
 		document.cookie = "gameData=" + encodeURIComponent(dataString);
 
