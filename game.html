@@ -12,13 +12,8 @@
 
 	<link rel="stylesheet" type="text/css" href="css/game.css">
 
-	<script type="text/javascript" src="board.js"></script>
 
 
-	<script src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/classicedition.js"></script>
-	<script type="text/javascript" src="js/ai.js"></script>
-	<script type="text/javascript" src="js/monopoly.js"></script>
 
 </head>
 <body id="bodyPage">
@@ -31,86 +26,9 @@
 
 
 
-<div id="deed" style="display:none">
-	<div id="deed-normal" style="display: none;">
-		<div id="deed-header">
-			<div style="margin: 5px; font-size: 11px;">T I T L E&nbsp;&nbsp;D E E D</div>
-			<div id="deed-name"></div>
-		</div>
-		<table id="deed-table">
-			<tr>
-				<td>
-					PRICE&nbsp;D<span id=""></span>
-				</td>
-				<td>
-					RENT&nbsp;D<span id="deed-baserent">12</span>.
-				</td>
-			</tr>
-			<tr colspan="2">
-				<td colspan="2">
-					<div style="width:100%;height: 2px;background: black;"></div>
-				</td>
-			</tr>
-			<tr>
-				<td style="text-align: left;">With 1 Policy</td>
-				<td style="text-align: right;">D<span id="deed-rent1">60</span>.</td>
-			</tr>
-			<tr>
-				<td style="text-align: left;">With 2 Policies</td>
-				<td style="text-align: right;">D<span id="deed-rent2">180</span>.</td>
-			</tr>
-			<tr>
-				<td style="text-align: left;">With 3 Policies</td>
-				<td style="text-align: right;">D<span id="deed-rent3">500</span>.</td>
-			</tr>
-			<tr>
-				<td style="text-align: left;">With 4 Policies</td>
-				<td style="text-align: right;">D<span id="deed-rent4">700</span>.</td>
-			</tr>
-			<tr>
-				<td style="text-align: left;">With Law</td>
-				<td style="text-align: right;">D<span id="deed-rent5">700</span>.</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<!-- <div style="margin-bottom: 8px;">With HOTEL D<span id="deed-rent5">900</span>.</div> -->
-					<div>Mortgage Value D<span id="deed-mortgage">80</span>.</div>
-					<div>Policies cost D<span id="deed-houseprice">100</span>. each</div>
-					<div>Law costs, D<span id="deed-hotelprice">100</span>. plus 4 Policies</div>
-					<div style="font-size: 9px; font-style: italic; margin-top: 5px;">If a player owns ALL the Lots of any Color-Group, the rent is Doubled on Unimproved Lots in that group.</div>
-				</td>
-			</tr>
-		</table>
-	</div>
-
-	<div id="deed-mortgaged">
-		<div id="deed-mortgaged-name"></div>
-		<p>&bull;</p>
-		<div>MORTGAGED</div>
-		<div> for D<span id="deed-mortgaged-mortgage">80</span></div>
-		<p>&bull;</p>
-		<div style="font-style: italic; font-size: 13px; margin: 10px;">Card must be turned this side up if property is mortgaged</div>
-	</div>
-
-	<div id="deed-special">
-		<div id="deed-special-name"></div>
-		<div id="deed-special-text"></div>
-		<div id="deed-special-footer">
-			Mortgage Value
-			<span style="float: right;">D<span id="deed-special-mortgage">100</span>.</span>
-		</div>
-	</div>
-</div>
-
 
 	<!--  -->
-<div class="ids" style="display: non;">
-
-
-<div style="padding-top: 8px;">
-	<input type="button" class="endTurn" id="nextbutton" title="Roll the dice and move your token accordingly." value="Roll Dice"/>
-	<input type="button" class="endTurn" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="Resign" onclick="game.resign();" />
-</div>
+<div class="ids" style="display: none;">
 
 
 <p id="noscript">Note: This page will not function without JavaScript.</p>
@@ -126,7 +44,6 @@
 <div id="player3input"></div>
 <div id="player4input"></div>
 
-<button id="nextbutton"></button>
 
 <div id="cell0"></div>
 <div id="cell1"></div>
@@ -236,6 +153,8 @@
 		</div>
 		<div id="owned"></div>
 	</div>
+
+
 
 </div>
 </div>
@@ -368,27 +287,113 @@
 
 <div id="canvas" style="display:non">
 
-<div id="landedDiv" class="landed">
-<div class="close-landed">x</div>
-<div id="lnded">
-You landed on New York Avenue lorem
+<div id="alertDiv" class="alert">
+<div style="padding: 20px;">
+	<div class="close-alert" onclick="closeAlert()">x</div>
+	<div id="alert"></div>
 </div>
 </div>
 
-<div class="info">
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+<div class="info" id="info">
+	<div id="landed"></div>
 	<div style="padding-top: 8px;">
-		<input type="button" id="nextbutton" title="Roll the dice and move your token accordingly." value="Roll Dice"/>
-		<input type="button" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="Resign" onclick="game.resign();" />
+		<input type="button" id="nextbutton" title="Roll the dice and move your token accordingly." value=""/>
+		<input type="button" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="" onclick="game.resign();" />
 	</div>
 
 </div>
 
+<div class="dice-container">
+	
+</div>
+
+
 <div class="black-fade" id=""></div>
 
 <div id="centerCards" class="center-cards">
-	<div class="center-card1"></div>
-	<div class="center-card1"></div>
+<div class="center-card">
+<div class="center-card-padding">
+		
+
+<div id="deed" style="display:">
+	<div id="deed-normal" style="display: none;">
+		<div id="deed-header">
+			<div id="deed-name"></div>
+		</div>
+		<table id="deed-table" style="width:100%">
+			<tr>
+				<td>
+					PRICE&nbsp;D<span id=""></span>
+				</td>
+				<td>
+					RENT&nbsp;D<span id="deed-baserent">12</span>.
+				</td>
+			</tr>
+			<tr colspan="2">
+				<td colspan="2">
+					<div style="width:100%;height: 2px;background: #fff;"></div>
+				</td>
+			</tr>
+			<tr colspan="2"><td>&nbsp;</td></tr>
+			<tr>
+				<td style="text-align: left;">WITH 1 POLICY</td>
+				<td style="text-align: right;">D<span id="deed-rent1">60</span></td>
+			</tr>
+			<tr>
+				<td style="text-align: left;">WITH 2 POLICIES</td>
+				<td style="text-align: right;">D<span id="deed-rent2">180</span>.</td>
+			</tr>
+			<tr>
+				<td style="text-align: left;">With 3 POLICIES</td>
+				<td style="text-align: right;">D<span id="deed-rent3">500</span></td>
+			</tr>
+			<tr>
+				<td style="text-align: left;">WITH 4 POLICIES</td>
+				<td style="text-align: right;">D<span id="deed-rent4">700</span></td>
+			</tr>
+			<tr>
+				<td style="text-align: left;">WITH LAW</td>
+				<td style="text-align: right;">D<span id="deed-rent5">700</span></td>
+			</tr>
+		</table>
+	</div>
+
+	<div style="text-align: center;margin-top: 20px;text-transform: uppercase;">
+		<!-- <div style="margin-bottom: 8px;">With HOTEL D<span id="deed-rent5">900</span>.</div> -->
+		<div>Mortgage Value D<span id="deed-mortgage">80</span>.</div>
+		<div>Policies cost D<span id="deed-houseprice">100</span>. each</div>
+		<div>Law costs, D<span id="deed-hotelprice">100</span>. plus 4 Policies</div>
+	</div>
+
+	<div id="deed-mortgaged">
+		<div id="deed-mortgaged-name"></div>
+		<p>&bull;</p>
+		<div>MORTGAGED</div>
+		<div> for D<span id="deed-mortgaged-mortgage">80</span></div>
+		<p>&bull;</p>
+		<div style="font-style: italic; font-size: 13px; margin: 10px;">Card must be turned this side up if property is mortgaged</div>
+	</div>
+
+	<div id="deed-special">
+		<div id="deed-special-name"></div>
+		<div id="deed-special-text"></div>
+		<div id="deed-special-footer">
+			Mortgage Value
+			<span style="float: right;">D<span id="deed-special-mortgage">100</span>.</span>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+<div class="center-card">
+<div class="center-card-padding">
+<div class="close-alert close-card" onclick="tiler(0)">x</div>
+	
+<div style="font-size: 9px; font-style: italic; margin-top: 5px;">If a player owns ALL the Lots of any Color-Group, the rent is Doubled on Unimproved Lots in that group.</div>
+
+</div>
+</div>
 </div>
 
 <div class="avatar" id="avatar1" onclick="showCpanelBoard('playerstatscircle','playerstats-board')">
@@ -691,7 +696,13 @@ You landed on New York Avenue lorem
 		
 	</div>
 
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/dice.js"></script>
 	<script src="js/custom.js"></script>
+	<script type="text/javascript" src="js/classicedition.js"></script>
+	<script type="text/javascript" src="js/ai.js"></script>
+	<script type="text/javascript" src="js/monopoly.js"></script>
 
 </body>
 </html>

@@ -33,6 +33,11 @@ a{
 	color: inherit;
 }
 
+.statscellcolor{
+	color: var(--maroon);
+	font-weight: 700;
+}
+
 #canvas{
 /*	width: 100%;*/
 /*	height: 100vh;*/
@@ -109,14 +114,13 @@ a{
 	position: absolute;
 	z-index: 2;
 	background: url(../images/game/pin.png);
-/*	position: absolute;*/
-/*	left: 500px;*/
-/*	top: 50%;*/
+	transition: 1s;
 	text-align: center;
 	cursor: pointer;
 	display: none;
 }
 .avatar:hover{
+	transition: 0.3s;
 	transform: scale(1.1);
 }
 
@@ -142,10 +146,10 @@ a{
 	width: 100%;
 	height: 100%;
 	background: rgb(0, 0, 0, 0.5);
-	z-index: 3;
+	z-index: 2;
 	position: fixed;
-	display: none;
 	transition: 0.3s;
+	display: none;
 	opacity: 0;
 }
 
@@ -160,13 +164,35 @@ a{
 	pointer-events: none;
 }
 
-.center-card1{
-	width: 200px;
-	height: 270px;
+.center-card{
+	width: 230px;
+	height: 320px;
 	border-radius: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 	background: var(--maroon);
 	margin: 10px;
+	color: #fff;
+	font-weight: 400;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 14px;
+}
+.center-card-padding{
+	width: 90%;
+	height: 90%;
+	border-radius: 10px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 2px solid var(--mustard);
+}
+
+#deed-header{
+	text-align: center;
+	padding: 15px 0;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	font-size: 16px;
 }
 
 .playerstats-board{
@@ -311,7 +337,7 @@ a{
 	margin-top: 20px;
 }
 
-.close-landed{
+.close-alert{
 	font-size: 14px;
 	color: #000;
 	background: var(--mustard);
@@ -323,19 +349,31 @@ a{
 	top: -10px;
 	padding: 8px 10px;
 	cursor: pointer;
+	pointer-events: auto;
+}
+.close-card{
+	position: relative;
+	float: right;
+	margin-top: -30px;
+	margin-right: -30px;
+}
+.close-alert:hover{
+	background: #000;
+	color: var(--mustard);
 }
 
-.landed{
-	width: 30vw;
-	left: 33.4vw;
+.alert{
+	width: 20vw;
+	left: 40vw;
 	border-radius: 10px;
-	padding: 20px;
 	background: var(--maroon);
 	color: #fff;
 	border: 2px solid black;
 	position: fixed;
-	top: 30vh;
+	top: 35vh;
 	z-index: 2;
+	pointer-events: none;
+	opacity: 0;
 	text-align: center;
 }
 
@@ -345,9 +383,51 @@ a{
 	text-align: center;
 	padding: 20px;
 	position: absolute;
-	top: 40vh;
+	top: 45vh;
 	border-radius: 20px;
 	left: 50%;
 	transform: translate(-50%, 0);
 	z-index: 2;
+}
+
+.dice-container {
+	position: absolute;
+	top: 60vh;
+	z-index: 2;
+/*	background: red;*/
+	left: 50%;
+	transform: translate(-50%, -10px);
+	opacity: 0;
+	pointer-events: none;
+	display: flex;
+}
+
+.dice {
+	width: 80px;
+	height: 80px;
+	position: relative;
+	margin: 5px;
+	border-radius: 20px;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+	border:3px solid #fff;
+	background: var(--maroon);
+}
+
+.dice-dot {
+	--top: 0%;
+	--left: 0%;
+	width: 15px;
+	height: 15px;
+	background-color: #fff;
+	border-radius: 50%;
+
+	/* Dot Positioning */
+	position: absolute;
+	top: var(--top);
+	left: var(--left);
+	transform: translateX(calc(var(--left) * -1)) translateY(calc(var(--top) * -1));
+}
+
+.btn-roll-dice {
+	margin-top: 10px;
 }

@@ -2,10 +2,14 @@ var boardzoom = true;
 function tiler(e){
       const container = document.getElementById('board');
       const containerRect = container.getBoundingClientRect();
+      var clickX, clickY;
 
-      // Calculate the click position relative to the container
-      const clickX = event.clientX - containerRect.left;
-      const clickY = event.clientY - containerRect.top;
+      clickX = positions[e][0] - containerRect.left;
+      clickY = positions[e][1] - containerRect.top;
+
+      // clickX = event.clientX - containerRect.left;
+      // clickY = event.clientY - containerRect.top;
+
 
       // Calculate the percentage position of the click relative to the container size
       const percentX = clickX / containerRect.width;
@@ -24,18 +28,19 @@ function tiler(e){
         $("body").addClass('body-plain');
         $("#tile"+e).addClass("tile-selected");
         $("#centerCards").css("display", "flex");
+        showdeed(e);
 
         if (e>0 && e<10) {
           $('#centerCards').css("transform", "translate(100px, -100px)");
         }
         if (e>10 && e<20) {
-          $('#centerCards').css("transform", "translate(50px, 50px)");
+          $('#centerCards').css("transform", "translate(100px, 100px)");
         }
         if (e>20 && e<30) {
           $('#centerCards').css("transform", "translate(-50px, 50px)");
         }
         if (e>30 && e<40) {
-          $('#centerCards').css("transform", "translate(0px, -50px)");
+          $('#centerCards').css("transform", "translate(0px, -30px)");
         }
         boardzoom = false;
       }else{
@@ -126,10 +131,7 @@ console.log(ratio);
 
 // console.log('fdf');
 
-$("#avatar1").css({"left": positions[35][0]+"px", "top": positions[35][1]+"px"});
-$("#avatar7").css({"left": positions[30][0]+"px", "top": positions[30][1]+"px"});
-$("#avatar4").css({"left": positions[14][0]+"px", "top": positions[14][1]+"px"});
-$("#avatar2").css({"left": positions[0][0]+"px", "top": positions[0][1]+"px"});
+$("#avatar1, #avatar2, #avatar3, #avatar4, #avatar5, #avatar6, #avatar7").css({"left": positions[0][0]+"px", "top": positions[0][1]+"px"});
 
 
 function showCpanelBoard(radio, board){
@@ -162,6 +164,19 @@ function closeCpanel(radio, board){
   }, 100)
 }
 
+function closeAlert(){
+    $("#alertDiv").css("transform", "translateY(0)");
+    $("#alertDiv").css("opacity", 0);
+}
+
+
+$('.black-fade').on("click", function(){
+  $(".black-fade").css("opacity", 0);
+  setTimeout(function(){
+    $(".black-fade").hide();  
+  }, 500)
+  console.log('ff')
+});
 
 
 
@@ -176,9 +191,4 @@ function closeCpanel(radio, board){
 
 
 
-
-
-
-
-
-
+// tiler(11);

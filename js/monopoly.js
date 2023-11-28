@@ -10,8 +10,9 @@ function Game() {
 	var auctionproperty;
 
 	this.rollDice = function() {
-		die1 = Math.floor(Math.random() * 6) + 1;
-		die2 = Math.floor(Math.random() * 6) + 1;
+		roller();
+		// die1 = dices[0];
+		// die2 = dices[1];
 		areDiceRolled = true;
 	};
 
@@ -40,10 +41,10 @@ function Game() {
 	this.getDie = function(die) {
 		if (die === 1) {
 
-			return die1;
+			return dices[0];
 		} else {
 
-			return die2;
+			return dices[1];
 		}
 
 	};
@@ -1221,7 +1222,7 @@ Array.prototype.randomize = function(length) {
 		// element.style.display = "none";
 	// }
 // }
-
+alertTimeout = setTimeout(function(){}, 10);
 function addAlert(alertText) {
 	$alert = $("#alert");
 
@@ -1233,6 +1234,15 @@ function addAlert(alertText) {
 	if (!player[turn].human) {
 		player[turn].AI.alertList += "<div>" + alertText + "</div>";
 	}
+
+	$("#alertDiv").css("opacity", 1);
+	$("#alertDiv").css("transform", "translateY(10px)");
+	$("#alert").html(alertText); 
+	clearTimeout(alertTimeout);
+	alertTimeout = setTimeout(function(){
+		$("#alertDiv").css("transform", "translateY(0)");
+		$("#alertDiv").css("opacity", 0);
+	}, 10000);
 }
 
 function popup(HTML, action, option) {
@@ -1283,89 +1293,19 @@ function popup(HTML, action, option) {
 
 
 function updatePosition() {
-	// console.log(player[turn].position);
 
 	player[turn].oldposition = player[turn].position;
-	// Reset borders
-	// document.getElementById("jail").style.border = "1px solid black";
-	document.getElementById("jailpositionholder").innerHTML = "";
-	for (var i = 0; i < 40; i++) {
-		// document.getElementById("cell" + i).style.border = "1px solid black";
-		document.getElementById("cell" + i + "positionholder").innerHTML = "";
-
-	}
-
-	var sq, left, top;
-
-	for (var x = 0; x < 40; x++) {
-		sq = square[x];
-		left = 0;
-		top = 0;
-
-		for (var y = turn; y <= pcount; y++) {
-
-			if (player[y].position == x && !player[y].jail) {
-
-
-				document.getElementById("cell" + x + "positionholder").innerHTML += "<div class='cell-position' title='" + player[y].name + "' style='background-color: " + player[y].color + "; left: " + left + "px; top: " + top + "px;'></div>";
-				if (left == 36) {
-					left = 0;
-					top = 12;
-				} else
-					left += 12;
-			}
-		}
-
-		for (var y = 1; y < turn; y++) {
-
-			if (player[y].position == x && !player[y].jail) {
-				document.getElementById("cell" + x + "positionholder").innerHTML += "<div class='cell-position' title='" + player[y].name + "' style='background-color: " + player[y].color + "; left: " + left + "px; top: " + top + "px;'></div>";
-				if (left == 36) {
-					left = 0;
-					top = 12;
-				} else
-					left += 12;
-			}
-		}
-	}
-
-	left = 0;
-	top = 53;
-	for (var i = turn; i <= pcount; i++) {
-		if (player[i].jail) {
-			document.getElementById("jailpositionholder").innerHTML += "<div class='cell-position' title='" + player[i].name + "' style='background-color: " + player[i].color + "; left: " + left + "px; top: " + top + "px;'></div>";
-
-			if (left === 36) {
-				left = 0;
-				top = 41;
-			} else {
-				left += 12;
-			}
-		}
-	}
-
-	for (var i = 1; i < turn; i++) {
-		if (player[i].jail) {
-			document.getElementById("jailpositionholder").innerHTML += "<div class='cell-position' title='" + player[i].name + "' style='background-color: " + player[i].color + "; left: " + left + "px; top: " + top + "px;'></div>";
-			if (left === 36) {
-				left = 0;
-				top = 41;
-			} else
-				left += 12;
-		}
-	}
 
 	p = player[turn];
+	$("#avatar"+p.avatar).css({"left": positions[p.position][0]+"px", "top": positions[p.position][1]+"px"});
+
 
 	if (p.jail) {
 		// document.getElementById("jail").style.border = "1px solid " + p.color;
 	} else {
-		document.getElementById("cell" + p.position).style.border = "1px solid " + p.color;
+		// document.getElementById("cell" + p.position).style.border = "1px solid " + p.color;
 	}
 
-	// for (var i=1; i <= pcount; i++) {
-	// document.getElementById("enlarge"+player[i].position+"token").innerHTML+="<img src='"+tokenArray[i].src+"' height='30' width='30' />";
-	// }
 }
 
 function updateMoney() {
@@ -1385,7 +1325,7 @@ function updateMoney() {
 	}
 
 	if (document.getElementById("landed").innerHTML === "") {
-		$("#landed").hide();
+		$("#landedDiv").hide();
 	}
 
 	if (p.money < 0) {
@@ -1402,44 +1342,6 @@ function updateMoney() {
 function updateDice() {
 	var die0 = game.getDie(1);
 	var die1 = game.getDie(2);
-
-	$("#die0").show();
-	$("#die1").show();
-
-	if (document.images) {
-		var element0 = document.getElementById("die0");
-		var element1 = document.getElementById("die1");
-
-		element0.classList.remove("die-no-img");
-		element1.classList.remove("die-no-img");
-
-		element0.title = "Die (" + die0 + " spots)";
-		element1.title = "Die (" + die1 + " spots)";
-
-		if (element0.firstChild) {
-			element0 = element0.firstChild;
-		} else {
-			element0 = element0.appendChild(document.createElement("img"));
-		}
-
-		element0.src = "images/Die_" + die0 + ".png";
-		element0.alt = die0;
-
-		if (element1.firstChild) {
-			element1 = element1.firstChild;
-		} else {
-			element1 = element1.appendChild(document.createElement("img"));
-		}
-
-		element1.src = "images/Die_" + die1 + ".png";
-		element1.alt = die0;
-	} else {
-		document.getElementById("die0").textContent = die0;
-		document.getElementById("die1").textContent = die1;
-
-		document.getElementById("die0").title = "Die";
-		document.getElementById("die1").title = "Die";
-	}
 }
 
 function updateOwned() {
@@ -2309,7 +2211,7 @@ function land(increasedRent) {
 				buy();
 			}
 		} else {
-			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Buy (D" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/></div>";
+			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onclick='tiler(" + p.position + ");' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Buy (D" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/></div>";
 		}
 
 		// this adds property to auction queue
@@ -2427,16 +2329,21 @@ function roll() {
 	$("#option").hide();
 	$("#buy").show();
 	$("#manage").hide();
+	$("#info").hide();
 
 	if (p.human) {
 		document.getElementById("nextbutton").focus();
 	}
+
 	document.getElementById("nextbutton").value = "End turn";
 	document.getElementById("nextbutton").title = "End turn and advance to the next player.";
-
 	game.rollDice();
+
+	setTimeout(function(){
+	$("#info").show();
 	var die1 = game.getDie(1);
 	var die2 = game.getDie(2);
+
 
 	doublecount++;
 
@@ -2500,7 +2407,7 @@ function roll() {
 			if (p.jailroll === 3) {
 
 				if (p.human) {
-					popup("<p>You must pay the $50 fine.</p>", function() {
+					popup("<p>You must pay the D50 fine.</p>", function() {
 						payfifty();
 						player[turn].position=10 + die1 + die2;
 						land();
@@ -2537,6 +2444,8 @@ function roll() {
 
 		land();
 	}
+
+}, 6000);
 }
 
 function play() {
@@ -2552,6 +2461,8 @@ function play() {
 	}
 
 	var p = player[turn];
+	$('.avatar').css("z-index", 2);
+	$('#avatar'+p.avatar).css("z-index", 3);
 	game.resetDice();
 
 	// document.getElementById("pname").innerHTML = p.name;
@@ -2748,14 +2659,6 @@ function highlightAvatar(avatar){
   $("#avatar"+avatar).css("z-index",4);
 }
 
-
-$('.black-fade').on("click", function(){
-  $(".black-fade").css("opacity", 0);
-  setTimeout(function(){
-	  $(".black-fade").hide();	
-  }, 500)
-  console.log('ff')
-});
 
 
 window.onload = function() {
