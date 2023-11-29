@@ -33,6 +33,37 @@ a{
 	color: inherit;
 }
 
+.infobtn{
+	border-radius: 4px;
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: 500;
+	border:0;
+	cursor: pointer;
+	padding: 5px 10px;
+	box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.25);
+	display: inline-block;
+}.infobtn:hover{
+	box-shadow: none;
+/*	background: var(--mustard);*/
+}
+
+.rollbtn{
+	background: var(--maroon);
+}.rollbtn:hover{
+/*	background: var(--mustard);*/
+}
+
+#resignbtn{
+	background: red;
+}.resignbtn:hover{
+/*	background: var(--mustard);*/
+}
+
+.buybtn{
+	background: #097100;
+}
+
 .statscellcolor{
 	color: var(--maroon);
 	font-weight: 700;
@@ -88,6 +119,7 @@ a{
 }
 
 .board{
+	width: 100vw;
 	margin: auto;
 /*	background: red;*/
 	left: 50%;
@@ -124,6 +156,11 @@ a{
 	transform: scale(1.1);
 }
 
+.avatar-highlight{
+	background: url(../images/game/pin-active.png);
+	z-index: 3;
+}
+
 .avatar-img{
 	width: 60px;
 	margin-left: 4px;
@@ -133,12 +170,22 @@ a{
 .avatar-money{
 	display: inline-block;
 	font-size: 10px;
-	font-weight: 700;
+	font-weight: 500;
 	padding: 5px 5px;
 	border-radius: 10px;
 	margin-right: -1px;
 	padding-bottom: 3px;
-	background: var(--maroon);
+	background: var(--mustard);
+	color: #000;
+/*	width: 100%;*/
+/*	word-wrap: none;*/
+}
+.avatar-name{
+	background: var(--mustard);
+	color: #333;
+}
+.avatar-highlight .avatar-money{
+	background: var(--4);
 	color: #fff;
 }
 
@@ -201,7 +248,7 @@ a{
 	background: var(--mustard);
 	border: 3px solid black;
 	position: fixed;
-	z-index: 3;
+	z-index: 4;
 	left: 5vw;
 	top: 5vh;
 	border-radius: 20px;
@@ -322,7 +369,7 @@ a{
 	background: var(--mustard);
 	border: 3px solid black;
 	position: fixed;
-	z-index: 3;
+	z-index: 4;
 	left: 30vw;
 	top: 5vh;
 	border-radius: 20px;
@@ -371,7 +418,7 @@ a{
 	border: 2px solid black;
 	position: fixed;
 	top: 35vh;
-	z-index: 2;
+	z-index: 3;
 	pointer-events: none;
 	opacity: 0;
 	text-align: center;
@@ -383,11 +430,11 @@ a{
 	text-align: center;
 	padding: 20px;
 	position: absolute;
-	top: 45vh;
 	border-radius: 20px;
-	left: 50%;
-	transform: translate(-50%, 0);
-	z-index: 2;
+/*	top: 45vh;*/
+/*	left: 50%;*/
+/*	transform: translate(-50%, 0);*/
+	z-index: 3;
 }
 
 .dice-container {

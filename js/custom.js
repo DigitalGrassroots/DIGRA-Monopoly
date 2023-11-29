@@ -125,8 +125,6 @@ $("#canvas").css("transform","scale("+ratio+") translate("+xmove+"%, "+ymove+"%)
 $("#canvas").css("transform","scale(1) translate(0,0)");
 }
 
-console.log(ratio);
-
 });
 
 // console.log('fdf');

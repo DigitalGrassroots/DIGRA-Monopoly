@@ -10,11 +10,15 @@ function Game() {
 	var auctionproperty;
 
 	this.rollDice = function() {
+		closeAlert();
+		blackFade();
 		roller();
+		addAlert(p.name + " is rolling");
 		// die1 = dices[0];
 		// die2 = dices[1];
 		areDiceRolled = true;
 	};
+
 
 	this.resetDice = function() {
 		areDiceRolled = false;
@@ -35,7 +39,7 @@ function Game() {
 			roll();
 		}
 
-		console.log(player);
+		// console.log(player);
 	};
 
 	this.getDie = function(die) {
@@ -1100,7 +1104,7 @@ function Game() {
 		if (pcount === 2 || bankruptcyUnmortgageFee === 0 || p.creditor === 0) {
 			game.eliminatePlayer();
 		} else {
-			addAlert(pcredit.name + " paid $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties received from " + p.name + ".");
+			addAlert(pcredit.name + " paid D" + bankruptcyUnmortgageFee + " interest on the mortgaged properties received from " + p.name + ".");
 			popup("<p>" + pcredit.name + ", you must pay $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties you received from " + p.name + ".</p>", function() {player[pcredit.index].pay(bankruptcyUnmortgageFee, 0); game.bankruptcyUnmortgage();});
 		}
 	};
@@ -1247,9 +1251,9 @@ function addAlert(alertText) {
 
 function popup(HTML, action, option) {
 	document.getElementById("popuptext").innerHTML = HTML;
-	document.getElementById("popup").style.width = "300px";
-	document.getElementById("popup").style.top = "0px";
-	document.getElementById("popup").style.left = "0px";
+	// document.getElementById("popup").style.width = "300px";
+	// document.getElementById("popup").style.top = "0px";
+	// document.getElementById("popup").style.left = "0px";
 
 	if (!option && typeof action === "string") {
 		option = action;
@@ -1285,9 +1289,9 @@ function popup(HTML, action, option) {
 	}
 
 	// Show using animation.
-	$("#popupbackground").fadeIn(400, function() {
-		$("#popupwrap").show();
-	});
+	// $("#popupbackground").fadeIn(400, function() {
+	// 	$("#popupwrap").show();
+	// });
 
 }
 
@@ -1311,7 +1315,6 @@ function updatePosition() {
 function updateMoney() {
 	var p = player[turn];
 
-	document.getElementById("avatar"+p.avatar+"money").innerHTML = "D" + p.money;
 	$(".money-bar-row").hide();
 
 	for (var i = 1; i <= pcount; i++) {
@@ -1319,7 +1322,7 @@ function updateMoney() {
 
 		$("#moneybarrow" + i).show();
 		// document.getElementById("avatar" + i + "moneyname1").innerHTML = p_i.name;
-		document.getElementById("avatar" + i + "money").innerHTML = "D"+p_i.money;
+		document.getElementById("avatar" + i + "money").innerHTML = p_i.name +" D"+p_i.money;
 		document.getElementById("playerstatsMoney" + i).innerHTML = "(D"+p_i.money+")";
 		document.getElementById("playerstatsName" + i).innerHTML = p_i.name;
 	}
@@ -1878,7 +1881,7 @@ function payfifty() {
 	p.position = 10;
 	p.pay(50, 0);
 
-	addAlert(p.name + " paid the $50 fine to get out of jail.");
+	addAlert(p.name + " paid the D50 fine to get out of jail.");
 	updateMoney();
 	updatePosition();
 }
@@ -2198,9 +2201,13 @@ function land(increasedRent) {
 	var die2 = game.getDie(2);
 
 	$("#landed").show();
+
+	blackFade();
+
+
 	document.getElementById("landed").innerHTML = "You landed on " + s.name + ".";
 	s.landcount++;
-	addAlert(p.name + " landed on " + s.name + ".");
+	// addAlert(p.name + " landed on " + s.name + ".");
 
 	// Allow player to buy the property on which he landed.
 	if (s.price !== 0 && s.owner === 0) {
@@ -2211,7 +2218,7 @@ function land(increasedRent) {
 				buy();
 			}
 		} else {
-			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onclick='tiler(" + p.position + ");' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Buy (D" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/></div>";
+			document.getElementById("landed").innerHTML = "You landed on <br><a href='javascript:void(0);' onclick='tiler(" + p.position + ");' class='statscellcolor'>" + s.name + "</a>.<br><input type='button' onclick='buy();' class='infobtn buybtn' value='Buy (D" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/>";
 		}
 
 		// this adds property to auction queue
@@ -2278,7 +2285,7 @@ function land(increasedRent) {
 			}
 		}
 
-		addAlert(p.name + " paid $" + rent + " rent to " + player[s.owner].name + ".");
+		addAlert(p.name + " paid D" + rent + " rent to " + player[s.owner].name + ".");
 		p.pay(rent, s.owner);
 		player[s.owner].money += rent;
 
@@ -2328,7 +2335,7 @@ function roll() {
 
 	$("#option").hide();
 	$("#buy").show();
-	$("#manage").hide();
+	// $("#manage").hide();
 	$("#info").hide();
 
 	if (p.human) {
@@ -2340,7 +2347,11 @@ function roll() {
 	game.rollDice();
 
 	setTimeout(function(){
-	$("#info").show();
+
+	setTimeout(function(){
+		showInfo();
+	},2000);
+
 	var die1 = game.getDie(1);
 	var die2 = game.getDie(2);
 
@@ -2461,19 +2472,26 @@ function play() {
 	}
 
 	var p = player[turn];
-	$('.avatar').css("z-index", 2);
-	$('#avatar'+p.avatar).css("z-index", 3);
+	// $('.avatar').css("z-index", 2);
+	$('.avatar').removeClass("avatar-highlight");
+	$('#avatar'+p.avatar).addClass("avatar-highlight");
+
+	$('#manageBoardName').html(p.name);
+	$('#manageBoardMoney').html(p.money);
+	$('#manageBoardAvatar').attr({ "src": "images/avatar"+p.avatar+".png"});
 	game.resetDice();
 
 	// document.getElementById("pname").innerHTML = p.name;
 	// highlightAvatar(p.avatar);
+
+	moveInfoPosition();
 
 	addAlert("It is " + p.name + "'s turn.");
 
 	// Check for bankruptcy.
 	p.pay(0, p.creditor);
 
-	$("#landed, #option, #manage").hide();
+	$("#landed, #option").hide();
 	$("#board, #control, #moneybar, #viewstats, #buy").show();
 
 	doublecount = 0;
@@ -2481,6 +2499,7 @@ function play() {
 		document.getElementById("nextbutton").focus();
 	}
 	document.getElementById("nextbutton").value = "Roll Dice";
+	document.getElementById("nextbutton").classList.add('rollbtn');
 	document.getElementById("nextbutton").title = "Roll the dice and move your token accordingly.";
 
 	$("#die0").hide();
@@ -2658,6 +2677,62 @@ function highlightAvatar(avatar){
   $(".avatar").css("z-index",2);
   $("#avatar"+avatar).css("z-index",4);
 }
+
+function blackFade(){
+	$(".black-fade").css("display", "block");
+	$(".black-fade").css("opacity", 1);
+	setTimeout(function(){
+		$(".black-fade").css("opacity", 0);
+		setTimeout(function(){
+			$(".black-fade").css("display", "none");
+		}, 500);
+	}, 10000);
+}
+
+var infoPos =38;
+
+function moveInfoPosition(){
+	p=player[turn];
+	// p= {position:infoPos};
+	var xpos = positions[p.position][0];
+	var ypos = positions[p.position][1];
+
+	if (p.position==0 || p.position==30) {
+		ypos = ypos - 60;
+		xpos = xpos - 87;
+	}else if (p.position==10) {
+		ypos = ypos - 90;
+		xpos = xpos - 87;
+	}else if (p.position==20) {
+		ypos = ypos + 70;
+		xpos = xpos - 87;
+	}else if (p.position>0 && p.position<10) {
+		ypos = ypos - 60;
+		xpos = xpos + 50;
+	}else if (p.position>10 && p.position<20) {
+		ypos = ypos + 30;
+		xpos = xpos + 50;
+	}else if (p.position>20 && p.position<30) {
+		ypos = ypos + 40;
+		xpos = xpos - 220;
+	}else if (p.position>30 && p.position<40) {
+		ypos = ypos - 40;
+		xpos = xpos + 50;
+	}
+	// console.log(ypos);
+	$("#info").css("top", ypos+"px");
+	$("#info").css("left", xpos+"px");
+}
+
+function showInfo(e=p.position){
+	moveInfoPosition();
+	// $("#info").css("background", "red");
+	$("#info").show();
+	$("#info").css("transform", "scale(1.1)");
+	setTimeout(function(){
+		$("#info").css("transform", "scale(1)");
+	},300)
+};
 
 
 
@@ -2953,7 +3028,7 @@ window.onload = function() {
 
 	$("#buy-menu-item").click(function() {
 		$("#buy").show();
-		$("#manage").hide();
+		// $("#manage").hide();
 
 		// Scroll alerts to bottom.
 		$("#alert").scrollTop($("#alert").prop("scrollHeight"));
@@ -2973,6 +3048,10 @@ setup();
 // player[2].name = 'ffff';
 
 // console.log(player);
+
+
+// $("#avatar1").css({"left": positions[infoPos][0]+"px", "top": positions[infoPos][1]+"px"});
+// showInfo(infoPos);
 
 };
 

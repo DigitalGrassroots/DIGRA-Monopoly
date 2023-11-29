@@ -104,8 +104,10 @@
 
 </div>
 
-
-
+<div id="popup">
+	
+	<div id="popuptext"></div>
+</div>
 
 <div id="cpanel">
 	<div>
@@ -137,7 +139,7 @@
 	<div class="board-title">Manage Digital Rights Issues</div>
 
 	<div class="playerstats-profile">
-		<img class="playerstats-img" src="images/avatar4.png">
+		<img class="playerstats-img" id="manageBoardAvatar" src="images/avatar4.png">
 		<div class="playerstats-profile-name">
 			<div id="manageBoardName">Larry</div><br>
 			<b><div id="manageBoardMoney">D1500</div></b>
@@ -297,18 +299,13 @@
 <div class="info" id="info">
 	<div id="landed"></div>
 	<div style="padding-top: 8px;">
-		<input type="button" id="nextbutton" title="Roll the dice and move your token accordingly." value=""/>
-		<input type="button" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="" onclick="game.resign();" />
+		<input type="button" class="infobtn" id="nextbutton" title="Roll the dice and move your token accordingly." value=""/>
+		<input type="button" class="infobtn" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="" onclick="game.resign();" />
 	</div>
 
 </div>
 
-<div class="dice-container">
-	
-</div>
 
-
-<div class="black-fade" id=""></div>
 
 <div id="centerCards" class="center-cards">
 <div class="center-card">
@@ -424,6 +421,13 @@
 	<img class="avatar-img" src="images/avatar7.png">
 	<div id="avatar7money" class="avatar-money">D1500</div>
 </div>
+
+
+
+<div class="black-fade" id=""></div>
+
+<div class="dice-container"></div>
+
 
 
 <svg class="board" id="board" width="802" height="600" viewBox="0 0 802 600" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
