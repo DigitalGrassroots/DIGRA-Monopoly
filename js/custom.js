@@ -24,7 +24,7 @@ function tiler(e){
 
       if (boardzoom) {
 
-        $(".avatar, #cpanel").hide();
+        $(".avatar, #cpanel, #alertDiv, #info").hide();
         $("body").addClass('body-plain');
         $("#tile"+e).addClass("tile-selected");
         $("#centerCards").css("display", "flex");
@@ -45,13 +45,13 @@ function tiler(e){
         boardzoom = false;
       }else{
         $(".tile").removeClass("tile-selected");
-        $(".avatar-active, #cpanel").css("opacity", 0);
-        $(".avatar-active, #cpanel").show();
+        $(".avatar-active, #cpanel, #alertDiv, #info").css("opacity", 0);
+        $(".avatar-active, #cpanel, #alertDiv, #info").show();
         $("#centerCards").css("display", "none");
         $("body").removeClass('body-plain');
           $('#centerCards').css("transform", "translate(0, 0)");
         setTimeout(function(){
-        $(".avatar-active, #cpanel").css("opacity", 1);
+        $(".avatar-active, #cpanel, #alertDiv, #info").css("opacity", 1);
           boardzoom = true;
         }, 500)
       }
@@ -106,6 +106,7 @@ var positions = {
 
 $(window).resize(function() { 
 // your code 
+  console.log(window);
 var scale = Math.round(window.devicePixelRatio*100);
 
 var ratio = 100/scale;
@@ -185,7 +186,7 @@ $('.black-fade').on("click", function(){
 
 
 
-
+// showCpanelBoard('tradecircle','trade-board');
 
 
 

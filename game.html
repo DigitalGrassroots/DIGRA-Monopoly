@@ -87,51 +87,119 @@
 <div id="cell39"></div>
 
 <div id="jail">jail</div>
-	
-<button id="proposetradebutton"></button>
-<button id="canceltradebutton"></button>
-<button id="accepttradebutton"></button>
-<button id="rejecttradebutton"></button>
-
-<div id="trade-leftp-money"></div>
-<div id="trade-rightp-money"></div>
 
 <div id="statsdrag"></div>
-<div id="popupdrag"></div>
 
 <div id="stats"></div>
 <div id="moneybar"></div>
 
 </div>
 
-<div id="popup">
-	
-	<div id="popuptext"></div>
-</div>
-
+<!--  -->
 <div id="cpanel">
 	<div>
 		<div class="cpanel-circle"></div>
 		<div class="cpanel-text">Settings</div>
 	</div>
-	<div>
+	<!--  -->
+	<div onclick="showCpanelBoard('tradecircle','trade-board');game.trade()" id="tradecircle" style="pointer-events: auto;">
 		<div class="cpanel-circle"></div>
 		<div class="cpanel-text">Trade</div>
 	</div>
-
 	<div class="cpanel-space" onclick="closeCpanel()"></div>
-
 	<div onclick="showCpanelBoard('managecircle', 'manage-board')" id="managecircle" style="pointer-events: auto;">
 		<div class="cpanel-circle"></div>
 		<div class="cpanel-text">Manage</div>
 	</div>
-	<div onclick="showCpanelBoard('playerstatscircle','playerstats-board')" id="playerstatscircle" style="pointer-events: auto;">
+	<div onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats()" id="playerstatscircle" style="pointer-events: auto;">
 		<div class="cpanel-circle"></div>
 		<div class="cpanel-text">Players</div>
 	</div>
 </div>
+<!--  -->
 
+<!--  -->
 <div class="cpanel-board-black" onclick="closeCpanel()"></div>
+<!--  -->
+
+<!--  -->
+<div class="cpanel-board trade-board">
+
+	<div onclick="closeCpanel();game.cancelTrade();" class="board-close">x</div>
+	<div class="playerstats-pad">
+	<div class="board-title">Trade Center</div>
+
+	<div id="trade">
+
+		<div class="trade-flex">
+
+			<div class="trade-left">
+				
+				<div class="playerstats-profile">
+					<img class="playerstats-img" id="trade-leftp-avatar">
+					<div class="playerstats-profile-name" style="text-align:left;">
+						<div id="trade-leftp-name">Larry</div><br>
+						<b><div id="trade-leftp-amount">D1500</div></b>
+					</div>
+				</div>
+				<br>
+				<div class="trade-input-div">
+					D&nbsp;<input class="trade-input" id="trade-leftp-money" value="0" title="Enter amount to exchange with the other player." />
+				</div>
+				<br>
+				<div id="trade-leftp-property" class="trade-cell">
+
+					<table>
+						<tr>
+							<td class="propertycellcheckbox">
+								<input type="checkbox" id="tradeleftcheckbox5" title="Check this box to include COMMUNITY NETWORKS in the trade.">
+							</td>
+							<td class="propertycellcolor" style="background-color: rgb(255, 255, 255); border-color: grey;"></td>
+							<td class="propertycellname">COMMUNITY NETWORKS</td>
+						</tr>
+						<tr>
+							<td class="propertycellcheckbox">
+								<input type="checkbox" id="tradeleftcheckbox12" title="Check this box to include ISPS in the trade.">
+							</td>
+							<td class="propertycellcolor">
+								
+							</td>
+							<td class="propertycellname">ISPS</td>
+						</tr>
+					</table>
+					
+				</div>
+			</div>	
+
+			<div class="trade-right">
+				<div class="playerstats-profile">
+					<img class="playerstats-img" id="trade-rightp-avatar">
+					<div class="playerstats-profile-name" style="text-align:left;">
+						<div id="trade-rightp-name">Larry</div><br>
+						<b><div id="trade-rightp-amount">D1500</div></b>
+					</div>
+				</div>
+				<br>
+				<div class="trade-input-div">
+					D&nbsp;<input class="trade-input" id="trade-rightp-money" value="0" title="Enter amount to exchange with the other player." />
+				</div>
+				<br>
+				<div id="trade-rightp-property" class="trade-cell"></div>
+			</div>	
+			
+		</div>
+
+		<center>
+			<input type="button" id="proposetradebutton" value="Propose Trade" onclick="game.proposeTrade();" title="Exchange the money and properties that are checked above." />
+			<input type="button" id="canceltradebutton" value="Cancel Trade" onclick='game.cancelTrade();' title="Cancel the trade." />
+			<input type="button" id="accepttradebutton" value="Accept Trade" onclick="game.acceptTrade();" title="Accept the proposed trade." />
+			<input type="button" id="rejecttradebutton" value="Reject Trade" onclick='game.cancelTrade();' title="Reject the proposed trade." />
+		</center>
+
+	</div>
+</div>
+</div>
+
 
 <div class="cpanel-board manage-board">
 <div class="playerstats-pad">
@@ -153,7 +221,53 @@
 			<input type="button" value="Mortgage" id="mortgagebutton" />
 			<input type="button" value="Sell house" id="sellhousebutton"/>
 		</div>
-		<div id="owned"></div>
+		<br>
+		<div id="owned">
+
+		<label class="playertile-label" for='propertycellcheckbox1'>
+			<div class='playerstats-tile'>
+				<input type='checkbox' id='propertycheckbox11'></td>
+				<div class='playerstats-tile-color'></div>
+				<div class='playerstats-tile-name'>Data Cost</div>
+			</div>
+		</label>
+
+			<table>
+				<tbody>
+					<tr class="property-cell-row">
+						<td class="propertycellcheckbox">
+						<input type="checkbox" id="propertycheckbox6">
+						</td>
+						<td class="propertycellcolor" style="background: #87CEEB;" onmouseover="showdeed(6);" onmouseout="hidedeed();">
+						</td>
+						<td class="propertycellname">DIGITAL LITERACY</td>
+					</tr>
+
+					<tr class="property-cell-row">
+						<td class="propertycellcheckbox">
+						<input type="checkbox" id="propertycheckbox11"></td>
+						<td class="propertycellcolor" style="background: #FF0080;" onmouseover="showdeed(11);" onmouseout="hidedeed();"></td>
+						<td class="propertycellname">OPEN DATA</td>
+					</tr>
+
+					<tr class="property-cell-row">
+						<td class="propertycellcheckbox">
+						<input type="checkbox" id="propertycheckbox21">
+						</td>
+						<td class="propertycellcolor" style="background: #FF0000;" onmouseover="showdeed(21);" onmouseout="hidedeed();"></td>
+						<td class="propertycellname">ENCRYPTION</td>
+					</tr>
+
+					<tr class="property-cell-row">
+						<td class="propertycellcheckbox">
+						<input type="checkbox" id="propertycheckbox28"></td><td class="propertycellcolor" style="background: #FFFFFF; border: 1px solid grey; width: 18px;" onmouseover="showdeed(28);" onmouseout="hidedeed();"></td>
+						<td class="propertycellname">INTERNET COURT</td>
+					</tr>
+
+					</tbody>
+				</table>
+			
+		</div>
 	</div>
 
 
@@ -166,126 +280,66 @@
 	<div class="playerstats-pad">
 	<div class="board-title">Player Stats</div>
 
-	<div class="playerstats-flex">
 
-		<div class="playerstats-col" id="playerstats-col1">
-			<div class="playerstats-profile">
-				<img class="playerstats-img" src="images/avatar1.png">
-				<div class="playerstats-profile-name">
-					<div id="playerstatsName1">Larry</div><br>
-					<b><div id="playerstatsMoney1">(D1500)</div></b>
-				</div>
+	<div class="playerstats-flex" id="statstext">
+
+
+<!-- 	<div class="playerstats-col" id="playerstats-col1">
+		<div class="playerstats-profile">
+			<img class="playerstats-img" src="images/avatar1.png">
+			<div class="playerstats-profile-name">
+				<div id="playerstatsName1">Larry</div><br>
+				<b><div id="playerstatsMoney1">(D1500)</div></b>
 			</div>
+		</div>
+		<div id="playerstatsAvatar1">
 			<div class="playerstats-tile">
 				<div class="playerstats-tile-color"></div>
 				<div class="playerstats-tile-name">Data Cost</div>
+				<img src="images/policy.png">
+				<div class="playerstats-tile-policy">1</div>
 			</div>
 		</div>
+	</div>
 
-		<div class="playerstats-col" id="playerstats-col2">
-			<div class="playerstats-profile">
-				<img class="playerstats-img" src="images/avatar2.png">
-				<div class="playerstats-profile-name">
-					<div id="playerstatsName2">Larry</div><br>
-					<b><div id="playerstatsMoney2">(D1500)</div></b>
-				</div>
-			</div>
-			<div class="playerstats-tile">
-				<div class="playerstats-tile-color"></div>
-				<div class="playerstats-tile-name">Data Cost</div>
+	<div class="playerstats-col" id="playerstats-col2">
+		<div class="playerstats-profile">
+			<img class="playerstats-img" src="images/avatar2.png">
+			<div class="playerstats-profile-name">
+				<div id="playerstatsName2">Larry</div><br>
+				<b><div id="playerstatsMoney2">(D1500)</div></b>
+				<div class="playerstats-tile-policy">1</div>
 			</div>
 		</div>
-
-		<div class="playerstats-col" id="playerstats-col3">
-			<div class="playerstats-profile">
-				<img class="playerstats-img" src="images/avatar3.png">
-				<div class="playerstats-profile-name">
-					<div id="playerstatsName3">Larry</div><br>
-					<b><div id="playerstatsMoney3">(D1500)</div></b>
-				</div>
-			</div>
-			<div class="playerstats-tile">
-				<div class="playerstats-tile-color"></div>
-				<div class="playerstats-tile-name">Data Cost</div>
-			</div>
+		<div id="playerstatsAvatar2">
+		<div class="playerstats-tile">
+			<div class="playerstats-tile-color"></div>
+			<div class="playerstats-tile-name">Data Cost</div>
 		</div>
-
-		<div class="playerstats-col" id="playerstats-col4">
-			<div class="playerstats-profile">
-				<img class="playerstats-img" src="images/avatar4.png">
-				<div class="playerstats-profile-name">
-					<div id="playerstatsName4">Larry</div><br>
-					<b><div id="playerstatsMoney4">(D1500)</div></b>
-				</div>
-			</div>
-			<div class="playerstats-tile">
-				<div class="playerstats-tile-color"></div>
-				<div class="playerstats-tile-name">Data Cost</div>
-			</div>
 		</div>
-
-		<div class="playerstats-col" id="playerstats-col5">
-			<div class="playerstats-profile">
-				<img class="playerstats-img" src="images/avatar5.png">
-				<div class="playerstats-profile-name">
-					<div id="playerstatsName5">Larry</div><br>
-					<b><div id="playerstatsMoney5">(D1500)</div></b>
-				</div>
-			</div>
-			<div class="playerstats-tile">
-				<div class="playerstats-tile-color"></div>
-				<div class="playerstats-tile-name">Data Cost</div>
-			</div>
-		</div>
-
-		<div class="playerstats-col" id="playerstats-col6">
-			<div class="playerstats-profile">
-				<img class="playerstats-img" src="images/avatar6.png">
-				<div class="playerstats-profile-name">
-					<div id="playerstatsName6">Larry</div><br>
-					<b><div id="playerstatsMoney6">(D1500)</div></b>
-				</div>
-			</div>
-			<div class="playerstats-tile">
-				<div class="playerstats-tile-color"></div>
-				<div class="playerstats-tile-name">Data Cost</div>
-			</div>
-		</div>
-
-		<div class="playerstats-col" id="playerstats-col7">
-			<div class="playerstats-profile">
-				<img class="playerstats-img" src="images/avatar7.png">
-				<div class="playerstats-profile-name">
-					<div id="playerstatsName7">Larry</div><br>
-					<b><div id="playerstatsMoney7">(D1500)</div></b>
-				</div>
-			</div>
-			<div class="playerstats-tile">
-				<div class="playerstats-tile-color"></div>
-				<div class="playerstats-tile-name">Data Cost</div>
-			</div>
-		</div>
-
-
-		<div class="playerstats-col" id="playerstats-col8">
-			<div class="playerstats-profile">
-				<img class="playerstats-img" src="images/avatar8.png">
-				<div class="playerstats-profile-name">
-					<div id="playerstatsName8">Larry</div><br>
-					<b><div id="playerstatsMoney8">(D1500)</div></b>
-				</div>
-			</div>
-			<div class="playerstats-tile">
-				<div class="playerstats-tile-color"></div>
-				<div class="playerstats-tile-name">Data Cost</div>
-			</div>
-		</div>
-
+	</div> -->
 
 	</div>
 	
 	</div>
 </div>
+
+
+<div id="popupbackground"></div>
+<!-- <div id="popupwrap"> -->
+	<div id="popup">
+		<div style="position: relative;">
+			<img id="popupx" src="images/close.png" title="Close" alt="x" onclick="closePopup()" />
+			<div id="popuptext">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</div>
+
+			<div id="popupdrag"></div>
+		</div>
+	</div>
+<!-- </div> -->
+
+
 
 <div id="canvas" style="display:non">
 
@@ -393,31 +447,31 @@
 </div>
 </div>
 
-<div class="avatar" id="avatar1" onclick="showCpanelBoard('playerstatscircle','playerstats-board')">
+<div class="avatar" id="avatar1" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
 	<img class="avatar-img" src="images/avatar1.png">
 	<div id="avatar1money" class="avatar-money">D100</div>
 </div>
-<div class="avatar" id="avatar2" onclick="showCpanelBoard('playerstatscircle','playerstats-board')">
+<div class="avatar" id="avatar2" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
 	<img class="avatar-img" src="images/avatar2.png">
 	<div id="avatar2money" class="avatar-money">D1500</div>
 </div>
-<div class="avatar" id="avatar3" onclick="showCpanelBoard('playerstatscircle','playerstats-board')">
+<div class="avatar" id="avatar3" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
 	<img class="avatar-img" src="images/avatar3.png">
 	<div id="avatar3money" class="avatar-money">D1500</div>
 </div>
-<div class="avatar" id="avatar4" onclick="showCpanelBoard('playerstatscircle','playerstats-board')">
+<div class="avatar" id="avatar4" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
 	<img class="avatar-img" src="images/avatar4.png">
 	<div id="avatar4money" class="avatar-money">D1500</div>
 </div>
-<div class="avatar" id="avatar5" onclick="showCpanelBoard('playerstatscircle','playerstats-board')">
+<div class="avatar" id="avatar5" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
 	<img class="avatar-img" src="images/avatar5.png">
 	<div id="avatar5money" class="avatar-money">D1500</div>
 </div>
-<div class="avatar" id="avatar6" onclick="showCpanelBoard('playerstatscircle','playerstats-board')">
+<div class="avatar" id="avatar6" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
 	<img class="avatar-img" src="images/avatar6.png">
 	<div id="avatar6money" class="avatar-money">D1500</div>
 </div>
-<div class="avatar" id="avatar7" onclick="showCpanelBoard('playerstatscircle','playerstats-board')">
+<div class="avatar" id="avatar7" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
 	<img class="avatar-img" src="images/avatar7.png">
 	<div id="avatar7money" class="avatar-money">D1500</div>
 </div>

@@ -74,7 +74,7 @@ function Game() {
 		}
 
 		$("#popupbackground").hide();
-		$("#popupwrap").hide();
+		$("#popup").hide();
 
 		if (!game.auction()) {
 			play();
@@ -569,7 +569,10 @@ function Game() {
 			recipientProperty.textContent = recipient.name + " has no properties to trade.";
 		}
 
+		console.log(initiator);
 		document.getElementById("trade-leftp-name").textContent = initiator.name;
+		document.getElementById("trade-leftp-amount").textContent = initiator.money;
+		$("#trade-leftp-avatar").attr({ "src": "images/avatar"+initiator.avatar+".png"});
 
 		currentName = document.getElementById("trade-rightp-name");
 
@@ -600,6 +603,7 @@ function Game() {
 			};
 
 			nameSelect.title = "Select a player to trade with.";
+			nameSelect.classList.add("custom-select");
 		} else {
 			currentName.textContent = recipient.name;
 		}
@@ -713,7 +717,7 @@ function Game() {
 	};
 
 	this.trade = function(tradeObj) {
-		$("#board").hide();
+		// $("#board").hide();
 		$("#control").hide();
 		$("#trade").show();
 		$("#proposetradebutton").show();
@@ -1031,7 +1035,7 @@ function Game() {
 				}
 
 				// Player already paid interest, so they can unmortgage for the mortgage price.
-				HTML += "' onmouseover='showdeed(" + i + ");' onmouseout='hidedeed();'></td><td class='propertycellname'><a href='javascript:void(0);' title='Unmortgage " + sq.name + " for $" + price + ".' onclick='if (" + price + " <= player[" + p.creditor + "].money) {player[" + p.creditor + "].pay(" + price + ", 0); square[" + i + "].mortgage = false; addAlert(\"" + player[p.creditor].name + " unmortgaged " + sq.name + " for $" + price + ".\");} this.parentElement.parentElement.style.display = \"none\";'>Unmortgage " + sq.name + " ($" + price + ")</a></td></tr>";
+				HTML += "' onmouseover='showdeed(" + i + ");' onmouseout='hidedeed();'></td><td class='propertycellname'><a href='javascript:void(0);' title='Unmortgage " + sq.name + " for D" + price + ".' onclick='if (" + price + " <= player[" + p.creditor + "].money) {player[" + p.creditor + "].pay(" + price + ", 0); square[" + i + "].mortgage = false; addAlert(\"" + player[p.creditor].name + " unmortgaged " + sq.name + " for $" + price + ".\");} this.parentElement.parentElement.style.display = \"none\";'>Unmortgage " + sq.name + " ($" + price + ")</a></td></tr>";
 
 				sq.owner = p.creditor;
 
@@ -1205,27 +1209,6 @@ Array.prototype.randomize = function(length) {
 	}
 };
 
-// function show(element) {
-	// // Element may be an HTML element or the id of one passed as a string.
-	// if (element.constructor == String) {
-		// element = document.getElementById(element);
-	// }
-
-	// if (element.tagName == "INPUT" || element.tagName == "SPAN" || element.tagName == "LABEL") {
-		// element.style.display = "inline";
-	// } else {
-		// element.style.display = "block";
-	// }
-// }
-
-// function hide(element) {
-	// // Element may be an HTML element or the id of one passed as a string.
-	// if (element.constructor == String) {
-		// document.getElementById(element).style.display = "none";
-	// } else {
-		// element.style.display = "none";
-	// }
-// }
 alertTimeout = setTimeout(function(){}, 10);
 function addAlert(alertText) {
 	$alert = $("#alert");
@@ -1251,9 +1234,6 @@ function addAlert(alertText) {
 
 function popup(HTML, action, option) {
 	document.getElementById("popuptext").innerHTML = HTML;
-	// document.getElementById("popup").style.width = "300px";
-	// document.getElementById("popup").style.top = "0px";
-	// document.getElementById("popup").style.left = "0px";
 
 	if (!option && typeof action === "string") {
 		option = action;
@@ -1270,7 +1250,7 @@ function popup(HTML, action, option) {
 		document.getElementById("popuptext").innerHTML += "<div><input type=\"button\" value=\"Yes\" id=\"popupyes\" /><input type=\"button\" value=\"No\" id=\"popupno\" /></div>";
 
 		$("#popupyes, #popupno").on("click", function() {
-			$("#popupwrap").hide();
+			$("#popup").hide();
 			$("#popupbackground").fadeOut(400);
 		});
 
@@ -1282,17 +1262,22 @@ function popup(HTML, action, option) {
 		$("#popupclose").focus();
 
 		$("#popupclose").on("click", function() {
-			$("#popupwrap").hide();
+			$("#popup").hide();
 			$("#popupbackground").fadeOut(400);
 		}).on("click", action);
 
 	}
 
 	// Show using animation.
-	// $("#popupbackground").fadeIn(400, function() {
-	// 	$("#popupwrap").show();
-	// });
+	$("#popupbackground").fadeIn(400, function() {
+		$("#popup").show();
+	});
 
+}
+
+function closePopup(){
+	$("#popup").hide();
+	$("#popupbackground").fadeOut(400);
 }
 
 
@@ -1323,8 +1308,8 @@ function updateMoney() {
 		$("#moneybarrow" + i).show();
 		// document.getElementById("avatar" + i + "moneyname1").innerHTML = p_i.name;
 		document.getElementById("avatar" + i + "money").innerHTML = p_i.name +" D"+p_i.money;
-		document.getElementById("playerstatsMoney" + i).innerHTML = "(D"+p_i.money+")";
-		document.getElementById("playerstatsName" + i).innerHTML = p_i.name;
+		// document.getElementById("playerstatsMoney" + i).innerHTML = "(D"+p_i.money+")";
+		// document.getElementById("playerstatsName" + i).innerHTML = p_i.name;
 	}
 
 	if (document.getElementById("landed").innerHTML === "") {
@@ -1385,24 +1370,27 @@ function updateOwned() {
 			housetext = "";
 			if (sq.house >= 1 && sq.house <= 4) {
 				for (var x = 1; x <= sq.house; x++) {
-					housetext += "<img src='images/house.png' alt='' title='House' class='house' />";
+					housetext += "<img src='images/policy.png' alt='' title='Policy' class='house' />";
 				}
 			} else if (sq.hotel) {
-				housetext += "<img src='images/hotel.png' alt='' title='Hotel' class='hotel' />";
+				housetext += "<img src='images/law.png' alt='' title='Law' class='hotel' />";
 			}
 
 			if (HTML === "") {
-				HTML += "<table>";
+				// HTML += "<table>";
 				firstproperty = i;
 			}
 
-			HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox" + i + "' /></td><td class='propertycellcolor' style='background: " + sq.color + ";";
+
+			// HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox" + i + "' /></td><td class='propertycellcolor' style='background: " + sq.color + ";";
+
+			HTML += "<label class='playertile-label' for='propertycheckbox"+i+"'><div class='playerstats-tile property-cell-row'><input type='checkbox' id='propertycheckbox" + i + "'></td><div class='playerstats-tile-color' style='background: " + sq.color + ";'></div><div class='playerstats-tile-name'>"+sq.name+"</div></div></label><br>";
 
 			if (sq.groupNumber == 1 || sq.groupNumber == 2) {
-				HTML += " border: 1px solid grey; width: 18px;";
+				// HTML += " border: 1px solid grey; width: 18px;";
 			}
 
-			HTML += "' onmouseover='showdeed(" + i + ");' onmouseout='hidedeed();'></td><td class='propertycellname' " + mortgagetext + ">" + sq.name + housetext + "</td></tr>";
+			// HTML += "' onmouseover='showdeed(" + i + ");' onmouseout='hidedeed();'></td><td class='propertycellname' " + mortgagetext + ">" + sq.name + housetext + "</td></tr>";
 		}
 	}
 
@@ -1411,7 +1399,9 @@ function updateOwned() {
 			firstproperty = 40;
 			HTML += "<table>";
 		}
-		HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox40' /></td><td class='propertycellcolor' style='background: white;'></td><td class='propertycellname'>Get Out of Jail Free Card</td></tr>";
+		// HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox40' /></td><td class='propertycellcolor' style='background: white;'></td><td class='propertycellname'>Get Out of Jail Free Card</td></tr>";
+
+			HTML += "<label class='playertile-label' for='propertycheckbox40'><div class='playerstats-tile property-cell-row'><input type='checkbox' id='propertycheckbox40'></td><div class='playerstats-tile-name'>Get Out of Jail Free Card</div></div></label><br>";
 
 	}
 	if (p.chanceJailCard) {
@@ -1419,14 +1409,16 @@ function updateOwned() {
 			firstproperty = 41;
 			HTML += "<table>";
 		}
-		HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox41' /></td><td class='propertycellcolor' style='background: white;'></td><td class='propertycellname'>Get Out of Jail Free Card</td></tr>";
+		// HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox41' /></td><td class='propertycellcolor' style='background: white;'></td><td class='propertycellname'>Get Out of Jail Free Card</td></tr>";
+
+			HTML += "<label class='playertile-label' for='propertycheckbox41'><div class='playerstats-tile property-cell-row'><input type='checkbox' id='propertycheckbox41'></td><div class='playerstats-tile-name'>Get Out of Jail Free Card</div></div></label><br>";
 	}
 
 	if (HTML === "") {
 		HTML = p.name + ", you don't have any properties.";
 		$("#option").hide();
 	} else {
-		HTML += "</table>";
+		// HTML += "</table>";
 	}
 
 	document.getElementById("owned").innerHTML = HTML;
@@ -1441,12 +1433,12 @@ function updateOwned() {
 		var row = this;
 
 		// Toggle check the current checkbox.
-		$(this).find(".propertycellcheckbox > input").prop("checked", function(index, val) {
+		$(this).find("input").prop("checked", function(index, val) {
 			return !val;
 		});
 
 		// Set all other checkboxes to false.
-		$(".propertycellcheckbox > input").prop("checked", function(index, val) {
+		$(".property-cell-row > input").prop("checked", function(index, val) {
 			if (!$.contains(row, this)) {
 				return false;
 			}
@@ -1482,7 +1474,7 @@ function updateOption() {
 		}
 
 		$("#buildings").show();
-		document.getElementById("buildings").innerHTML = "<img src='images/house.png' alt='' title='House' class='house' />:&nbsp;" + housesum + "&nbsp;&nbsp;<img src='images/hotel.png' alt='' title='Hotel' class='hotel' />:&nbsp;" + hotelsum;
+		document.getElementById("buildings").innerHTML = "<img src='images/policy.png' alt='' title='policy' class='house' />:&nbsp;" + housesum + "&nbsp;&nbsp;<img src='images/law.png' alt='' title='Law' class='hotel' />:&nbsp;" + hotelsum+"<br><br>";
 
 		return;
 	}
@@ -1504,7 +1496,7 @@ function updateOption() {
 
 		allGroupUnmortgaged = false;
 	} else {
-		document.getElementById("mortgagebutton").value = "Mortgage ($" + (sq.price * 0.5) + ")";
+		document.getElementById("mortgagebutton").value = "Mortgage (D" + (sq.price * 0.5) + ")";
 		document.getElementById("mortgagebutton").title = "Mortgage " + sq.name + " for D" + (sq.price * 0.5) + ".";
 
 		if (sq.groupNumber >= 3) {
@@ -1513,19 +1505,19 @@ function updateOption() {
 			buyhousebutton.disabled = false;
 			sellhousebutton.disabled = false;
 
-			buyhousebutton.value = "Buy house (D" + sq.houseprice + ")";
-			sellhousebutton.value = "Sell house (D" + (sq.houseprice * 0.5) + ")";
-			buyhousebutton.title = "Buy a house for D" + sq.houseprice;
-			sellhousebutton.title = "Sell a house for D" + (sq.houseprice * 0.5);
+			buyhousebutton.value = "Buy policy (D" + sq.houseprice + ")";
+			sellhousebutton.value = "Sell policy (D" + (sq.houseprice * 0.5) + ")";
+			buyhousebutton.title = "Buy a policy for D" + sq.houseprice;
+			sellhousebutton.title = "Sell a policy for D" + (sq.houseprice * 0.5);
 
 			if (sq.house == 4) {
-				buyhousebutton.value = "Buy hotel (D" + sq.houseprice + ")";
-				buyhousebutton.title = "Buy a hotel for D" + sq.houseprice;
+				buyhousebutton.value = "Buy law (D" + sq.houseprice + ")";
+				buyhousebutton.title = "Buy a law for D" + sq.houseprice;
 			}
 			if (sq.hotel == 1) {
 				$("#buyhousebutton").hide();
-				sellhousebutton.value = "Sell hotel (D" + (sq.houseprice * 0.5) + ")";
-				sellhousebutton.title = "Sell a hotel for D" + (sq.houseprice * 0.5);
+				sellhousebutton.value = "Sell law (D" + (sq.houseprice * 0.5) + ")";
+				sellhousebutton.title = "Sell a law for D" + (sq.houseprice * 0.5);
 			}
 
 			var maxhouse = 0;
@@ -1546,7 +1538,7 @@ function updateOption() {
 				if (s.owner !== sq.owner) {
 					buyhousebutton.disabled = true;
 					sellhousebutton.disabled = true;
-					buyhousebutton.title = "Before you can buy a house, you must own all the properties of this color-group.";
+					buyhousebutton.title = "Before you can buy a policy, you must own all the policies of this color-group.";
 				} else {
 
 					if (s.house > maxhouse) {
@@ -1569,7 +1561,7 @@ function updateOption() {
 
 			if (!allGroupUnmortgaged) {
 				buyhousebutton.disabled = true;
-				buyhousebutton.title = "Before you can buy a house, you must unmortgage all the properties of this color-group.";
+				buyhousebutton.title = "Before you can buy a policy, you must unmortgage all the properties of this color-group.";
 			}
 
 			// Force even building
@@ -1577,20 +1569,20 @@ function updateOption() {
 				buyhousebutton.disabled = true;
 
 				if (sq.house == 1) {
-					buyhousebutton.title = "Before you can buy another house, the other properties of this color-group must all have one house.";
+					buyhousebutton.title = "Before you can buy another policy, the other properties of this color-group must all have one policy.";
 				} else if (sq.house == 4) {
-					buyhousebutton.title = "Before you can buy a hotel, the other properties of this color-group must all have 4 houses.";
+					buyhousebutton.title = "Before you can buy a law, the other properties of this color-group must all have 4 houses.";
 				} else {
-					buyhousebutton.title = "Before you can buy a house, the other properties of this color-group must all have " + sq.house + " houses.";
+					buyhousebutton.title = "Before you can buy a law, the other properties of this color-group must all have " + sq.house + " houses.";
 				}
 			}
 			if (sq.house < maxhouse) {
 				sellhousebutton.disabled = true;
 
 				if (sq.house == 1) {
-					sellhousebutton.title = "Before you can sell house, the other properties of this color-group must all have one house.";
+					sellhousebutton.title = "Before you can sell policy, the other policies of this color-group must all have one policy.";
 				} else {
-					sellhousebutton.title = "Before you can sell a house, the other properties of this color-group must all have " + sq.house + " houses.";
+					sellhousebutton.title = "Before you can sell a policy, the other policies of this color-group must all have " + sq.house + " policies.";
 				}
 			}
 
@@ -1627,7 +1619,7 @@ function chanceCommunityChest() {
 			communityChestCards.deck.splice(communityChestCards.index, 1);
 		}
 
-		popup("<img src='images/community_chest_icon.png' style='height: 50px; width: 53px; float: left; margin: 8px 8px 8px 0px;' /><div style='font-weight: bold; font-size: 16px; '>Community Chest:</div><div style='text-align: justify;'>" + communityChestCards[communityChestIndex].text + "</div>", function() {
+		popup("<div style='font-weight: bold; font-size: 16px; '>Community Chest:</div><div style='text-align: justify;'>" + communityChestCards[communityChestIndex].text + "</div>", function() {
 			communityChestAction(communityChestIndex);
 		});
 
@@ -1646,7 +1638,7 @@ function chanceCommunityChest() {
 			chanceCards.deck.splice(chanceCards.index, 1);
 		}
 
-		popup("<img src='images/chance_icon.png' style='height: 50px; width: 26px; float: left; margin: 8px 8px 8px 0px;' /><div style='font-weight: bold; font-size: 16px; '>Chance:</div><div style='text-align: justify;'>" + chanceCards[chanceIndex].text + "</div>", function() {
+		popup("<div style='font-weight: bold; font-size: 16px; '>Chance:</div><div style='text-align: justify;'>" + chanceCards[chanceIndex].text + "</div>", function() {
 			chanceAction(chanceIndex);
 		});
 
@@ -1670,7 +1662,7 @@ function chanceAction(chanceIndex) {
 	var p = player[turn]; // This is needed for reference in action() method.
 
 	// $('#popupbackground').hide();
-	// $('#popupwrap').hide();
+	// $('#popup').hide();
 	chanceCards[chanceIndex].action(p);
 
 	updateMoney();
@@ -1685,7 +1677,7 @@ function communityChestAction(communityChestIndex) {
 	var p = player[turn]; // This is needed for reference in action() method.
 
 	// $('#popupbackground').hide();
-	// $('#popupwrap').hide();
+	// $('#popup').hide();
 	communityChestCards[communityChestIndex].action(p);
 
 	updateMoney();
@@ -1701,7 +1693,7 @@ function addamount(amount, cause) {
 
 	p.money += amount;
 
-	addAlert(p.name + " received $" + amount + " from " + cause + ".");
+	addAlert(p.name + " received D" + amount + " from " + cause + ".");
 }
 
 function subtractamount(amount, cause) {
@@ -1709,7 +1701,7 @@ function subtractamount(amount, cause) {
 
 	p.pay(amount, 0);
 
-	addAlert(p.name + " lost $" + amount + " from " + cause + ".");
+	addAlert(p.name + " lost D" + amount + " from " + cause + ".");
 }
 
 function gotojail() {
@@ -1731,7 +1723,7 @@ function gotojail() {
 	updateOwned();
 
 	if (!p.human) {
-		popup(p.AI.alertList, game.next);
+		// popup(p.AI.alertList, game.next);
 		p.AI.alertList = "";
 	}
 }
@@ -1758,7 +1750,7 @@ function payeachplayer(amount, cause) {
 		}
 	}
 
-	addAlert(p.name + " lost $" + total + " from " + cause + ".");
+	addAlert(p.name + " lost D" + total + " from " + cause + ".");
 }
 
 function collectfromeachplayer(amount, cause) {
@@ -1957,7 +1949,7 @@ function buyHouse(index) {
 
 			} else {
 				sq.house++;
-				addAlert(p.name + " placed a house on " + sq.name + ".");
+				addAlert(p.name + " placed a policy on " + sq.name + ".");
 			}
 
 		} else {
@@ -1967,7 +1959,7 @@ function buyHouse(index) {
 			} else {
 				sq.house = 5;
 				sq.hotel = 1;
-				addAlert(p.name + " placed a hotel on " + sq.name + ".");
+				addAlert(p.name + " placed a law on " + sq.name + ".");
 			}
 		}
 
@@ -1985,10 +1977,10 @@ function sellHouse(index) {
 	if (sq.hotel === 1) {
 		sq.hotel = 0;
 		sq.house = 4;
-		addAlert(p.name + " sold the hotel on " + sq.name + ".");
+		addAlert(p.name + " sold the law on " + sq.name + ".");
 	} else {
 		sq.house--;
-		addAlert(p.name + " sold a house on " + sq.name + ".");
+		addAlert(p.name + " sold a law on " + sq.name + ".");
 	}
 
 	p.money += sq.houseprice * 0.5;
@@ -2001,15 +1993,15 @@ function showStats() {
 	var mortgagetext,
 	housetext;
 	var write;
-	HTML = "<table align='center'><tr>";
+	// HTML = "<table align='center'><tr>";
+	HTML = "";
 
 	for (var x = 1; x <= pcount; x++) {
 		write = false;
 		p = player[x];
-		if (x == 5) {
-			HTML += "</tr><tr>";
-		}
-		HTML += "<td class='statscell' id='statscell" + x + "' style='border: 2px solid " + p.color + "' ><div class='statsplayername'>" + p.name + "</div>";
+
+		HTML += '<div class="playerstats-col"><div class="playerstats-profile"><img class="playerstats-img" src="images/avatar'+p.avatar+'.png"><div class="playerstats-profile-name"><div>'+p.name+'</div><br><b><div>(D'+p.money+')</div></b></div></div>';
+		// console.log(HTML);
 
 		for (var i = 0; i < 40; i++) {
 			sq = square[i];
@@ -2017,6 +2009,7 @@ function showStats() {
 			if (sq.owner == x) {
 				mortgagetext = "",
 				housetext = "";
+				HTML += "<div class='playerstats-tile'>";
 
 				if (sq.mortgage) {
 					mortgagetext = "title='Mortgaged' style='color: grey;'";
@@ -2024,51 +2017,56 @@ function showStats() {
 
 				if (!write) {
 					write = true;
-					HTML += "<table>";
 				}
+				HTML += "<div class='playerstats-tile-color' style='background: " + sq.color + ";'></div>";
+				HTML += "<div class='playerstats-tile-name'>"+sq.name+"</div>";
+
 
 				if (sq.house == 5) {
-					housetext += "<span style='float: right; font-weight: bold;'>1&nbsp;x&nbsp;<img src='images/hotel.png' alt='' title='Hotel' class='hotel' style='float: none;' /></span>";
+					housetext += "<span style='float: right; font-weight: bold;'>1&nbsp;x&nbsp;<img src='images/hotel.png' alt='' title='Law' class='hotel' style='float: none;' /></span>";
+					HTML += "<img src='images/law.png'>";
 				} else if (sq.house > 0 && sq.house < 5) {
-					housetext += "<span style='float: right; font-weight: bold;'>" + sq.house + "&nbsp;x&nbsp;<img src='images/house.png' alt='' title='House' class='house' style='float: none;' /></span>";
+					// housetext += "<span style='float: right; font-weight: bold;'>" + sq.house + "&nbsp;x&nbsp;<img src='images/house.png' alt='' title='House' class='house' style='float: none;' /></span>";
+					HTML += "<img src='images/policy.png'><div class='playerstats-tile-policy'>" + sq.house + "</div>";
 				}
 
-				HTML += "<tr><td class='statscellcolor' style='background: " + sq.color + ";";
+				// HTML += "<tr><td class='statscellcolor' style='background: " + sq.color + ";";
 
 				if (sq.groupNumber == 1 || sq.groupNumber == 2) {
-					HTML += " border: 1px solid grey;";
+					// HTML += " border: 1px solid grey;";
 				}
 
-				HTML += "' onmouseover='showdeed(" + i + ");' onmouseout='hidedeed();'></td><td class='statscellname' " + mortgagetext + ">" + sq.name + housetext + "</td></tr>";
+				// HTML += "' onmouseover='showdeed(" + i + ");' onmouseout='hidedeed();'></td><td class='statscellname' " + mortgagetext + ">" + sq.name + housetext + "</td></tr>";
+
+				HTML += "</div>";
+
 			}
 		}
 
 		if (p.communityChestJailCard) {
 			if (!write) {
 				write = true;
-				HTML += "<table>";
 			}
-			HTML += "<tr><td class='statscellcolor'></td><td class='statscellname'>Get Out of Jail Free Card</td></tr>";
+			HTML += "<div class='playerstats-tile'>Get Out of Jail Free Card</div>";
 
 		}
 		if (p.chanceJailCard) {
 			if (!write) {
 				write = true;
-				HTML += "<table>";
+				// HTML += "<<div class='playerstats-tile'>";
 			}
-			HTML += "<tr><td class='statscellcolor'></td><td class='statscellname'>Get Out of Jail Free Card</td></tr>";
+			HTML += "<div class='playerstats-tile'>Get Out of Jail Free Card</div>";
 
 		}
 
 		if (!write) {
-			HTML += p.name + " dosen't have any properties.";
+			HTML += "<center>"+ p.name + " does not have any properties.</center>";
 		} else {
-			HTML += "</table>";
+			// HTML += "</div>";
 		}
 
-		HTML += "</td>";
+	HTML += "</div>";
 	}
-	HTML += "</tr></table><div id='titledeed'></div>";
 
 	document.getElementById("statstext").innerHTML = HTML;
 	// Show using animation.
@@ -2136,6 +2134,15 @@ function buy() {
 		property.owner = turn;
 		updateMoney();
 		addAlert(p.name + " bought " + property.name + " for " + property.pricetext + ".");
+
+		// var faceProperty = document.createElement("img");
+        // faceProperty.id = "faceProperty"+p.position;
+        // faceProperty.className = "faceProperty";
+        // faceProperty.src = "images/avatar"+p.avatar+".png";
+
+        // // Add content to the div (optional)
+        // newDiv.innerHTML = "<p>This is dynamically created content.</p>";
+
 
 		updateOwned();
 
@@ -2205,7 +2212,7 @@ function land(increasedRent) {
 	blackFade();
 
 
-	document.getElementById("landed").innerHTML = "You landed on " + s.name + ".";
+	document.getElementById("landed").innerHTML = "You landed on <span style='text-decoration:underline'>" + s.name + "</span>.";
 	s.landcount++;
 	// addAlert(p.name + " landed on " + s.name + ".");
 
@@ -2305,7 +2312,7 @@ function land(increasedRent) {
 		updatePosition();
 
 		if (p.human) {
-			popup("<div>Go to jail. Go directly to Jail. Do not pass GO. Do not collect $200.</div>", gotojail);
+			popup("<div>Go to jail. Go directly to Jail. Do not pass GO. Do not collect D200.</div>", gotojail);
 		} else {
 			gotojail();
 		}
@@ -2433,7 +2440,7 @@ function roll() {
 				document.getElementById("landed").innerHTML = "You are in jail.";
 
 				if (!p.human) {
-					popup(p.AI.alertList, game.next);
+					// popup(p.AI.alertList, game.next);
 					p.AI.alertList = "";
 				}
 			}
@@ -2969,12 +2976,12 @@ window.onload = function() {
 				popup("<p>You need $" + (Math.round(s.price * 0.55) - player[s.owner].money) + " more to unmortgage " + s.name + ".</p>");
 
 			} else {
-				popup("<p>" + player[s.owner].name + ", are you sure you want to unmortgage " + s.name + " for $" + Math.round(s.price * 0.55) + "?</p>", function() {
+				popup("<p>" + player[s.owner].name + ", are you sure you want to unmortgage " + s.name + " for D" + Math.round(s.price * 0.55) + "?</p>", function() {
 					unmortgage(checkedProperty);
 				}, "Yes/No");
 			}
 		} else {
-			popup("<p>" + player[s.owner].name + ", are you sure you want to mortgage " + s.name + " for $" + Math.round(s.price * 0.5) + "?</p>", function() {
+			popup("<p>" + player[s.owner].name + ", are you sure you want to mortgage " + s.name + " for D" + Math.round(s.price * 0.5) + "?</p>", function() {
 				mortgage(checkedProperty);
 			}, "Yes/No");
 		}
@@ -2990,10 +2997,10 @@ window.onload = function() {
 
 		if (p.money < s.houseprice) {
 			if (s.house === 4) {
-				popup("<p>You need $" + (s.houseprice - player[s.owner].money) + " more to buy a hotel for " + s.name + ".</p>");
+				popup("<p>You need D" + (s.houseprice - player[s.owner].money) + " more to buy a law for " + s.name + ".</p>");
 				return;
 			} else {
-				popup("<p>You need $" + (s.houseprice - player[s.owner].money) + " more to buy a house for " + s.name + ".</p>");
+				popup("<p>You need D" + (s.houseprice - player[s.owner].money) + " more to buy a policy for " + s.name + ".</p>");
 				return;
 			}
 		}
@@ -3007,10 +3014,10 @@ window.onload = function() {
 		}
 
 		if (s.house < 4 && houseSum >= 32) {
-			popup("<p>All 32 houses are owned. You must wait until one becomes available.</p>");
+			popup("<p>All 32 policies are owned. You must wait until one becomes available.</p>");
 			return;
 		} else if (s.house === 4 && hotelSum >= 12) {
-			popup("<p>All 12 hotels are owned. You must wait until one becomes available.</p>");
+			popup("<p>All 12 laws are owned. You must wait until one becomes available.</p>");
 			return;
 		}
 
@@ -3041,7 +3048,7 @@ window.onload = function() {
 	});
 
 
-	$("#trade-menu-item").click(game.trade);
+	// $("#tradecircle").click(game.trade);
 
 setup();
 

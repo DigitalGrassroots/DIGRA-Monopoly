@@ -268,9 +268,16 @@ function selectPlayerCount(e){
   }	
 
 	playerCount = e;
+
   for (var i = 8; i>playerCount;i--) {
   	document.getElementById("playerSelect"+i).style.display = "none";
   }
+
+  for (var i = 1; i<e+1;i++) {
+  	console.log('dfd');
+  	document.getElementById("playerSelect"+i).style.display = "block";
+  }
+
 	document.getElementById("view3btn"+e).classList.add('setup-player-select-selected');
 	selectedPlayerCount = e;
 
