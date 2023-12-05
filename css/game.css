@@ -416,6 +416,7 @@ a{
 }
 
 
+
 .manage-board .playerstats-profile{
 	margin-top: 20px;
 }
@@ -453,7 +454,7 @@ a{
 	color: #fff;
 	border: 2px solid black;
 	position: fixed;
-	top: 35vh;
+	top: 43vh;
 	z-index: 3;
 	pointer-events: none;
 	opacity: 0;
@@ -621,4 +622,20 @@ a{
 	width: 15px;
 	height: 15px;
 	background: red;
+}
+
+
+.settings-board{
+	width: 50vw;
+	height: 75vh;
+	left: 25vw;
+	top: 5vh;
+	background: var(--mustard);
+	border: 3px solid black;
+	position: fixed;
+	z-index: 4;
+	border-radius: 20px;
+	text-align: center;
+	display: none;
+	opacity: 0;
 }

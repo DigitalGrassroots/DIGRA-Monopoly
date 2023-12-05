@@ -1124,7 +1124,7 @@ function Player(name, color, avatar) {
 	this.avatar = avatar;
 	this.oldposition = 0;
 	this.position = 0;
-	this.money = 1500;
+	this.money = 15;
 	this.creditor = -1;
 	this.jail = false;
 	this.jailroll = 0;
@@ -1229,7 +1229,7 @@ function addAlert(alertText) {
 	alertTimeout = setTimeout(function(){
 		$("#alertDiv").css("transform", "translateY(0)");
 		$("#alertDiv").css("opacity", 0);
-	}, 10000);
+	}, 5000);
 }
 
 function popup(HTML, action, option) {
@@ -2469,9 +2469,9 @@ function roll() {
 function play() {
 
 // switch auction back on
-	// if (game.auction()) {
-	// 	return;
-	// }
+	if (game.auction()) {
+		return;
+	}
 
 	turn++;
 	if (turn > pcount) {
