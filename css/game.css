@@ -24,6 +24,7 @@ body{
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
+/*	background: var(--mustard);*/
 }
 .body-plain{
 	background: var(--mustard);
@@ -454,7 +455,7 @@ a{
 	color: #fff;
 	border: 2px solid black;
 	position: fixed;
-	top: 266px;
+	top: 35vh;
 	z-index: 3;
 	pointer-events: none;
 	opacity: 0;
@@ -476,7 +477,7 @@ a{
 
 .dice-container {
 	position: absolute;
-	top: 380px;
+	top: 60vh;
 	z-index: 2;
 /*	background: red;*/
 	left: 50%;
