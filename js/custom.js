@@ -111,10 +111,10 @@ scale_x = $(window).width() / 1366;
 $('#canvas').css("transform-origin","top left");
 $('#canvas').css("transform","scale("+scale_x+")");
 
-for (var key in positions) {
-    positions[key][1] *= scale_x;
-    positions[key][0] *= scale_y;
-}
+// for (var key in positions) {
+//     positions[key][1] *= scale_x;
+//     positions[key][0] *= scale_x;
+// }
 
 });
 
