@@ -105,32 +105,16 @@ var positions = {
 
 
 $(window).resize(function() { 
-// your code 
-  console.log(window);
-var scale = Math.round(window.devicePixelRatio*100);
 
-var ratio = 100/scale;
-if (scale>100) {
 
-var ymove = (scale - 100)/2;
-var xmove = (scale - 100)/2;
-
-// $("#canvas").css("left","0");
-$("#canvas").css("transform","scale("+ratio+") translate(-"+xmove+"%, -"+ymove+"%)");
-}else if(scale < 100){
-// var ratio = (scale/100)+1;
-var ymove = (100 - scale)/2;
-var xmove = (100 - scale)/2;
-$("#canvas").css("transform","scale("+ratio+") translate("+xmove+"%, "+ymove+"%)");
-}else{
-$("#canvas").css("transform","scale(1) translate(0,0)");
-}
+scale_val = $(window).width() / 1366;
+$('#canvas').css("transform-origin","top left")
+$('#canvas').css("transform","scale("+scale_val+")")
 
 });
 
 
-var cl_Width = $(window).width();
-scale_val = cl_Width / 1366;
+scale_val = $(window).width() / 1366;
 $('#canvas').css("transform-origin","top left")
 $('#canvas').css("transform","scale("+scale_val+")")
 // console.log('dfdfdf');
