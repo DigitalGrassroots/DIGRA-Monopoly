@@ -123,7 +123,7 @@ scale_x = $(window).width() / 1366;
 // scale_y = $(window).height() / 619;
 $('#canvas').css("transform-origin","top left");
 // $('#canvas').css("transform","scale("+scale_x+", "+scale_y+")");
-$('#canvas').css("transform","scale("+scale_x+")");
+$('#canvas').css("transform","scale("+scale_x+"), translateY(50%)");
 // console.log('dfdfdf');
 
 // console.log('fdf');
