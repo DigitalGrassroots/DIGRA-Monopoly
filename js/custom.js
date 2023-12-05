@@ -106,22 +106,23 @@ var positions = {
 
 $(window).resize(function() { 
 
-
-scale_val = $(window).width() / 1366;
-$('#canvas').css("transform-origin","top left")
-$('#canvas').css("transform","scale("+scale_val+")")
+scale_x = $(window).width() / 1366;
+scale_y = $(window).height() / 619;
+$('#canvas').css("transform-origin","top left");
+$('#canvas').css("transform","scale("+scale_x+", "+scale_y+")");
 
 for (var key in positions) {
-    positions[key][0] *= scale_val;
-    positions[key][1] *= scale_val;
+    positions[key][1] *= scale_x;
+    positions[key][0] *= scale_y;
 }
 
 });
 
 
-scale_val = $(window).width() / 1366;
+scale_x = $(window).width() / 1366;
+scale_y = $(window).height() / 619;
 $('#canvas').css("transform-origin","top left");
-$('#canvas').css("transform","scale("+scale_val+")");
+$('#canvas').css("transform","scale("+scale_x+", "+scale_y+")");
 // console.log('dfdfdf');
 
 // console.log('fdf');
