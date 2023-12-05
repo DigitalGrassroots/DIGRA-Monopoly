@@ -128,6 +128,12 @@ $("#canvas").css("transform","scale(1) translate(0,0)");
 
 });
 
+
+var cl_Width = $(window).width();
+scale_val = cl_Width / 1366;
+$('#canvas').css("transform","scale("+scale_val+")")
+// console.log('dfdfdf');
+
 // console.log('fdf');
 
 $("#avatar1, #avatar2, #avatar3, #avatar4, #avatar5, #avatar6, #avatar7").css({"left": positions[0][0]+"px", "top": positions[0][1]+"px"});
