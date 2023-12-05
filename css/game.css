@@ -24,7 +24,7 @@ body{
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
-/*	background: var(--mustard);*/
+	background: var(--mustard);
 }
 .body-plain{
 	background: var(--mustard);
