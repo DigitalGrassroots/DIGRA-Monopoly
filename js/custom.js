@@ -120,13 +120,10 @@ $('#canvas').css("transform","scale("+scale_x+")");
 
 
 scale_x = $(window).width() / 1366;
-// scale_y = $(window).height() / 619;
+scale_y = $(window).height() / 619;
 $('#canvas').css("transform-origin","top left");
-// $('#canvas').css("transform","scale("+scale_x+", "+scale_y+")");
-$('#canvas').css("transform","scale("+scale_x+"), translateY(50%)");
-// console.log('dfdfdf');
+$('#canvas').css("transform","scale("+scale_x+")");
 
-// console.log('fdf');
 
 $("#avatar1, #avatar2, #avatar3, #avatar4, #avatar5, #avatar6, #avatar7").css({"left": positions[0][0]+"px", "top": positions[0][1]+"px"});
 
