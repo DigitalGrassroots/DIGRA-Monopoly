@@ -454,7 +454,7 @@ a{
 	color: #fff;
 	border: 2px solid black;
 	position: fixed;
-	top: 43vh;
+	top: 266px;
 	z-index: 3;
 	pointer-events: none;
 	opacity: 0;
@@ -476,7 +476,7 @@ a{
 
 .dice-container {
 	position: absolute;
-	top: 60vh;
+	top: 380px;
 	z-index: 2;
 /*	background: red;*/
 	left: 50%;
