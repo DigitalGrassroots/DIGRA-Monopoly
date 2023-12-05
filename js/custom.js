@@ -119,8 +119,8 @@ for (var key in positions) {
 });
 
 
-scale_val = ($(window).width() / 1366 ) + 0.1;
-$('#canvas').css("transform-origin","50% 50%");
+scale_val = $(window).width() / 1366;
+$('#canvas').css("transform-origin","top left");
 $('#canvas').css("transform","scale("+scale_val+")");
 // console.log('dfdfdf');
 
