@@ -119,10 +119,10 @@ for (var key in positions) {
 });
 
 
-scale_x = $(window).width() / 1366;
-scale_y = $(window).height() / 619;
-$('#canvas').css("transform-origin","top left");
-$('#canvas').css("transform","scale("+scale_x+", "+scale_y+")");
+// scale_x = $(window).width() / 1366;
+// scale_y = $(window).height() / 619;
+// $('#canvas').css("transform-origin","top left");
+// $('#canvas').css("transform","scale("+scale_x+", "+scale_y+")");
 // console.log('dfdfdf');
 
 // console.log('fdf');
