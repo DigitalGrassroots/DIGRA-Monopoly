@@ -131,6 +131,7 @@ $("#canvas").css("transform","scale(1) translate(0,0)");
 
 var cl_Width = $(window).width();
 scale_val = cl_Width / 1366;
+$('#canvas').css("transform-origin","top left")
 $('#canvas').css("transform","scale("+scale_val+")")
 // console.log('dfdfdf');
 
