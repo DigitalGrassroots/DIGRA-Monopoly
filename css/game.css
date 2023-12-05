@@ -34,7 +34,7 @@ a{
 	color: inherit;
 }
 
-.infobtn{
+.btn{
 	border-radius: 4px;
 	color: #fff;
 	text-transform: uppercase;
@@ -44,7 +44,7 @@ a{
 	padding: 5px 10px;
 	box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.25);
 	display: inline-block;
-}.infobtn:hover{
+}.btn:hover{
 	box-shadow: none;
 /*	background: var(--mustard);*/
 }
@@ -63,6 +63,16 @@ a{
 
 .buybtn{
 	background: #097100;
+}
+
+.redbtn{
+	background: red;
+}
+
+.btn:disabled{
+	background: rgb(0, 0, 0, 0.8);
+	color: rgb(255, 255, 255, 0.5);
+	cursor: not-allowed;
 }
 
 .statscellcolor{
@@ -101,7 +111,7 @@ a{
 }
 
 .cpanel-text{
-	font-size: 10px;
+	font-size: 12px;
 	font-weight: 700;
 	text-align: center;
 }
@@ -111,16 +121,22 @@ a{
 	height: 60px;
 	background: rgb(0, 0, 0, 0.7);
 	border-radius: 100px;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 	border:7px solid #fff;
 	box-sizing: border-box;
 	cursor: pointer;
+	text-align: center;
+	line-height: 65px;
 }.cpanel-circle:hover{
 	background: var(--mustard);
 }
 .cpanel-circle-active{
 	background: var(--mustard);
 }
+
+.cpanel-circle img{
+}
+
 
 .board{
 	width: 100vw;
@@ -381,6 +397,10 @@ a{
 	cursor: pointer;
 }
 
+.playertile-label-disabled .playerstats-tile{
+	opacity: 0.5;
+}
+
 .playertile-label .playerstats-tile-name{
 	text-align: left;
 }
@@ -455,8 +475,9 @@ a{
 	color: #fff;
 	border: 2px solid black;
 	position: fixed;
-	top: 35vh;
-	z-index: 3;
+	top: 43vh;
+/*	top: 30vh;*/
+	z-index: 2;
 	pointer-events: none;
 	opacity: 0;
 	text-align: center;
@@ -604,6 +625,7 @@ a{
 
 .trade-cell tr{
 	width: 100%;
+	min-width: 200px;
 	background: #fff;
 	box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
 	display: flex;
@@ -612,7 +634,7 @@ a{
 	align-items: center;
 	justify-content: center;
 	margin-bottom: 10px;
-/*	cursor: pointer;*/
+	cursor: pointer;
 }
 
 .propertycellcheckbox input{

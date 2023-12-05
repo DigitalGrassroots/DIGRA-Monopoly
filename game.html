@@ -98,21 +98,21 @@
 <!--  -->
 <div id="cpanel">
 	<div onclick="showCpanelBoard('settingscircle','settings-board');" id="settingscircle" style="pointer-events: auto;">
-		<div class="cpanel-circle"></div>
+		<div class="cpanel-circle"><img src="svg/cpanel-settings.svg"></div>
 		<div class="cpanel-text">Settings</div>
 	</div>
 	<!--  -->
 	<div onclick="showCpanelBoard('tradecircle','trade-board');game.trade()" id="tradecircle" style="pointer-events: auto;">
-		<div class="cpanel-circle"></div>
+		<div class="cpanel-circle" style="line-height: 68px;"><img style="margin-right: 0px;" src="svg/cpanel-trade.svg"></div>
 		<div class="cpanel-text">Trade</div>
 	</div>
 	<div class="cpanel-space" onclick="closeCpanel()"></div>
 	<div onclick="showCpanelBoard('managecircle', 'manage-board')" id="managecircle" style="pointer-events: auto;">
-		<div class="cpanel-circle"></div>
+		<div class="cpanel-circle" style="line-height: 60px"><img src="svg/cpanel-manage.svg"></div>
 		<div class="cpanel-text">Manage</div>
 	</div>
 	<div onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats()" id="playerstatscircle" style="pointer-events: auto;">
-		<div class="cpanel-circle"></div>
+		<div class="cpanel-circle"><img src="svg/cpanel-players.svg"></div>
 		<div class="cpanel-text">Players</div>
 	</div>
 </div>
@@ -147,8 +147,8 @@
 					D&nbsp;<input class="trade-input" id="trade-leftp-money" value="0" title="Enter amount to exchange with the other player." />
 				</div>
 				<br>
+				<center>
 				<div id="trade-leftp-property" class="trade-cell">
-
 					<table>
 						<tr>
 							<td class="propertycellcheckbox">
@@ -169,6 +169,7 @@
 					</table>
 					
 				</div>
+				</center>
 			</div>	
 
 			<div class="trade-right">
@@ -184,16 +185,18 @@
 					D&nbsp;<input class="trade-input" id="trade-rightp-money" value="0" title="Enter amount to exchange with the other player." />
 				</div>
 				<br>
+				<center>
 				<div id="trade-rightp-property" class="trade-cell"></div>
+				</center>
 			</div>	
 			
 		</div>
 
 		<center>
-			<input type="button" id="proposetradebutton" value="Propose Trade" onclick="game.proposeTrade();" title="Exchange the money and properties that are checked above." />
-			<input type="button" id="canceltradebutton" value="Cancel Trade" onclick='game.cancelTrade();' title="Cancel the trade." />
-			<input type="button" id="accepttradebutton" value="Accept Trade" onclick="game.acceptTrade();" title="Accept the proposed trade." />
-			<input type="button" id="rejecttradebutton" value="Reject Trade" onclick='game.cancelTrade();' title="Reject the proposed trade." />
+			<input type="button" class="btn rollbtn" id="proposetradebutton" value="Propose Trade" onclick="game.proposeTrade();" title="Exchange the money and properties that are checked above." />
+			<input type="button" class="btn redbtn" id="canceltradebutton" value="Cancel Trade" onclick='game.cancelTrade();closeCpanel()' title="Cancel the trade." />
+			<input type="button" class="btn buybtn" id="accepttradebutton" value="Accept Trade" onclick="game.acceptTrade();" title="Accept the proposed trade." />
+			<input type="button" class="btn redbtn" id="rejecttradebutton" value="Reject Trade" onclick='game.cancelTrade();closeCpanel()' title="Reject the proposed trade." />
 		</center>
 
 	</div>
@@ -217,9 +220,9 @@
 	<div id="manage">
 		<div id="option">
 			<div id="buildings" title="Available buildings"></div>
-			<input type="button" value="Buy house" id="buyhousebutton"/>
-			<input type="button" value="Mortgage" id="mortgagebutton" />
-			<input type="button" value="Sell house" id="sellhousebutton"/>
+			<input type="button" value="Buy house" class="btn buybtn" id="buyhousebutton"/>
+			<input type="button" value="Mortgage" class="btn rollbtn" id="mortgagebutton" />
+			<input type="button" value="Sell house" class="btn sellbtn" id="sellhousebutton"/>
 		</div>
 		<br>
 		<div id="owned">
@@ -353,6 +356,17 @@
 
 
 
+
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+
+<div id="canvas" style="display:non">
+
+
+
 <div id="alertDiv" class="alert">
 <div style="padding: 20px;">
 	<div class="close-alert" onclick="closeAlert()">x</div>
@@ -361,16 +375,11 @@
 </div>
 
 
-<div id="canvas" style="display:non">
-
-
-
-
 <div class="info" id="info">
 	<div id="landed"></div>
 	<div style="padding-top: 8px;">
-		<input type="button" class="infobtn" id="nextbutton" title="Roll the dice and move your token accordingly." value=""/>
-		<input type="button" class="infobtn" style="display:block" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="" onclick="game.resign();" />
+		<input type="button" class="btn" id="nextbutton" title="Roll the dice and move your token accordingly." value=""/>
+		<input type="button" class="btn" style="display:block" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="" onclick="game.resign();" />
 	</div>
 
 </div>

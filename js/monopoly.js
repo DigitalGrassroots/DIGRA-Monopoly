@@ -919,9 +919,9 @@ function Game() {
 			return false;
 		}
 
-		if (initiator.human && !confirm(initiator.name + ", are you sure you want to make this offer to " + recipient.name + "?")) {
-			return false;
-		}
+		// if (initiator.human && !confirm(initiator.name + ", are you sure you want to make this offer to " + recipient.name + "?")) {
+		// 	return false;
+		// }
 
 		var reversedTrade = new Trade(recipient, initiator, -money, reversedTradeProperty, -tradeObj.getCommunityChestJailCard(), -tradeObj.getChanceJailCard());
 
@@ -1247,7 +1247,7 @@ function popup(HTML, action, option) {
 
 	// Yes/No
 	if (option === "yes/no") {
-		document.getElementById("popuptext").innerHTML += "<div><input type=\"button\" value=\"Yes\" id=\"popupyes\" /><input type=\"button\" value=\"No\" id=\"popupno\" /></div>";
+		document.getElementById("popuptext").innerHTML += "<div><input type=\"button\" value=\"Yes\" id=\"popupyes\" class=\"btn buybtn\" /><input type=\"button\" value=\"No\" class=\"btn redbtn\" id=\"popupno\" /></div>";
 
 		$("#popupyes, #popupno").on("click", function() {
 			$("#popup").hide();
@@ -1258,7 +1258,7 @@ function popup(HTML, action, option) {
 
 	// Ok
 	} else if (option !== "blank") {
-		$("#popuptext").append("<div><input type='button' value='OK' id='popupclose' /></div>");
+		$("#popuptext").append("<div><input type='button' class='btn rollbtn' value='OK' id='popupclose' /></div>");
 		$("#popupclose").focus();
 
 		$("#popupclose").on("click", function() {
@@ -1363,9 +1363,6 @@ function updateOwned() {
 		if (sq.owner == turn) {
 
 			mortgagetext = "";
-			if (sq.mortgage) {
-				mortgagetext = "title='Mortgaged' style='color: grey;'";
-			}
 
 			housetext = "";
 			if (sq.house >= 1 && sq.house <= 4) {
@@ -1384,7 +1381,12 @@ function updateOwned() {
 
 			// HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox" + i + "' /></td><td class='propertycellcolor' style='background: " + sq.color + ";";
 
-			HTML += "<label class='playertile-label' for='propertycheckbox"+i+"'><div class='playerstats-tile property-cell-row'><input type='checkbox' id='propertycheckbox" + i + "'></td><div class='playerstats-tile-color' style='background: " + sq.color + ";'></div><div class='playerstats-tile-name'>"+sq.name+"</div></div></label><br>";
+			HTML += "<label class='playertile-label";
+
+			if (sq.mortgage) {
+				HTML += " playertile-label-disabled";
+			}
+				HTML += "' for='propertycheckbox"+i+"'><div class='playerstats-tile property-cell-row'><input type='checkbox' id='propertycheckbox" + i + "'></td><div class='playerstats-tile-color' style='background: " + sq.color + ";'></div><div class='playerstats-tile-name'>"+sq.name+"</div></div></label><br>";
 
 			if (sq.groupNumber == 1 || sq.groupNumber == 2) {
 				// HTML += " border: 1px solid grey; width: 18px;";
@@ -2225,7 +2227,7 @@ function land(increasedRent) {
 				buy();
 			}
 		} else {
-			document.getElementById("landed").innerHTML = "You landed on <br><a href='javascript:void(0);' onclick='tiler(" + p.position + ");' class='statscellcolor'>" + s.name + "</a>.<br><input type='button' onclick='buy();' class='infobtn buybtn' value='Buy (D" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/>";
+			document.getElementById("landed").innerHTML = "You landed on <br><a href='javascript:void(0);' onclick='tiler(" + p.position + ");' class='statscellcolor'>" + s.name + "</a>.<br><input type='button' onclick='buy();' class='btn buybtn' value='Buy (D" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/>";
 		}
 
 		// this adds property to auction queue
