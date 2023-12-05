@@ -1124,7 +1124,7 @@ function Player(name, color, avatar) {
 	this.avatar = avatar;
 	this.oldposition = 0;
 	this.position = 0;
-	this.money = 15;
+	this.money = 1500;
 	this.creditor = -1;
 	this.jail = false;
 	this.jailroll = 0;
