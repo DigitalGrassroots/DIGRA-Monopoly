@@ -129,6 +129,7 @@
 	<div class="playerstats-pad">
 	<div class="board-title">Trade Center</div>
 
+	<div class="playerstats-flex">
 	<div id="trade">
 
 		<div class="trade-flex">
@@ -174,8 +175,8 @@
 
 			<div class="trade-right">
 				<div class="playerstats-profile">
-					<img class="playerstats-img" id="trade-rightp-avatar">
-					<div class="playerstats-profile-name" style="text-align:left;">
+					<!-- <img class="playerstats-img" id="trade-rightp-avatar"> -->
+					<div class="playerstats-profile-name">
 						<div id="trade-rightp-name">Larry</div><br>
 						<b><div id="trade-rightp-amount">D1500</div></b>
 					</div>
@@ -200,6 +201,7 @@
 		</center>
 
 	</div>
+	</div>
 </div>
 </div>
 
@@ -208,6 +210,8 @@
 <div class="playerstats-pad">
 	<div onclick="closeCpanel()" class="board-close">x</div>
 	<div class="board-title">Manage Digital Rights Issues</div>
+
+	<div class="playerstats-flex" style="display:block">
 
 	<div class="playerstats-profile">
 		<img class="playerstats-img" id="manageBoardAvatar" src="images/avatar4.png">
@@ -271,6 +275,7 @@
 				</table>
 			
 		</div>
+	</div>
 	</div>
 
 
@@ -366,6 +371,8 @@
 <div id="canvas" style="display:non">
 
 
+<img src="svg/hospital.svg" class="city hospital-svg">
+
 
 <div id="alertDiv" class="alert">
 <div style="padding: 20px;">
@@ -378,8 +385,8 @@
 <div class="info" id="info">
 	<div id="landed"></div>
 	<div style="padding-top: 8px;">
-		<input type="button" class="btn" id="nextbutton" title="Roll the dice and move your token accordingly." value=""/>
-		<input type="button" class="btn" style="display:block" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="" onclick="game.resign();" />
+		<input type="button" class="btn rollbtn" id="nextbutton" title="Roll the dice and move your token accordingly." value=""/>
+		<input type="button" class="btn redbtn" style="display:block" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="" onclick="game.resign();" />
 	</div>
 
 </div>

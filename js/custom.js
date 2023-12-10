@@ -25,6 +25,7 @@ function tiler(e){
       if (boardzoom) {
 
         $(".avatar, #cpanel, #alertDiv, #info").hide();
+        $(".faceProperty").css("opacity", 0);
         $("body").addClass('body-plain');
         $("#tile"+e).addClass("tile-selected");
         $("#centerCards").css("display", "flex");
@@ -45,7 +46,7 @@ function tiler(e){
         boardzoom = false;
       }else{
         $(".tile").removeClass("tile-selected");
-        $(".avatar-active, #cpanel, #alertDiv, #info").css("opacity", 0);
+        $(".avatar-active, #cpanel, #alertDiv, #info, .faceProperty").css("opacity", 0);
         $(".avatar-active, #cpanel, #alertDiv, #info").show();
         $("#centerCards").css("display", "none");
         $("body").removeClass('body-plain');

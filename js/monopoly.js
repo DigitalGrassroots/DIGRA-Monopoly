@@ -1708,9 +1708,11 @@ function subtractamount(amount, cause) {
 
 function gotojail() {
 	var p = player[turn];
+
 	addAlert(p.name + " was sent directly to jail.");
 	document.getElementById("landed").innerHTML = "You are in jail.";
 
+	p.position = 10;
 	p.jail = true;
 	doublecount = 0;
 
@@ -1734,6 +1736,7 @@ function gobackthreespaces() {
 	var p = player[turn];
 
 	p.position -= 3;
+	updatePosition();
 
 	land();
 }
@@ -2137,12 +2140,20 @@ function buy() {
 		updateMoney();
 		addAlert(p.name + " bought " + property.name + " for " + property.pricetext + ".");
 
-		// var faceProperty = document.createElement("img");
-        // faceProperty.id = "faceProperty"+p.position;
-        // faceProperty.className = "faceProperty";
-        // faceProperty.src = "images/avatar"+p.avatar+".png";
+		var faceProperty = document.createElement("img");
+        faceProperty.id = "faceProperty"+p.position;
+        faceProperty.className = "faceProperty";
+        faceProperty.src = "images/avatar"+p.avatar+".png";
 
-        // // Add content to the div (optional)
+        faceProperty.style.top = (positions[p.position][1]+45)+"px";
+        faceProperty.style.left = (positions[p.position][0]+10)+"px";
+
+        // document.getElementById("tiler"+p.position).appendChild(faceProperty);
+
+        console.log(faceProperty);
+        $("#canvas").append(faceProperty);
+
+        // Add content to the div (optional)
         // newDiv.innerHTML = "<p>This is dynamically created content.</p>";
 
 
@@ -2333,6 +2344,7 @@ function land(increasedRent) {
 
 	if (!p.human) {
 		popup(p.AI.alertList, chanceCommunityChest);
+		// chanceCommunityChest();
 		p.AI.alertList = "";
 	} else {
 		chanceCommunityChest();
@@ -2516,7 +2528,7 @@ function play() {
 
 	if (p.jail) {
 		$("#landed").show();
-		document.getElementById("landed").innerHTML = "You are in jail.<input type='button' title='Pay D50 fine to get out of jail immediately.' value='Pay D50 fine' onclick='payfifty();' />";
+		document.getElementById("landed").innerHTML = "You are in jail.<input type='button' class='btn redbtn' title='Pay D50 fine to get out of jail immediately.' value='Pay D50 fine' onclick='payfifty();' />";
 
 		if (p.communityChestJailCard || p.chanceJailCard) {
 			document.getElementById("landed").innerHTML += "<input type='button' id='gojfbutton' title='Use &quot;Get Out of Jail Free&quot; card.' onclick='useJailCard();' value='Use Card' />";
@@ -2870,9 +2882,9 @@ window.onload = function() {
 
 	document.getElementById("jail").enlargeId = "enlarge40";
 
-	document.getElementById("enlarge-wrap").innerHTML += "<div id='enlarge40' class='enlarge'><div id='enlarge40color' class='enlarge-color'></div><br /><div id='enlarge40name' class='enlarge-name'>Jail</div><br /><div id='enlarge40price' class='enlarge-price'><img src='images/jake_icon.png' height='80' width='80' alt='' style='position: relative; top: -20px;' /></div><br /><div id='enlarge40token' class='enlarge-token'></div></div>";
+	// document.getElementById("enlarge-wrap").innerHTML += "<div id='enlarge40' class='enlarge'><div id='enlarge40color' class='enlarge-color'></div><br /><div id='enlarge40name' class='enlarge-name'>Jail</div><br /><div id='enlarge40price' class='enlarge-price'><img src='images/jake_icon.png' height='80' width='80' alt='' style='position: relative; top: -20px;' /></div><br /><div id='enlarge40token' class='enlarge-token'></div></div>";
 
-	document.getElementById("enlarge40name").innerHTML = "Jail";
+	// document.getElementById("enlarge40name").innerHTML = "Jail";
 
 	// Create event handlers for hovering and draging.
 
