@@ -90,7 +90,7 @@ function roller() {
   setTimeout(function() {
     clearInterval(interval);
     // console.log('Rolling stopped');
-    console.log(dices);
+    // console.log(dices);
     setTimeout(function() {
       $('.dice-container').css("transform", "translate(-50%, -10px)")
       $('.dice-container').css("opacity", 0)

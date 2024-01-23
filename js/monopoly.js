@@ -2137,6 +2137,8 @@ function buy() {
 		p.pay(cost, 0);
 
 		property.owner = turn;
+		showCity();
+
 		updateMoney();
 		addAlert(p.name + " bought " + property.name + " for " + property.pricetext + ".");
 
@@ -2150,7 +2152,7 @@ function buy() {
 
         // document.getElementById("tiler"+p.position).appendChild(faceProperty);
 
-        console.log(faceProperty);
+        // console.log(faceProperty);
         $("#canvas").append(faceProperty);
 
         // Add content to the div (optional)
@@ -2691,6 +2693,8 @@ function menuitem_onmouseout(element) {
 	return;
 }
 
+// custom functions
+
 function highlightAvatar(avatar){
   $(".black-fade").css("display", "block");
   $(".black-fade").css("opacity", 1);
@@ -2755,6 +2759,23 @@ function showInfo(e=p.position){
 	},300)
 };
 
+function showCity(e){
+
+	var boughtSquares = 0;
+	for (var i = 0; i < 40; i++) {
+		if(square[i].owner > 0){boughtSquares++;}
+	}
+	console.log(boughtSquares);
+	if (boughtSquares>0) {
+		showBuilding('cohort-svg');
+	}
+
+}
+
+function showBuilding(e){
+	$('.'+e).fadeIn();
+	console.log(e);
+}
 
 
 window.onload = function() {
@@ -2837,6 +2858,8 @@ window.onload = function() {
 	var currentCellPositionHolder;
 	var currentCellName;
 	var currentCellOwner;
+
+	console.log(square);
 
 	for (var i = 0; i < 40; i++) {
 		s = square[i];

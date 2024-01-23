@@ -24,7 +24,7 @@ function tiler(e){
 
       if (boardzoom) {
 
-        $(".avatar, #cpanel, #alertDiv, #info").hide();
+        $(".avatar, #cpanel, #alertDiv, #info, .city").hide();
         $(".faceProperty").css("opacity", 0);
         $("body").addClass('body-plain');
         $("#tile"+e).addClass("tile-selected");
@@ -47,12 +47,12 @@ function tiler(e){
       }else{
         $(".tile").removeClass("tile-selected");
         $(".avatar-active, #cpanel, #alertDiv, #info, .faceProperty").css("opacity", 0);
-        $(".avatar-active, #cpanel, #alertDiv, #info").show();
+        $(".avatar-active, #cpanel, #alertDiv, #info, .city").show();
         $("#centerCards").css("display", "none");
         $("body").removeClass('body-plain');
           $('#centerCards').css("transform", "translate(0, 0)");
         setTimeout(function(){
-        $(".avatar-active, #cpanel, #alertDiv, #info").css("opacity", 1);
+        $(".avatar-active, #cpanel, #alertDiv, #info, .city").css("opacity", 1);
           boardzoom = true;
         }, 500)
       }

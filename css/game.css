@@ -680,14 +680,92 @@ a{
 
 .city{
 	position: absolute;
-	z-index: 2;
+	z-index: 1;
+	cursor: pointer;
+	opacity: 0.5;
+	display: none;
 }
 .city:hover{
 	fill: red;
-	background: red;
+	transform: scale(1.01);
+	opacity: 1;
+/*	background: rgb(0, 0, 0, 0.2);*/
 }
 
 .hospital-svg{
-	right: -50px;
-	top: 30px;
+	right: 0px;
+	top: 10px;
+	border-bottom-right-radius: 400px;
+}
+
+.igf-svg{
+	right: 152px;
+	top: 0px;
+	border-bottom-left-radius: 400px;
+	border-bottom-right-radius: 400px;
+}
+
+.juice-stand-svg{
+	left: 205px;
+	top: 61px;
+	border-bottom-right-radius: 100px;
+	border-top-left-radius: 100px;
+}
+
+.news-stand-svg{
+	left: 367px;
+	top: -3px;
+/*	background: blue;*/
+	border-bottom-right-radius: 250px;
+	border-bottom-left-radius: 250px;
+}
+
+.gas-station-svg{
+	top: 0;
+	left: 0;
+	border-bottom-right-radius: 100px;
+}
+
+.bridge-svg{
+	bottom: 0;
+	right: 0;
+	display: block;
+	pointer-events: none;
+}.bridge-svg:hover{
+	background: none;
+}
+
+.billboard-svg{
+	bottom: 160px;
+	right: 50px;
+	border-top-right-radius: 100px;
+	border-bottom-left-radius: 100px;
+}
+
+.train-svg{
+	bottom: 0px;
+	right: -10px;
+	pointer-events: none;
+}.train-svg:hover{
+	background: none;
+}
+
+.basketball-svg{
+	left: -20px;
+	bottom: 65px;
+}
+
+.cohort-svg{
+	left: 0;
+	top: 160px;
+}
+
+.park-svg{
+	left: 0;
+	bottom: 0;
+}
+
+.tennis-svg{
+	left: 300px;
+	bottom: -50px;
 }
