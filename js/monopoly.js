@@ -1223,7 +1223,7 @@ function addAlert(alertText) {
 	}
 
 	$("#alertDiv").css("opacity", 1);
-	$("#alertDiv").css("transform", "translateY(10px)");
+	$("#alertDiv").css("transform", "translate(-50%, 10px)");
 	$("#alert").html(alertText); 
 	clearTimeout(alertTimeout);
 	alertTimeout = setTimeout(function(){
@@ -1245,6 +1245,7 @@ function popup(HTML, action, option) {
 		action = null;
 	}
 
+	$("#popupbackground").css("background","rgb(0, 0, 0, 0.4)");
 	// Yes/No
 	if (option === "yes/no") {
 		document.getElementById("popuptext").innerHTML += "<div><input type=\"button\" value=\"Yes\" id=\"popupyes\" class=\"btn buybtn\" /><input type=\"button\" value=\"No\" class=\"btn redbtn\" id=\"popupno\" /></div>";
@@ -1267,6 +1268,10 @@ function popup(HTML, action, option) {
 		}).on("click", action);
 
 	}
+	if (option=="blank") {
+		$("#popupbackground").css("background","rgb(70, 0, 0, 0.4)");
+	}
+
 
 	// Show using animation.
 	$("#popupbackground").fadeIn(400, function() {
@@ -2767,13 +2772,35 @@ function showCity(e){
 	}
 	console.log(boughtSquares);
 	if (boughtSquares>0) {
-		showBuilding('cohort-svg');
+		showBuilding('city6');
+		showBuilding('city0');
+	}if (boughtSquares>4) {
+		showBuilding('city9');
+	}if (boughtSquares>7) {
+		showBuilding('city1');
+	}if (boughtSquares>11) {
+		showBuilding('city10');
+	}if (boughtSquares>15) {
+		showBuilding('city2');
+	}if (boughtSquares>19) {
+		showBuilding('city3');
+	}if (boughtSquares>23) {
+		showBuilding('city4');
+	}if (boughtSquares>27) {
+		showBuilding('city11');
+	}if (boughtSquares>31) {
+		showBuilding('city8');
+	}if (boughtSquares>36) {
+		showBuilding('city5');
+	}if (boughtSquares>39) {
+		showBuilding('city7');
 	}
 
 }
 
 function showBuilding(e){
-	$('.'+e).fadeIn();
+	$('#'+e).addClass('activated-city');
+	$('#'+e).show();
 	console.log(e);
 }
 

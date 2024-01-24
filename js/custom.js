@@ -47,12 +47,12 @@ function tiler(e){
       }else{
         $(".tile").removeClass("tile-selected");
         $(".avatar-active, #cpanel, #alertDiv, #info, .faceProperty").css("opacity", 0);
-        $(".avatar-active, #cpanel, #alertDiv, #info, .city").show();
+        $(".avatar-active, #cpanel, #alertDiv, #info, .activated-city").show();
         $("#centerCards").css("display", "none");
         $("body").removeClass('body-plain');
           $('#centerCards').css("transform", "translate(0, 0)");
         setTimeout(function(){
-        $(".avatar-active, #cpanel, #alertDiv, #info, .city").css("opacity", 1);
+        $(".avatar-active, #cpanel, #alertDiv, #info, .activated-city").css("opacity", 1);
           boardzoom = true;
         }, 500)
       }
@@ -174,8 +174,60 @@ $('.black-fade').on("click", function(){
 });
 
 
+$('#city1').on('click', function(){
+  var HTML = "Internet Health <p style='font-weight:normal'>Enabling people in underrepresented regions to assess the state of the Internet in their community <br> A Digital Grassroots Project <br><br><a class='btn rollbtn' href='https://digitalgrassroots.org/community-leaders-for-internet-health.html' target='_blank'>Community Leaders</a> </p>";
+  popup(HTML, "", "blank");
+})
 
+$('#city2').on('click', function(){
+  var HTML = "Digra @ IGF 2023 <p style='font-weight:normal'>We facilitated sessions on Digital Inclusion and Internet Governance at the IGF 2023 in Japan. <br> Give us a like and a repost! <br><br><a class='btn rollbtn' href='https://x.com/rachadsanoussi/status/1712155510710161610?s=20' target='_blank'>View on X</a> </p>";
+  popup(HTML, "", "blank");
+})
 
+$('#city3').on('click', function(){
+  var HTML = "Justice Stand <p style='font-weight:normal'>Internet Justice for everyone. We have a long history for advocating against all forms of cyber bullying, cyber stalking and online harrasment. You can join the movement here. <br><br><a class='btn rollbtn' href='https://digitalgrassroots.org' target='_blank'>Take a look</a> </p>";
+  popup(HTML, "", "blank");
+})
+
+$('#city4').on('click', function(){
+  var HTML = "News Stand <p style='font-weight:normal'> <br><br><a class='btn rollbtn' href='https://digitalgrassroots.org' target='_blank'>Take a look</a> </p>";
+  popup(HTML, "", "blank");
+})
+
+$('#city5').on('click', function(){
+  var HTML = "The Gas Station <p style='font-weight:normal'>We support the use of clean energy tools and technologies for a better environment and a more sustainable internet. These include servers that utilize renewables and partnering with organizations that support green IoT infrastructure<br><br><a class='btn rollbtn' href='https://digitalgrassroots.org' target='_blank'>Take a look</a> </p>";
+  popup(HTML, "", "blank");
+})
+
+$('#city6').on('click', function(){
+  var HTML = "Bridging the Internet Divide <p style='font-weight:normal'>Even in 2024, the Internet still remains inaccessible for millions of marginilized people. <br> Several limiting factors stand in the way of including everybody. <br> As you continue to play this game, be on the look out for more easter eggs that appear; helping you understand more about the internet and the efforts we at <b>Digital Grassroots</b> are taking to help!</p>";
+  popup(HTML, "", "blank");
+})
+
+$('#city7').on('click', function(){
+  var HTML = "CChange <p style='font-weight:normal'>C/Change promotes interdisciplinary teams and individuals around the globe to build interactive prototypes that articulate a vision for the future of online cross-cultural exchange. We are proud to be one the the selected projects of 2023 <br><br><a class='btn rollbtn' href='https://cchange.xyz/lab-2023/' target='_blank'>Take a Look</a> </p>";
+  popup(HTML, "", "blank");
+})
+
+$('#city8').on('click', function(){
+  var HTML = "Train <p style='font-weight:normal'> <br><br><a class='btn rollbtn' href='https://digitalgrassroots.org/' target='_blank'>Take a Look</a> </p>";
+  popup(HTML, "", "blank");
+})
+
+$('#city9').on('click', function(){
+  var HTML = "The Cohort Academy <p style='font-weight:normal'>Digital Grassroots Ambassadors Program introduces youth from underrepresented communities to internet governance issues and provides a pathway for the youth to engage their local community on activities that promote digital citizenship. <br><br><a class='btn rollbtn' href='https://digitalgrassroots.org/ambassadors-program-cohort-4.html' target='_blank'>Take a Look</a> </p>";
+  popup(HTML, "", "blank");
+})
+
+$('#city10').on('click', function(){
+  var HTML = "Gamified Learning at MozFest 2023 <p style='font-weight:normal'>We were proud to conduct a session at the Gamified Learning for Internet Governance at MozFest 2023. You can read all about the session here <br><br><a class='btn rollbtn' href='https://digitalgrassroots.org/blog/digital-grassroots-at-mozilla-festival-2023.html' target='_blank'>Take a Look</a> </p>";
+  popup(HTML, "", "blank");
+})
+
+$('#city11').on('click', function(){
+  var HTML = "Pada Park <p style='font-weight:normal'>The Pada Platform is a space that brings young women and girls to innovate, create and speak-up. Pada is a symbol of sisterhood, competitiveness, claiming space, agility, creativity and celebration of women’s achievements. We are proud partners in this space. <br><br><a class='btn rollbtn' href='https://digitalgrassroots.org/blog/fostering-a-feminist-internet-insights-from-pada-platforms-founder.html' target='_blank'>Article: Fostering a Feminist Internet</a> </p>";
+  popup(HTML, "", "blank");
+})
 
 
 
