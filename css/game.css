@@ -492,7 +492,7 @@ a{
 
 .alert{
 	width: 20vw;
-	left: 40vw;
+	left: 40%;
 	border-radius: 10px;
 	background: var(--maroon);
 	color: #fff;
