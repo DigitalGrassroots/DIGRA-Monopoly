@@ -1227,7 +1227,7 @@ function addAlert(alertText) {
 	$("#alert").html(alertText); 
 	clearTimeout(alertTimeout);
 	alertTimeout = setTimeout(function(){
-		$("#alertDiv").css("transform", "translateY(40vw, 0)");
+		$("#alertDiv").css("transform", "translateY(0)");
 		$("#alertDiv").css("opacity", 0);
 	}, 5000);
 }
