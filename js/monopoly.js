@@ -1223,7 +1223,7 @@ function addAlert(alertText) {
 	}
 
 	$("#alertDiv").css("opacity", 1);
-	$("#alertDiv").css("transform", "translate(40vw, 10px)");
+	$("#alertDiv").css("transform", "translateY(10px)");
 	$("#alert").html(alertText); 
 	clearTimeout(alertTimeout);
 	alertTimeout = setTimeout(function(){
