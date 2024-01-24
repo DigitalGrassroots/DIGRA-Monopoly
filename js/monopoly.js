@@ -2800,9 +2800,6 @@ function showCity(e){
 
 function showBuilding(e){
 	$('#'+e).addClass('activated-city');
-	if (e=='city0') {
-		$("#"+e).css("animation", "none");
-	}
 	$('#'+e).show();
 	console.log(e);
 }
