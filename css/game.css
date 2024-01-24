@@ -493,12 +493,13 @@ a{
 .alert{
 	width: 20vw;
 	left: 40vw;
+	transform: translateX(-50%);
 	border-radius: 10px;
 	background: var(--maroon);
 	color: #fff;
 	border: 2px solid black;
 	position: fixed;
-	top: 43vh;
+	top: 300px;
 /*	top: 30vh;*/
 	z-index: 2;
 	pointer-events: none;
