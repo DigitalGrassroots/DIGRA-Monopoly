@@ -1223,11 +1223,11 @@ function addAlert(alertText) {
 	}
 
 	$("#alertDiv").css("opacity", 1);
-	$("#alertDiv").css("transform", "translate(-50%, 10px)");
+	$("#alertDiv").css("transform", "translate(40vw, 10px)");
 	$("#alert").html(alertText); 
 	clearTimeout(alertTimeout);
 	alertTimeout = setTimeout(function(){
-		$("#alertDiv").css("transform", "translateY(0)");
+		$("#alertDiv").css("transform", "translateY(40vw, 0)");
 		$("#alertDiv").css("opacity", 0);
 	}, 5000);
 }
