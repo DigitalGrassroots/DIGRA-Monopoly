@@ -492,7 +492,7 @@ a{
 
 .alert{
 	width: 20vw;
-	left: 550px;
+	left: 540px;
 /*	transform: translateX(-50%);*/
 	border-radius: 10px;
 	background: var(--maroon);
