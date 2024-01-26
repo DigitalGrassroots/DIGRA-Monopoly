@@ -52,7 +52,8 @@ function tiler(e){
         $("body").removeClass('body-plain');
           $('#centerCards').css("transform", "translate(0, 0)");
         setTimeout(function(){
-        $(".avatar-active, #cpanel, #alertDiv, #info, .activated-city").css("opacity", 1);
+        $(".avatar-active, #cpanel, #alertDiv, #info").css("opacity", 1);
+        $(".activated-city").css("opacity", 0.6);
           boardzoom = true;
         }, 500)
       }
