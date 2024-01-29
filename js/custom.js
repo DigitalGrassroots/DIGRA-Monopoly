@@ -124,7 +124,7 @@ $('#alertDiv').css("left", alertLeft+"px");
 
  window.onbeforeunload = function ()
  {
-     // return "";
+     return "";
  };
  
 scale_x = $(window).width() / 1366;
