@@ -25,25 +25,23 @@
 		}
 	</style>
 
+<script type="text/javascript">
+	var sfx = true;
+</script>
 
 
-<audio id="audio1" src="piano.mp3" loop>
+<audio id="audio1" src="audio/background.mp3" loop>
   Your browser does not support the audio element.
 </audio>
 
 <script type="text/javascript">
-	document.addEventListener("click", function(){
-		document.getElementById('audio1').play();
-		document.getElementById('audio1').volume = 0.5;
-	})
 </script>
 
 
+<!--  -->
+<!--  -->
 
-	<!--  -->
 <div class="ids" style="display: none;">
-
-
 <p id="noscript">Note: This page will not function without JavaScript.</p>
 
 <div id="refresh">Refresh this page to start a new game.</div>
@@ -58,50 +56,7 @@
 <div id="player4input"></div>
 
 
-<div id="cell0"></div>
-<div id="cell1"></div>
-<div id="cell2"></div>
-<div id="cell3"></div>
-<div id="cell4"></div>
-<div id="cell5"></div>
-<div id="cell6"></div>
-<div id="cell7"></div>
-<div id="cell8"></div>
-<div id="cell9"></div>
-<div id="cell10"></div>
-<div id="cell11"></div>
-<div id="cell12"></div>
-<div id="cell13"></div>
-<div id="cell14"></div>
-<div id="cell15"></div>
-<div id="cell16"></div>
-<div id="cell17"></div>
-<div id="cell18"></div>
-<div id="cell19"></div>
-<div id="cell20"></div>
-<div id="cell21"></div>
-<div id="cell22"></div>
-<div id="cell23"></div>
-<div id="cell24"></div>
-<div id="cell25"></div>
-<div id="cell26"></div>
-<div id="cell27"></div>
-<div id="cell28"></div>
-<div id="cell29"></div>
-<div id="cell30"></div>
-<div id="cell31"></div>
-<div id="cell32"></div>
-<div id="cell33"></div>
-<div id="cell34"></div>
-<div id="cell35"></div>
-<div id="cell36"></div>
-<div id="cell37"></div>
-<div id="cell38"></div>
-<div id="cell39"></div>
-
 <div id="jail">jail</div>
-
-<div id="statsdrag"></div>
 
 <div id="stats"></div>
 <div id="moneybar"></div>
@@ -109,6 +64,11 @@
 </div>
 
 <!--  -->
+<!--  -->
+
+
+
+
 <div id="cpanel">
 	<div onclick="showCpanelBoard('settingscircle','settings-board');" id="settingscircle" style="pointer-events: auto;">
 		<div class="cpanel-circle"><img src="svg/cpanel-settings.svg"></div>
@@ -303,7 +263,54 @@
 	<div class="playerstats-pad">
 	<div class="board-title">Settings</div>
 
+	<br>
+	<br>
+	<div class="board-grid">
+		<div style="padding-top:20px">Background Music</div>
+
+		<div style="font-weight: normal;font-size: 16px;">
+			OFF &nbsp;&nbsp;&nbsp; ON
+			<br>
+			<div style="margin-top: 5px;" class="setup-toggle-border">
+			  <input id="musicCheck" type="checkbox" onchange="changeMusic()" checked>
+			  <label for="musicCheck">
+			    <div class="setup-handle"></div>
+			  </label>
+			</div>
+		</div>
 	</div>
+
+	<br>
+	<br>
+
+	<div class="board-grid">
+		<div style="padding-top:20px">Sound Effects</div>
+
+		<div style="font-weight: normal;font-size: 16px;">
+			OFF &nbsp;&nbsp;&nbsp; ON
+			<br>
+			<div style="margin-top: 5px;" class="setup-toggle-border">
+			  <input id="sfxCheck" type="checkbox" onchange="changeSFX()" checked>
+			  <label for="sfxCheck">
+			    <div class="setup-handle"></div>
+			  </label>
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<br>
+	<br>
+
+	<div style="color: black;text-align: center;line-height: 1.5em;">
+		<a href="about.html" target="_blank">About Game</a> 
+		<br>
+		<a href="#">Credits</a> 
+		<br>
+		<a href="#">Take Tour</a>
+	</div>
+	</div>
+	<div class="settings-footer">CC 2024. Digital Grassroots</div>
 </div>
 <!--  -->
 
@@ -358,19 +365,23 @@
 </div>
 
 
-<div id="popupbackground"></div>
+<div id="popupbackground" style="display:bloc;"></div>
 <!-- <div id="popupwrap"> -->
-	<div id="popup">
+	<div id="popup" style="display:bloc;">
 		<div style="position: relative;">
 			<img id="popupx" src="images/close.png" title="Close" alt="x" onclick="closePopup()" />
-			<div id="popuptext">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</div>
+			<div id="popuptext">Welcome to the online <br> DIGITAL RIGHTS MONOPOLY experience! Would you like a quick tour? 
+			<br><br>
+			<div style="display:flex;justify-content: space-between;width: 150px;margin: auto;">
+				<div class="btn rollbtn">Okay</div>
+				<div style="padding-top:5px;" onclick="skipTour()">Skip Tour</div>
+			</div>
+			</div>
 
-			<div id="popupdrag"></div>
 		</div>
 	</div>
 <!-- </div> -->
+
 
 
 
@@ -574,7 +585,7 @@
 <path  class="tile" id="tile9" onclick="tiler(9)" d="M50 322L84 347L129 315L95 290L50 322Z" fill="#F7F7E8" stroke="black"/>
 <path  class="tile" id="tile39" onclick="tiler(39)" d="M480 522L446 547L401 515L435 490L480 522Z" fill="#F7F7E8" stroke="black"/>
 <path  class="tile" id="tile35" onclick="tiler(35)" d="M616 422L582 447L537 415L571 390L616 422Z" fill="#F7F7E8" stroke="black"/>
-<path  class="tile" id="tile37" onclick="tiler(37)" d="M548 472L514 497L469 465L503 440L548 472Z" fill="#F7F7E8" stroke="black"/>
+<path  class="tile" id="tile37"onclick="tiler(37)" d="M548 472L514 497L469 465L503 440L548 472Z" fill="#F7F7E8" stroke="black"/>
 <path  class="tile" id="tile33" onclick="tiler(33)" d="M684 372L650 397L605 365L639 340L684 372Z" fill="#F7F7E8" stroke="black"/>
 <path  class="tile" id="tile38" onclick="tiler(38)" d="M514 497L480 522L435 490L469 465L514 497Z" fill="#F7F7E8" stroke="black"/>
 <path  class="tile" id="tile34" onclick="tiler(34)" d="M650 397L616 422L571 390L605 365L650 397Z" fill="#F7F7E8" stroke="black"/>
@@ -954,13 +965,14 @@
 		
 </div>
 
-
+	<script src="js/audio.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/dice.js"></script>
 	<script src="js/custom.js"></script>
-	<script type="text/javascript" src="js/classicedition.js"></script>
+	<script type="text/javascript" src="js/digraedition.js"></script>
 	<script type="text/javascript" src="js/ai.js"></script>
 	<script type="text/javascript" src="js/monopoly.js"></script>
+	<script type="text/javascript" src="js/tour.js"></script>
 
 </body>
 </html>

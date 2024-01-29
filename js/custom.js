@@ -122,7 +122,11 @@ $('#alertDiv').css("left", alertLeft+"px");
 
 });
 
-
+ window.onbeforeunload = function ()
+ {
+     // return "";
+ };
+ 
 scale_x = $(window).width() / 1366;
 scale_y = $(window).height() / 619;
 $('#canvas').css("transform-origin","top left");
@@ -176,6 +180,30 @@ $('.black-fade').on("click", function(){
   console.log('ff')
 });
 
+function changeMusic(){
+  if ($("#musicCheck").is(":checked")) {
+    document.getElementById('audio1').play();
+    document.getElementById('audio1').volume = 0.5;
+  }else{
+    document.getElementById('audio1').pause();
+  }
+}
+
+function changeSFX(){
+  if ($("#sfxCheck").is(":checked")) {
+    sfx = true;
+  }else{
+    sfx = false;
+  }
+}
+
+function skipTour(){
+  closePopup();
+  setTimeout(function(){
+    document.getElementById('audio1').play();
+    document.getElementById('audio1').volume = 0.5;
+  }, 1000);
+}
 
 $('#city1').on('click', function(){
   var HTML = "Internet Health <p style='font-weight:normal'>Enabling people in underrepresented regions to assess the state of the Internet in their community <br> A Digital Grassroots Project <br><br><a class='btn rollbtn' href='https://digitalgrassroots.org/community-leaders-for-internet-health.html' target='_blank'>Community Leaders</a> </p>";
@@ -238,6 +266,7 @@ $('#city11').on('click', function(){
 
 
 // showCpanelBoard('tradecircle','trade-board');
+// showCpanelBoard('settingscircle','settings-board')
 
 
 

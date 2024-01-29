@@ -44,11 +44,11 @@ function Game() {
 
 	this.getDie = function(die) {
 		if (die === 1) {
-
 			return dices[0];
+			// return 3;
 		} else {
-
 			return dices[1];
+			// return 4;
 		}
 
 	};
@@ -1311,10 +1311,7 @@ function updateMoney() {
 		p_i = player[i];
 
 		$("#moneybarrow" + i).show();
-		// document.getElementById("avatar" + i + "moneyname1").innerHTML = p_i.name;
 		document.getElementById("avatar" + i + "money").innerHTML = p_i.name +" D"+p_i.money;
-		// document.getElementById("playerstatsMoney" + i).innerHTML = "(D"+p_i.money+")";
-		// document.getElementById("playerstatsName" + i).innerHTML = p_i.name;
 	}
 
 	if (document.getElementById("landed").innerHTML === "") {
@@ -1322,11 +1319,9 @@ function updateMoney() {
 	}
 
 	if (p.money < 0) {
-		// document.getElementById("nextbutton").disabled = true;
 		$("#resignbutton").show();
 		$("#nextbutton").hide();
 	} else {
-		// document.getElementById("nextbutton").disabled = false;
 		$("#resignbutton").hide();
 		$("#nextbutton").show();
 	}
@@ -1350,18 +1345,18 @@ function updateOwned() {
 	housetext = "";
 	var sq;
 
-	for (var i = 0; i < 40; i++) {
-		sq = square[i];
-		if (sq.groupNumber && sq.owner === 0) {
-			$("#cell" + i + "owner").hide();
-		} else if (sq.groupNumber && sq.owner > 0) {
-			var currentCellOwner = document.getElementById("cell" + i + "owner");
+	// for (var i = 0; i < 40; i++) {
+	// 	sq = square[i];
+	// 	if (sq.groupNumber && sq.owner === 0) {
+	// 		$("#cell" + i + "owner").hide();
+	// 	} else if (sq.groupNumber && sq.owner > 0) {
+	// 		var currentCellOwner = document.getElementById("cell" + i + "owner");
 
-			currentCellOwner.style.display = "block";
-			currentCellOwner.style.backgroundColor = player[sq.owner].color;
-			currentCellOwner.title = player[sq.owner].name;
-		}
-	}
+	// 		currentCellOwner.style.display = "block";
+	// 		currentCellOwner.style.backgroundColor = player[sq.owner].color;
+	// 		currentCellOwner.title = player[sq.owner].name;
+	// 	}
+	// }
 
 	for (var i = 0; i < 40; i++) {
 		sq = square[i];
@@ -1406,7 +1401,6 @@ function updateOwned() {
 			firstproperty = 40;
 			HTML += "<table>";
 		}
-		// HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox40' /></td><td class='propertycellcolor' style='background: white;'></td><td class='propertycellname'>Get Out of Jail Free Card</td></tr>";
 
 			HTML += "<label class='playertile-label' for='propertycheckbox40'><div class='playerstats-tile property-cell-row'><input type='checkbox' id='propertycheckbox40'></td><div class='playerstats-tile-name'>Get Out of Jail Free Card</div></div></label><br>";
 
@@ -1416,7 +1410,6 @@ function updateOwned() {
 			firstproperty = 41;
 			HTML += "<table>";
 		}
-		// HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox41' /></td><td class='propertycellcolor' style='background: white;'></td><td class='propertycellname'>Get Out of Jail Free Card</td></tr>";
 
 			HTML += "<label class='playertile-label' for='propertycheckbox41'><div class='playerstats-tile property-cell-row'><input type='checkbox' id='propertycheckbox41'></td><div class='playerstats-tile-name'>Get Out of Jail Free Card</div></div></label><br>";
 	}
@@ -1637,7 +1630,7 @@ function chanceCommunityChest() {
 		}
 
 	// Chance
-	} else if (p.position === 7 || p.position === 22 || p.position === 36) {
+	} else if (p.position === 7 || p.position === 22 || p.position === 35) {
 		var chanceIndex = chanceCards.deck[chanceCards.index];
 
 		// Remove the get out of jail free card from the deck.
@@ -1670,7 +1663,9 @@ function chanceAction(chanceIndex) {
 
 	// $('#popupbackground').hide();
 	// $('#popup').hide();
+
 	chanceCards[chanceIndex].action(p);
+
 
 	updateMoney();
 
@@ -1842,6 +1837,26 @@ function advanceToNearestRailroad() {
 	land(true);
 }
 
+
+function advanceToOpenData() {
+	var p = player[turn];
+	p.position = 11;
+	land(true);
+}
+
+function advanceToCensorship() {
+	var p = player[turn];
+	p.position = 16;
+	land(true);
+}
+
+function advanceToInternetCourt() {
+	var p = player[turn];
+	p.position = 28;
+	land(true);
+}
+
+
 function streetrepairs(houseprice, hotelprice) {
 	var cost = 0;
 	for (var i = 0; i < 40; i++) {
@@ -1869,11 +1884,29 @@ function streetrepairs(houseprice, hotelprice) {
 
 }
 
+function payperspace(fee) {
+	var cost = 0;
+	for (var i = 0; i < 40; i++) {
+		var s = square[i];
+		if (s.owner == turn) {
+			cost += fee;
+		}
+	}
+
+	var p = player[turn];
+
+	if (cost > 0) {
+		p.pay(cost, 0);
+		addAlert(p.name + " lost D" + cost);
+	}
+
+}
+
 function payfifty() {
 	var p = player[turn];
 
 	// document.getElementById("jail").style.border = '1px solid black';
-	document.getElementById("cell11").style.border = '2px solid ' + p.color;
+	// document.getElementById("cell11").style.border = '2px solid ' + p.color;
 
 	$("#landed").hide();
 	doublecount = 0;
@@ -1892,7 +1925,7 @@ function useJailCard() {
 	var p = player[turn];
 
 	// document.getElementById("jail").style.border = '1px solid black';
-	document.getElementById("cell11").style.border = '2px solid ' + p.color;
+	// document.getElementById("cell11").style.border = '2px solid ' + p.color;
 
 	$("#landed").hide();
 	p.jail = false;
@@ -2145,6 +2178,8 @@ function buy() {
 		showCity();
 
 		updateMoney();
+		if(sfx){buyAudio.play();}
+
 		addAlert(p.name + " bought " + property.name + " for " + property.pricetext + ".");
 
 		var faceProperty = document.createElement("img");
@@ -2155,14 +2190,9 @@ function buy() {
         faceProperty.style.top = (positions[p.position][1]+45)+"px";
         faceProperty.style.left = (positions[p.position][0]+10)+"px";
 
-        // document.getElementById("tiler"+p.position).appendChild(faceProperty);
 
         // console.log(faceProperty);
         $("#canvas").append(faceProperty);
-
-        // Add content to the div (optional)
-        // newDiv.innerHTML = "<p>This is dynamically created content.</p>";
-
 
 		updateOwned();
 
@@ -2257,28 +2287,39 @@ function land(increasedRent) {
 		var groupowned = true;
 		var rent;
 
-		// Railroads
-		if (p.position == 5 || p.position == 15 || p.position == 25 || p.position == 35) {
-			if (increasedRent) {
-				rent = 25;
-			} else {
-				rent = 12.5;
-			}
+		if(p.position == 11){
 
-			if (s.owner == square[5].owner) {
-				rent *= 2;
-			}
-			if (s.owner == square[15].owner) {
-				rent *= 2;
-			}
-			if (s.owner == square[25].owner) {
-				rent *= 2;
-			}
-			if (s.owner == square[35].owner) {
-				rent *= 2;
-			}
+			rent = (die1 + die2) * 10;
 
-		} else if (p.position === 12) {
+		}else if(p.position == 16){
+
+			rent = (die1 + die2) * 6;
+
+		}
+
+		// else if (p.position == 5 || p.position == 15 || p.position == 25 || p.position == 35) {
+		// 	if (increasedRent) {
+		// 		rent = 25;
+		// 	} else {
+		// 		rent = 12.5;
+		// 	}
+
+		// 	if (s.owner == square[5].owner) {
+		// 		rent *= 2;
+		// 	}
+		// 	if (s.owner == square[15].owner) {
+		// 		rent *= 2;
+		// 	}
+		// 	if (s.owner == square[25].owner) {
+		// 		rent *= 2;
+		// 	}
+		// 	if (s.owner == square[35].owner) {
+		// 		rent *= 2;
+		// 	}
+
+		// } 
+
+		else if (p.position === 12) {
 			if (increasedRent || square[28].owner == s.owner) {
 				rent = (die1 + die2) * 10;
 			} else {
@@ -2292,7 +2333,9 @@ function land(increasedRent) {
 				rent = (die1 + die2) * 4;
 			}
 
-		} else {
+		} 
+
+		else {
 
 			for (var i = 0; i < 40; i++) {
 				sq = square[i];
@@ -2431,7 +2474,7 @@ function roll() {
 		updateDice(die1, die2);
 		if (die1 == die2) {
 			// document.getElementById("jail").style.border = "1px solid black";
-			document.getElementById("cell11").style.border = "2px solid " + p.color;
+			// document.getElementById("cell11").style.border = "2px solid " + p.color;
 			$("#landed").hide();
 
 			p.jail = false;
@@ -2473,6 +2516,7 @@ function roll() {
 
 		// Move player
 		p.position += die1 + die2;
+		if(sfx){moveAvatarAudio.play();}
 
 		// Collect $200 salary as you pass GO
 		if (p.position >= 40) {
@@ -2578,6 +2622,8 @@ function play() {
 	}
 }
 
+
+
 function setup() {
 
 
@@ -2641,18 +2687,6 @@ function setup() {
 	play();
 }
 
-// function togglecheck(elementid) {
-	// element = document.getElementById(elementid);
-
-	// if (window.event.srcElement.id == elementid)
-		// return;
-
-	// if (element.checked) {
-		// element.checked = false;
-	// } else {
-		// element.checked = true;
-	// }
-// }
 
 function getCheckedProperty() {
 	for (var i = 0; i < 42; i++) {
@@ -2663,20 +2697,7 @@ function getCheckedProperty() {
 	return -1; // No property is checked.
 }
 
-// function propertycell_onclick(element, num) {
-	// togglecheck("propertycheckbox" + num);
-	// if (document.getElementById("propertycheckbox" + num).checked) {
 
-		// // Uncheck all other boxes.
-		// for (var i = 0; i < 40; i++) {
-			// if (i !== num && document.getElementById("propertycheckbox" + i)) {
-				// document.getElementById("propertycheckbox" + i).checked = false;
-			// }
-		// }
-	// }
-
-	// updateOption();
-// }
 
 function playernumber_onchange() {
 	pcount = parseInt(document.getElementById("playernumber").value, 10);
@@ -2757,12 +2778,15 @@ function moveInfoPosition(){
 function showInfo(e=p.position){
 	moveInfoPosition();
 	// $("#info").css("background", "red");
+	if (sfx) {swooshAudio.play()}
 	$("#info").show();
 	$("#info").css("transform", "scale(1.1)");
 	setTimeout(function(){
 		$("#info").css("transform", "scale(1)");
 	},300)
 };
+
+var lastShownCity = 'city99';
 
 function showCity(e){
 
@@ -2771,37 +2795,62 @@ function showCity(e){
 		if(square[i].owner > 0){boughtSquares++;}
 	}
 	console.log(boughtSquares);
-	if (boughtSquares>0) {
+	if (boughtSquares>39) {
+		showBuilding('city7');
+	}else if (boughtSquares>36) {
+		showBuilding('city5');
+	}else if (boughtSquares>31) {
+		showBuilding('city8');
+	}else if (boughtSquares>27) {
+		showBuilding('city11');
+	}else if (boughtSquares>23) {
+		showBuilding('city4');
+	}else if (boughtSquares>19) {
+		showBuilding('city3');
+	}else if (boughtSquares>15) {
+		showBuilding('city2');
+	}else if (boughtSquares>11) {
+		showBuilding('city10');
+	}else if (boughtSquares>7) {
+		showBuilding('city1');
+	}else if (boughtSquares>4) {
+		showBuilding('city9');
+	}else if (boughtSquares>0) {
 		showBuilding('city6');
 		showBuilding('city0');
-	}if (boughtSquares>4) {
-		showBuilding('city9');
-	}if (boughtSquares>7) {
-		showBuilding('city1');
-	}if (boughtSquares>11) {
-		showBuilding('city10');
-	}if (boughtSquares>15) {
-		showBuilding('city2');
-	}if (boughtSquares>19) {
-		showBuilding('city3');
-	}if (boughtSquares>23) {
-		showBuilding('city4');
-	}if (boughtSquares>27) {
-		showBuilding('city11');
-	}if (boughtSquares>31) {
-		showBuilding('city8');
-	}if (boughtSquares>36) {
-		showBuilding('city5');
-	}if (boughtSquares>39) {
-		showBuilding('city7');
 	}
 
 }
 
 function showBuilding(e){
-	$('#'+e).addClass('activated-city');
-	$('#'+e).show();
-	console.log(e);
+
+	// console.log("last: "+lastShownCity);
+	// console.log("e: "+e);
+
+	if (e=='city6' || e=='city0') {
+		if (lastShownCity=='city6' || lastShownCity=='city0') {
+		}else{
+			setTimeout(function(){
+			$('#city6, #city0').addClass('activated-city');
+			$('#city6, #city0').fadeIn();
+			if(sfx){cityAudio.play();}
+			}, 1000);
+		}
+	}else{
+
+		if (lastShownCity==e) {
+		}else{
+			setTimeout(function(){
+				$('#'+e).addClass('activated-city');
+				$('#'+e).show();
+				if(sfx){cityAudio.play();}
+				console.log('played');
+			}, 1000);
+		}
+	}
+
+	lastShownCity = e;
+	// console.log("new last: "+lastShownCity);
 }
 
 
@@ -2880,156 +2929,6 @@ window.onload = function() {
 
 	enlargeWrap.innerHTML = HTML;
 
-	var currentCell;
-	var currentCellAnchor;
-	var currentCellPositionHolder;
-	var currentCellName;
-	var currentCellOwner;
-
-	console.log(square);
-
-	for (var i = 0; i < 40; i++) {
-		s = square[i];
-
-		currentCell = document.getElementById("cell" + i);
-
-		currentCellAnchor = currentCell.appendChild(document.createElement("div"));
-		currentCellAnchor.id = "cell" + i + "anchor";
-		currentCellAnchor.className = "cell-anchor";
-
-		currentCellPositionHolder = currentCellAnchor.appendChild(document.createElement("div"));
-		currentCellPositionHolder.id = "cell" + i + "positionholder";
-		currentCellPositionHolder.className = "cell-position-holder";
-		currentCellPositionHolder.enlargeId = "enlarge" + i;
-
-		currentCellName = currentCellAnchor.appendChild(document.createElement("div"));
-		currentCellName.id = "cell" + i + "name";
-		currentCellName.className = "cell-name";
-		currentCellName.textContent = s.name;
-
-		if (square[i].groupNumber) {
-			currentCellOwner = currentCellAnchor.appendChild(document.createElement("div"));
-			currentCellOwner.id = "cell" + i + "owner";
-			currentCellOwner.className = "cell-owner";
-		}
-
-		document.getElementById("enlarge" + i + "color").style.backgroundColor = s.color;
-		document.getElementById("enlarge" + i + "name").textContent = s.name;
-		document.getElementById("enlarge" + i + "price").textContent = s.pricetext;
-	}
-
-
-	// Add images to enlarges.
-	// document.getElementById("enlarge0token").innerHTML += '<img src="images/arrow_icon.png" height="40" width="136" alt="" />';
-	// document.getElementById("enlarge20price").innerHTML += "<img src='images/free_parking_icon.png' height='80' width='72' alt='' style='position: relative; top: -20px;' />";
-	// document.getElementById("enlarge38token").innerHTML += '<img src="images/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';
-
-	corrections();
-
-	// Jail corrections
-	$("<div>", {id: "jailpositionholder" }).appendTo("#jail");
-	$("<span>").text("Jail").appendTo("#jail");
-
-	document.getElementById("jail").enlargeId = "enlarge40";
-
-	// document.getElementById("enlarge-wrap").innerHTML += "<div id='enlarge40' class='enlarge'><div id='enlarge40color' class='enlarge-color'></div><br /><div id='enlarge40name' class='enlarge-name'>Jail</div><br /><div id='enlarge40price' class='enlarge-price'><img src='images/jake_icon.png' height='80' width='80' alt='' style='position: relative; top: -20px;' /></div><br /><div id='enlarge40token' class='enlarge-token'></div></div>";
-
-	// document.getElementById("enlarge40name").innerHTML = "Jail";
-
-	// Create event handlers for hovering and draging.
-
-	var drag, dragX, dragY, dragObj, dragTop, dragLeft;
-
-	$(".cell-position-holder, #jail").on("mouseover", function(){
-		$("#" + this.enlargeId).show();
-
-	}).on("mouseout", function() {
-		$("#" + this.enlargeId).hide();
-
-	}).on("mousemove", function(e) {
-		var element = document.getElementById(this.enlargeId);
-
-		if (e.clientY + 20 > window.innerHeight - 204) {
-			element.style.top = (window.innerHeight - 204) + "px";
-		} else {
-			element.style.top = (e.clientY + 20) + "px";
-		}
-
-		element.style.left = (e.clientX + 10) + "px";
-	});
-
-
-	$("body").on("mousemove", function(e) {
-		var object;
-
-		if (e.target) {
-			object = e.target;
-		} else if (window.event && window.event.srcElement) {
-			object = window.event.srcElement;
-		}
-
-
-		if (object.classList.contains("propertycellcolor") || object.classList.contains("statscellcolor")) {
-			if (e.clientY + 20 > window.innerHeight - 279) {
-				document.getElementById("deed").style.top = (window.innerHeight - 279) + "px";
-			} else {
-				document.getElementById("deed").style.top = (e.clientY + 20) + "px";
-			}
-			document.getElementById("deed").style.left = (e.clientX + 10) + "px";
-
-
-		} else if (drag) {
-			if (e) {
-				dragObj.style.left = (dragLeft + e.clientX - dragX) + "px";
-				dragObj.style.top = (dragTop + e.clientY - dragY) + "px";
-
-			} else if (window.event) {
-				dragObj.style.left = (dragLeft + window.event.clientX - dragX) + "px";
-				dragObj.style.top = (dragTop + window.event.clientY - dragY) + "px";
-			}
-		}
-	});
-
-
-	$("body").on("mouseup", function() {
-
-		drag = false;
-	});
-	document.getElementById("statsdrag").onmousedown = function(e) {
-		dragObj = document.getElementById("stats");
-		dragObj.style.position = "relative";
-
-		dragTop = parseInt(dragObj.style.top, 10) || 0;
-		dragLeft = parseInt(dragObj.style.left, 10) || 0;
-
-		if (window.event) {
-			dragX = window.event.clientX;
-			dragY = window.event.clientY;
-		} else if (e) {
-			dragX = e.clientX;
-			dragY = e.clientY;
-		}
-
-		drag = true;
-	};
-
-	document.getElementById("popupdrag").onmousedown = function(e) {
-		dragObj = document.getElementById("popup");
-		dragObj.style.position = "relative";
-
-		dragTop = parseInt(dragObj.style.top, 10) || 0;
-		dragLeft = parseInt(dragObj.style.left, 10) || 0;
-
-		if (window.event) {
-			dragX = window.event.clientX;
-			dragY = window.event.clientY;
-		} else if (e) {
-			dragX = e.clientX;
-			dragY = e.clientY;
-		}
-
-		drag = true;
-	};
 
 	$("#mortgagebutton").click(function() {
 		var checkedProperty = getCheckedProperty();

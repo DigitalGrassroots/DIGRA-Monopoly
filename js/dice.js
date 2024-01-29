@@ -1,5 +1,6 @@
 
 
+
 const NUMBER_OF_DICE = 2;
 const diceContainer = document.querySelector(".dice-container");
 const btnRollDice = document.querySelector(".btn-roll-dice");
@@ -83,12 +84,16 @@ function roller() {
   $('.dice-container').css("transform", "translate(-50%, 0)")
   $('.dice-container').css("opacity", 1)
 
+  if (sfx) {  shakeDice.play(); }
   interval = setInterval(() => {
     randomizeDice(diceContainer, NUMBER_OF_DICE);
   }, 100);
 
   setTimeout(function() {
     clearInterval(interval);
+
+    if (sfx) {  shakeDice.pause(); shakeDice.currentTime = 0; }
+
     // console.log('Rolling stopped');
     // console.log(dices);
     setTimeout(function() {
