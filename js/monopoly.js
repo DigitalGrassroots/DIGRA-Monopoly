@@ -2631,10 +2631,16 @@ function setup() {
 	.split('; ')
   .find(row => row.startsWith('gameData='))
   .split('=')[1];
-
-	// console.log(document.cookie);
-	var gameObject = JSON.parse(decodeURIComponent(cookieValue));
-	console.log(gameObject);
+  
+// Check if cookieValue is defined and not empty
+if (cookieValue && cookieValue.trim() !== "") {
+  // Parse the cookie value
+  var gameObject = JSON.parse(decodeURIComponent(cookieValue));
+  console.log(gameObject);
+} else {
+  // Redirect the user to setup.html
+  window.location.href = 'setup.html';
+}
 
 
 	pcount = parseInt(document.getElementById("playernumber").value, 10);
