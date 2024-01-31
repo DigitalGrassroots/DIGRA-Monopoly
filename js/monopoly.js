@@ -2626,7 +2626,10 @@ function play() {
 
 function setup() {
 
-	console.log(document.cookie);
+	 if(document.cookie=="") {
+  window.location.href = 'setup';
+}
+
 	var cookieValue = document.cookie  
 	.split('; ')
   .find(row => row.startsWith('gameData='))
