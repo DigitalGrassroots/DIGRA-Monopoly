@@ -2626,21 +2626,15 @@ function play() {
 
 function setup() {
 
-
+	console.log(document.cookie);
 	var cookieValue = document.cookie  
 	.split('; ')
   .find(row => row.startsWith('gameData='))
   .split('=')[1];
-  
-// Check if cookieValue is defined and not empty
-if (cookieValue && cookieValue.trim() !== "") {
-  // Parse the cookie value
-  var gameObject = JSON.parse(decodeURIComponent(cookieValue));
-  console.log(gameObject);
-} else {
-  // Redirect the user to setup.html
-  window.location.href = 'setup.html';
-}
+
+	// console.log(document.cookie);
+	var gameObject = JSON.parse(decodeURIComponent(cookieValue));
+	console.log(gameObject);
 
 
 	pcount = parseInt(document.getElementById("playernumber").value, 10);
