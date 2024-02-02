@@ -598,7 +598,7 @@ a{
 
  #popupx {
  	position: absolute;
-	top: -30px;
+	top: -55px;
 	right: -25px;
 	width: 30px;
 	height: 30px;
@@ -621,8 +621,8 @@ a{
 	width: 300px;
 	max-width: 70%;
 	background: var(--mustard);
-	padding: 20px;
-	padding-bottom: 35px;
+	padding: 35px 20px;
+	padding-top: 45px;
 	font-family: 'Grandstander', sans-serif;
 	font-weight: 700;
 	top: 50%;
@@ -650,6 +650,88 @@ a{
   background-position: 50% 0;
   background-size: cover;
 }
+
+/*tour*/
+
+ #tourx {
+ 	position: absolute;
+	top: -55px;
+	right: -25px;
+	width: 30px;
+	height: 30px;
+	border: none;
+	cursor: url("../images/cursor2.ico"), pointer;
+	pointer-events: auto;
+/*	display: none;*/
+} 
+
+#tour{
+	position: absolute;
+	text-align: center;
+	word-wrap: break-word;
+	line-height: 1.5;
+	z-index: 5;
+	font-size: 16px;
+	letter-spacing: 0.01em;
+	-webkit-user-select: none;
+	user-select: none;
+	width: 300px;
+	max-width: 70%;
+	background: var(--mustard);
+	padding: 35px 20px;
+	padding-top: 45px;
+	font-family: 'Grandstander', sans-serif;
+	font-weight: 700;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 20px;
+	border: 3px solid black;
+	display: none;
+	z-index: 8;
+}
+
+#tour:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  background-image: url(../images/choose-player.png);
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+}
+
+#tourcount{
+	position: absolute;
+	left: 30px;
+	top: 10px;
+}
+
+.tour-fade{
+	width: 100%;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	background: rgb(0,0,0,1);
+	z-index: 7;
+	display: none;
+}
+
+.tour-btns{
+	display: flex;
+	font-weight: 700;
+	width: 90%;
+	justify-content: space-around;
+	margin: auto;
+	margin-top: 10px;
+	color: var(--maroon);
+}
+
 
 .trade-flex{
 	display: flex;

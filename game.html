@@ -368,12 +368,13 @@
 <div id="popupbackground" style="display:block;"></div>
 <!-- <div id="popupwrap"> -->
 	<div id="popup" style="display:block;">
+			<div id="popupcount"></div>
 		<div style="position: relative;">
 			<img id="popupx" src="images/close.png" title="Close" alt="x" onclick="closePopup()" />
 			<div id="popuptext">Welcome to the online <br> DIGITAL RIGHTS MONOPOLY experience! Would you like a quick tour? 
 			<br><br>
 			<div style="display:flex;justify-content: space-between;width: 150px;margin: auto;">
-				<div class="btn rollbtn">Okay</div>
+				<div class="btn rollbtn" onclick="tour1()">Okay</div>
 				<div style="padding-top:5px;" onclick="skipTour()">Skip Tour</div>
 			</div>
 			</div>
@@ -394,20 +395,6 @@
 
 <div id="canvas" style="display:non">
 
-
-
-<!-- <img src="svg/city-hospital.svg" title="hospital" class="city hospital-svg">
-<img src="svg/city-igf-complex.svg" title="ISOC IGF" class="city igf-svg">
-<img src="svg/city-juice-stand.svg" title="Internet Justice" class="city juice-stand-svg">
-<img src="svg/city-news-stand.svg" title="News Stand" class="city news-stand-svg">
-<img src="svg/city-gas-station.svg" title="Gas Station" class="city gas-station-svg">
-<img src="svg/city-bridge.svg" class="city bridge-svg">
-<img src="svg/city-billboard.svg" title="CChange" class="city billboard-svg">
-<img src="svg/city-train.svg" title="Train" class="city train-svg">
-<img src="svg/city-cohort.svg" title="Cohort Academy" class="city cohort-svg">
-<img src="svg/city-basketball.svg" title="Basketball Court" class="city basketball-svg">
-<img src="svg/city-park.svg" title="Park" class="city park-svg">
-<img src="svg/city-tennis.svg" title="Park" class="city tennis-svg"> -->
 
 
 <img src="images/city/city-hospital.png" title="hospital" class="city hospital-svg" id="city1">
@@ -438,7 +425,7 @@
 </div>
 
 
-<div class="info" id="info" style="display:non">
+<div class="info" id="info" style="display:none">
 	<div id="landed"></div>
 	<div style="padding-top: 8px;">
 		<input type="button" class="btn rollbtn" id="nextbutton" title="Roll the dice and move your token accordingly." value=""/>
@@ -565,6 +552,18 @@
 
 
 <div class="black-fade" id=""></div>
+
+<div class="tour-fade" id=""></div>
+<div id="tour" style="">
+		<div id="tourcount"></div>
+	<div style="position: relative;">
+		<img id="tourx" src="images/close.png" title="Close" alt="x" onclick="closeTour()" />
+		<div id="tourtext">
+			
+		</div>
+
+	</div>
+</div>
 
 <div class="dice-container"></div>
 

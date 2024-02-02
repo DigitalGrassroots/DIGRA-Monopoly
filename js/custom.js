@@ -1,3 +1,12 @@
+if(document.cookie=="") {
+  window.location.href = 'setup';
+}
+
+ // window.onbeforeunload = function ()
+ // {
+ //     return "";
+ // };
+ 
 var boardzoom = true;
 function tiler(e){
       const container = document.getElementById('board');
@@ -122,10 +131,6 @@ $('#alertDiv').css("left", alertLeft+"px");
 
 });
 
- window.onbeforeunload = function ()
- {
-     return "";
- };
  
 scale_x = $(window).width() / 1366;
 scale_y = $(window).height() / 619;

@@ -2626,9 +2626,6 @@ function play() {
 
 function setup() {
 
-	 if(document.cookie=="") {
-  window.location.href = 'setup';
-}
 
 	var cookieValue = document.cookie  
 	.split('; ')
