@@ -2360,7 +2360,7 @@ function land(increasedRent) {
 		p.pay(rent, s.owner);
 		player[s.owner].money += rent;
 
-		document.getElementById("landed").innerHTML = "You landed on " + s.name + ". " + player[s.owner].name + " collected $" + rent + " rent.";
+		document.getElementById("landed").innerHTML = "You landed on " + s.name + ". " + player[s.owner].name + " collected D" + rent + " rent.";
 	} else if (s.owner > 0 && s.owner != turn && s.mortgage) {
 		document.getElementById("landed").innerHTML = "You landed on " + s.name + ". Property is mortgaged; no rent was collected.";
 	}
