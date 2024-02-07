@@ -348,7 +348,6 @@ a{
 	font-size: 18px;
 	line-height: 1.8em;
 /*	height: 500px;*/
-  overflow: auto;
 }
 
 .rules-left{
@@ -469,6 +468,26 @@ a{
 
 .left-footer{
 	height: 50vh;
+}
+
+.rules-section{
+	width: 90%;
+	margin: auto;
+	display: block;
+}
+
+.rules-left{
+/*	background: blue;*/
+	display: block;
+	width: auto;
+	height: auto;
+	top: 150px;
+}
+.rules-right{
+	width: auto;
+	margin: 0;
+	margin-top: 100px;
+/*	background: yellow;*/
 }
 
 }
