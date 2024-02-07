@@ -884,7 +884,7 @@ a{
 
 .city{
 	position: absolute;
-	z-index: 1;
+	z-index: 2;
 	cursor: url("../images/cursor2.ico"), pointer;
 	opacity: 0.6;
 	display: none;
