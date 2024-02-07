@@ -1,7 +1,7 @@
 
 function resetTour(){
 	$("#avatar1").css({'z-index': 3});
-	$("#info").css({'z-index': 3, 'display':'block'});
+	$("#info").css({'z-index': 3, 'display':'none'});
 	$("#tour").css("transform", "translate(-50%, -50%)");
 	$(".tour-fade").css("opacity", 0.7);
 	$("#settingscircle, #tradecircle, #managecircle,  #playerstatscircle").css({"opacity":0.05});
@@ -16,7 +16,7 @@ function closeTour(){
 	$("#settingscircle, #tradecircle, #managecircle,  #playerstatscircle").css({"opacity":1});
 	$("#tour").hide();
 	$(".tour-fade").fadeOut(400);
-	$("#info").css({"z-index": 3, "pointer-events":"auto"});
+	$("#info").css({"z-index": 3, "pointer-events":"auto", 'display':'block'});
 	skipTour();
 }
 
@@ -42,10 +42,10 @@ function tour2(){
 	$("#tourcount").html("2/9");
 	$('#tourtext').html("For example, when you see this button it means its your turn to roll the die <br><div class='tour-btns'><div onclick='tour1()'><< Prev</div> <div onclick='tour3()'>Next >></div></div>");
 	$("#tour").css("top", "50%");
-	showInfo();
 
-	$("#info").css({"z-index": 8, "pointer-events":"none"});
 	$("#avatar1").css({'z-index': 8});
+	$("#info").css({"z-index": 8, "pointer-events":"none"});
+	showInfo();
 }
 
 function tour3(){

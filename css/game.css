@@ -73,6 +73,10 @@ a{
 	background: red;
 }
 
+.bluebtn{
+	background: #418bca;
+}
+
 .btn:disabled{
 	background: rgb(0, 0, 0, 0.8);
 	color: rgb(255, 255, 255, 0.5);
@@ -1006,4 +1010,23 @@ a{
 .tennis-svg{
 	left: 300px;
 	bottom: -50px;
+}
+
+
+
+/*AUCTION*/
+#currentbidder{
+	color: var(--maroon);
+}
+
+
+.bid-input{
+	padding: 5px;
+	border: 3px solid black;
+	background: none;
+	border-radius: 8px;
+	font-family: 'Grandstander';
+	font-weight: 700;
+	text-align: center;
+	width: 100px;
 }
