@@ -35,9 +35,9 @@ var btn3 = document.getElementById('btn3');
 
 var selectedPlayerCount = 0;
 
-view4.style.display = 'block';
+view1.style.display = 'block';
 
-  if (1==2) {
+  if (1) {
 setTimeout(function(){
     var progressInterval = setInterval(frame, 10);
     function frame() {
@@ -312,14 +312,14 @@ function closeExit(){
 function jumpToPlayer(e){
 	console.log(playerIndex);
 	if (e=="next") {
-		if (playerIndex==8) {
+		if (playerIndex==selectedPlayerCount) {
 			playerIndex=1;
 		}else{
 			playerIndex++;
 		}
 	}else if(e=="prev"){
 		if (playerIndex==1) {
-			playerIndex=8;
+			playerIndex=selectedPlayerCount;
 		}else{
 			playerIndex--;
 		}
