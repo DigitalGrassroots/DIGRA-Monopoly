@@ -146,6 +146,30 @@ a{
   position: relative;
   top: 6%;
 }
+
+.section{
+	display: flex;
+	max-width: 1300px;
+	margin: auto;
+/*	background: red;*/
+}
+
+.left-section{
+	width: 50%;
+}
+
+.right-section{
+	width: 50%;
+/*	background: blue;*/
+}
+
+.left-hero{
+	padding-left: 100px;
+}
+
+.collage{
+	width: 100%;
+}
   
 /* SVG */
 #arrow-icon-one {
@@ -200,13 +224,6 @@ a{
     outline: 0.2em solid var(--color-background);
     outline-offset: 0;
   }
-}
-
-.right-hero{
-	width: 60%;
-	position: absolute;
-	right: 0;
-	top: 40%;
 }
 
 
@@ -277,7 +294,7 @@ a{
 	display: flex;
 	width: 100%;
 /*	position: relative;*/
-	margin-top: 100vh;
+/*	margin-top: 100vh;*/
 }
 
 .right1{
@@ -297,6 +314,7 @@ a{
 }
 
 .title1{
+	margin-top: 100px;
 	font-size: 30px;
 	font-weight: bolder;
 }
@@ -306,6 +324,41 @@ a{
 	line-height: 1.5em;
 	margin-top: 30px;
 }
+
+.banner1{
+	width: 70%;
+/*	height: 200px;*/
+	background: var(--third);
+	margin: auto;
+}
+
+.banner-flex{
+	display: flex;
+}
+
+.banner-left{
+	padding: 5% 50px;
+}
+
+.banner-title{
+	font-size: 40px;
+	font-weight: bolder;
+	margin: 5px 0;
+}
+
+.btn{
+	background: black;
+	color: var(--mustard);
+	display: inline-block;
+	border-radius: 5px;
+	padding: 15px 20px;
+	transition: 0.3s;
+}
+.btn:hover{
+	background: var(--mustard);
+	color: black;
+}
+
 
 .left-footer{
 	width: 100%;
@@ -388,56 +441,128 @@ a{
 }
 
 @media only screen and (max-width: 1200px) {
-.right1{
-	padding-top: 20px;
-}
-
-.index2{
-	margin-top: -200px;
-}
+	.index2{
+		margin-top: 0;
+	}
+	.text1{
+		font-size: 24px;
+		margin-top: 10px;
+	}
 
 }
 
 @media only screen and (max-width: 1000px) {
-	.right-hero{
-		top: 30%;
-	}
-
-	.title1{
-		margin-top: -50px;
-	}
 
 	.left-footer{
 		height: 70vh;
 	}
+
+	.section{
+		width: 90%;
+	}
+	.left-hero{
+		padding-left: 0;
+	}
+}
+
+@media only screen and (max-width: 900px) {
+
+	.section{
+		width: 80%;
+	}
+
+	.banner1{
+		width: 90%;
+	}
+	
 }
 
 @media only screen and (max-width: 800px) {
-	.right-hero{
-		position: relative;
-		float: right;
-		right: -100px;
-		margin-top: -100px;
-	}
 
 	.title1{
-		margin-top: -100px;
-		font-size: 20px;
+		text-align: center;
 	}
+
 	.text1{
-		font-size: 16px;
-		margin-top: 10px;
+		text-align: center;
+	}
+
+	.section{
+		display: block;
+	}
+
+	.left-section, .right-section{
+		width: 100%;
+	}
+
+	.right-section{
+		margin-top: 50px;
+	}
+
+	.collage{display: none}
+
+	.spacing2{
+		height: 0px;
 	}
 }
 
+@media only screen and (max-width: 700px) {
+	.nav-hamburger{
+	display: block;
+	font-size: 40px;
+/*	font-weight: bolder;*/
+	padding: 0px 20px 0 0 ;
+}
+
+.nav-close{
+	display: none;
+/*	width: 100px;*/
+	margin: auto;
+/*	background: blue;*/
+	text-align: center;
+	position: fixed;
+	bottom: 10%;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 2;
+}
+
+.nav-close-x{
+	font-size: 30px;
+	background: #111;
+	color: #fff;
+	border-radius: 100px;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	margin-bottom: 10px;
+}
+
+.nav-links{
+	display: none;
+	flex-flow: column;
+	width: 100vw;
+	position: fixed;
+	z-index: 2;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	padding-top: 10%;
+	background: var(--mustard);
+}
+
+.main-logo{
+	width: 200px;
+}
+
+.nav-pad{
+	padding: 50px 20px;
+	padding-bottom: 0;
+}
+}
+
 @media only screen and (max-width: 600px) {
-	.right-hero{
-/*		margin-top: -80px;*/
-			margin: 0;
-			top:50%;
-			position: absolute;
-			display: none;
-	}	
 
 	.section2{
 		display: block;
@@ -493,59 +618,7 @@ a{
 }
 
 @media only screen and (max-width: 500px) {
-.nav-hamburger{
-	display: block;
-	font-size: 40px;
-/*	font-weight: bolder;*/
-	padding: 0px 20px 0 0 ;
-}
 
-.nav-close{
-	display: none;
-/*	width: 100px;*/
-	margin: auto;
-/*	background: blue;*/
-	text-align: center;
-	position: fixed;
-	bottom: 10%;
-	left: 50%;
-	transform: translateX(-50%);
-	z-index: 2;
-}
-
-.nav-close-x{
-	font-size: 30px;
-	background: #111;
-	color: #fff;
-	border-radius: 100px;
-	width: 50px;
-	height: 50px;
-	text-align: center;
-	line-height: 50px;
-	margin-bottom: 10px;
-}
-
-.nav-links{
-	display: none;
-	flex-flow: column;
-	width: 100vw;
-	position: fixed;
-	z-index: 2;
-	left: 0;
-	top: 0;
-	height: 100vh;
-	padding-top: 10%;
-	background: var(--mustard);
-}
-
-.main-logo{
-	width: 200px;
-}
-
-.nav-pad{
-	padding: 50px 20px;
-	padding-bottom: 0;
-}
 
 
 .about-carousel{
@@ -570,7 +643,5 @@ a{
 }
 
 @media only screen and (max-width: 400px) {
-	.right-hero{
-		margin-top: 0;
-	}
+
 }

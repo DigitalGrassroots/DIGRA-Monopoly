@@ -434,7 +434,6 @@ a{
 	border-radius: 20px;
 	display: flex;
 	box-shadow: 10px 10px 0px var(--maroon);
-	cursor: pointer;
 	flex-wrap: wrap;
 /*	overflow: hidden;*/
 }
@@ -506,7 +505,15 @@ margin-top: -50px;
 	cursor: pointer;
 	position: absolute;
 	z-index: 2;
-	top: 60px;
+	top: 40%;
+}
+
+#prevBtn{
+	left: 25%;
+}
+#nextBtn{
+	right: 26%;
+	transform: rotate(180deg);
 }
 
 .setup-carousel-btn:before,
@@ -565,13 +572,32 @@ margin-top: -50px;
   transform: translateX(-56px);
 }
 
-#prevBtn{
-/*	left: -20px;*/
+.owl-carousel-btn{
+	width: 40px;
+	height: 40px;
+	background: var(--mustard);
+	color: #000;
+	font-size: 30px;
+	text-align: center;
+	line-height: 40px;
+	border: 3px solid #000;
+	cursor: pointer;
+	position: absolute;
+	z-index: 2;
+	top: 208px;
 }
-#nextBtn{
-/*	left: -20px;*/
-right: 0;
-transform: rotate(180deg);
+
+.owl-carousel-btn:hover{
+	background: var(--maroon);
+	border: 3px solid var(--maroon);
+	color: #fff;
+}
+
+.owl-carousel-next{
+	right: 250px;
+}
+.owl-carousel-prev{
+	left: 250px;
 }
 
 .setup-next-btn{
@@ -579,7 +605,7 @@ transform: rotate(180deg);
 	background: var(--maroon);
 	display: inline-block;
 	color: #fff;
-	margin-top: 20px;
+	margin-top: 10px;
 	border: 2px solid #fff;
 	box-shadow: 10px 10px 0 rgb(0, 0, 0, 0.8);
 	cursor: pointer;

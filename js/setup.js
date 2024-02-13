@@ -35,8 +35,9 @@ var btn3 = document.getElementById('btn3');
 
 var selectedPlayerCount = 0;
 
-view1.style.display = 'block';
-  if (1==1) {
+view4.style.display = 'block';
+
+  if (1==2) {
 setTimeout(function(){
     var progressInterval = setInterval(frame, 10);
     function frame() {
@@ -114,6 +115,8 @@ setTimeout(function(){
 
 
   function showView3(){
+  	document.getElementById('backBtn').style.display = "block";
+
     for (var i = playerSelects.length - 1; i >= 0; i--) {
     	playerSelects[i].style.opacity = 0;
     }
@@ -297,31 +300,6 @@ function goBack(){
 }
 
 
- // carousel
-const track = document.getElementById('carouselTrack');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-
-let currentIndex = 0;
-
-function updateCarousel() {
-  track.style.transform = `translateX(${-currentIndex * 100}%)`;
-}
-
-function prevSlide() {
-  currentIndex = (currentIndex - 1 + track.children.length) % track.children.length;
-  updateCarousel();
-}
-
-function nextSlide() {
-  currentIndex = (currentIndex + 1) % track.children.length;
-  updateCarousel();
-}
-
-// Event listeners for prev and next buttons
-prevBtn.addEventListener('click', prevSlide);
-nextBtn.addEventListener('click', nextSlide);
-
 
 // exit
 function showExit(){
@@ -331,6 +309,24 @@ function closeExit(){
 	document.getElementById('sureBlack').style.display = "none";
 }
 
+function jumpToPlayer(e){
+	console.log(playerIndex);
+	if (e=="next") {
+		if (playerIndex==8) {
+			playerIndex=1;
+		}else{
+			playerIndex++;
+		}
+	}else if(e=="prev"){
+		if (playerIndex==1) {
+			playerIndex=8;
+		}else{
+			playerIndex--;
+		}
+	}
+
+	showPlayer(playerIndex);
+}
 
 function showPlayer(e){
 	playerIndex = e;
