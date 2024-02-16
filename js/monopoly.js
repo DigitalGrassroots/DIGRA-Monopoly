@@ -3018,7 +3018,7 @@ setup();
 
 // player[2].name = 'ffff';
 
-// console.log(player);
+console.log(player);
 
 
 // $("#avatar1").css({"left": positions[infoPos][0]+"px", "top": positions[infoPos][1]+"px"});
