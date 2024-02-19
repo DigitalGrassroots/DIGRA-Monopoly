@@ -281,7 +281,7 @@ function showView5() {
 
     // Begin shuffle animation
     const shuffleInterval = 100; // Duration between each shuffle step in milliseconds
-    const totalShuffleSteps = Math.ceil(1000 / shuffleInterval);
+    const totalShuffleSteps = Math.ceil(7000 / shuffleInterval);
     let currentStep = 0;
 
     function animateShuffle() {
