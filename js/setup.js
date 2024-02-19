@@ -3,15 +3,17 @@ var playerIndex = 1;
 
 var currentView =1;
 
+$('#power1, #power2').slideUp();
+
 players = {
-	1 :  { name: "", avatar: "", human: true},
-	2 :  { name: "", avatar: "", human: true},
-	3 :  { name: "", avatar: "", human: true},
-	4 :  { name: "", avatar: "", human: true},
-	5 :  { name: "", avatar: "", human: true},
-	6 :  { name: "", avatar: "", human: true},
-	7 :  { name: "", avatar: "", human: true},
-	8 :  { name: "", avatar: "", human: true},
+	1 :  { name: "Player 1", avatar: "", human: true},
+	2 :  { name: "Player 2", avatar: "", human: true},
+	3 :  { name: "Player 3", avatar: "", human: true},
+	4 :  { name: "Player 4", avatar: "", human: true},
+	5 :  { name: "Player 5", avatar: "", human: true},
+	6 :  { name: "Player 6", avatar: "", human: true},
+	7 :  { name: "Player 7", avatar: "", human: true},
+	8 :  { name: "Player 8", avatar: "", human: true},
 
 	};
 
@@ -21,6 +23,7 @@ var view1 = document.getElementById('view1');
 var view2 = document.getElementById('view2');
 var view3 = document.getElementById('view3');
 var view4 = document.getElementById('view4');
+var view5 = document.getElementById('view5');
 
 
 var progressInner = document.getElementById("progressInner");
@@ -264,6 +267,102 @@ function hideView4(){
 }
 
 
+
+function showView5() {
+    view5.style.display = "block";
+    view5Fade1.style.opacity = 0;
+    $('.shuffle-circle').hide();
+
+    view5Fade1.style.opacity = 1;
+    view5Fade2.style.opacity = 1;
+
+
+    var selectedPlayers = Object.values(players).slice(0, playerCount);
+
+    // Begin shuffle animation
+    const shuffleInterval = 100; // Duration between each shuffle step in milliseconds
+    const totalShuffleSteps = Math.ceil(1000 / shuffleInterval);
+    let currentStep = 0;
+
+    function animateShuffle() {
+        shuffle(selectedPlayers);
+        updateDisplay(selectedPlayers);
+        currentStep++;
+
+        if (currentStep < totalShuffleSteps) {
+            setTimeout(animateShuffle, shuffleInterval);
+        } else {
+        		$('#startBtn').css({'display':'inline-block'});
+            
+				    var avatar8Index = selectedPlayers.findIndex(player => player.avatar == "8");
+				    if (avatar8Index !== -1) {
+				        selectedPlayers.unshift(selectedPlayers.splice(avatar8Index, 1)[0]);
+	            $("#power2").html("* The Ambassador starts first *");
+	            $("#power2").slideDown();
+				    }
+				    updateDisplay(selectedPlayers);
+				    players = selectedPlayers;
+
+				    $('.shuffle-circle .setup-player-topcircle').css("animation", "none");
+
+            setTimeout(function () {
+            		$('#view5Fade1').html("Alright, let's play!");
+            		$('#startBtn').css({'display':'inline-block','opacity':1,'transform':'translateY(10px)'});
+            		insertShuffleNames();
+                currentView = 5;
+            }, 800);
+        }
+    }
+
+    // Start shuffle animation
+    animateShuffle();
+}
+
+
+// Function to update display with shuffled avatars
+function updateDisplay(selectedPlayers) {
+    for (var i = 0; i < playerCount; i++) {
+        playerTopCircleView = document.getElementById('playerTopCircleView' + i);
+        document.getElementById("playerSelectView" + i).style.display = "block";
+        playerTopCircleView.style.background = "url(images/avatar" + selectedPlayers[i]['avatar'] + ".png) center no-repeat";
+        playerTopCircleView.style.backgroundSize = "contain";
+        playerTopCircleView.innerHTML = "";
+    }
+}
+
+// Function to shuffle an array (Fisher-Yates algorithm)
+function shuffle(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+
+
+function hideView5(){
+
+	return new Promise(function(resolve) {
+    setTimeout(function(){
+    	view5Fade2.style.opacity = 0;
+    setTimeout(function(){
+    	view5Fade1.style.opacity = 0;
+    setTimeout(function(){
+        		$('#view5Fade1').html("Here we go again..");
+						view5.style.display = "none";
+					  currentView = 4;
+		        resolve();
+			}, 800);
+		}, 50);
+		}, 100);
+
+	})
+
+}
+
+
+
+
 function selectPlayerCount(e){
 
   for (var i = playerSelects.length - 1; i >= 0; i--) {
@@ -277,7 +376,6 @@ function selectPlayerCount(e){
   }
 
   for (var i = 1; i<e+1;i++) {
-  	console.log('dfd');
   	document.getElementById("playerSelect"+i).style.display = "block";
   }
 
@@ -297,6 +395,9 @@ function goBack(){
 	if (currentView==4) {
 		hideView4().then(function(){showView3();});
 	}
+	if (currentView==5) {
+		hideView5().then(function(){showView4();});
+	}
 }
 
 
@@ -310,21 +411,21 @@ function closeExit(){
 }
 
 function jumpToPlayer(e){
-	console.log(playerIndex);
 	if (e=="next") {
-		if (playerIndex==selectedPlayerCount) {
+		if (playerIndex > selectedPlayerCount-1) {
 			playerIndex=1;
 		}else{
 			playerIndex++;
 		}
 	}else if(e=="prev"){
-		if (playerIndex==1) {
+		if (playerIndex<2) {
 			playerIndex=selectedPlayerCount;
 		}else{
 			playerIndex--;
 		}
 	}
 
+	// console.log(playerIndex);
 	showPlayer(playerIndex);
 }
 
@@ -349,7 +450,8 @@ function showPlayer(e){
   	document.getElementById("playerType").checked = true;
 	}
 
-	checkProcess()
+	checkProcess();
+	insertName();
 	// console.log(players);
 }
 
@@ -373,10 +475,10 @@ function insertAvatar(e){
 	if (insertAvatarPass) {
 		// uncheck previous checked
   	if (players[playerIndex].avatar!="") {
-  		document.getElementById("avatarCheck"+players[playerIndex].avatar).classList.remove('setup-select-btn-checked');
+  		 $(".avatarCheck" + players[playerIndex].avatar).removeClass('setup-select-btn-checked');
   	}
   	players[playerIndex].avatar = e;
-		document.getElementById("avatarCheck"+players[playerIndex].avatar).classList.add('setup-select-btn-checked');
+		 $(".avatarCheck" + players[playerIndex].avatar).addClass('setup-select-btn-checked');
 
   	playerTopCircle = document.getElementById('playerTopCircle'+playerIndex);
   	playerTopCircle.style.background = "url(images/avatar"+e+".png) center no-repeat";
@@ -400,14 +502,32 @@ function insertPlayerType(e){
 	console.log(players);
 }
 
+function insertShuffleNames(){
+	for (var i = 0; i < playerCount; i++) {
+	    (function(index) {
+	        setTimeout(function() {
+	        	if (players[index]['avatar']==1) {
+	            $("#playerTopNameView" + index).html(players[index]['name']+"<br><b>D2000</b>");
+	            $("#power1").html("* "+players[index]['name']+" gets D500 extra *");
+	            $("#power1").slideDown();
+	        	}else{
+	            $("#playerTopNameView" + index).html(players[index]['name']+"<br><b>D1500</b>");
+	        	}
+	            $("#playerTopNameView" + index).css("opacity", 1);
+	        }, 100 * index);
+	    })(i);
+	}
+}
+
 
 function checkProcess(){
 var proceedBtn = document.getElementById("proceedBtn");
 
 
+// console.log(players);
 var proceedState = true;
 // console.log(playerCount);
-for (var i = 1; i < playerCount+1; i++) {
+for (var i = 1; i < playerCount; i++) {
 	if (players[i].name == "" || players[i].avatar == "") {
 		proceedState = false;
 		return false;
@@ -421,34 +541,201 @@ if (proceedState) {
 }
 
 
+
+
+
+function Player(name, color, avatar) {
+	this.name = name;
+	this.color = color;
+	this.avatar = avatar;
+	this.oldposition = 0;
+	this.position = 0;
+	this.money = 1500;
+	this.creditor = -1;
+	this.jail = false;
+	this.jailroll = 0;
+	this.communityChestJailCard = false;
+	this.chanceJailCard = false;
+	this.bidding = true;
+	this.human = true;
+	// this.AI = null;
+}
+
+
+
 function play(){
 	if (checkProcess()) {
-		console.log('ddf');
 
-		var dataString = JSON.stringify(
-			{
-				"playerCount" : playerCount,
-				players,
+		hideView5();
+
+		// console.log(players);
+		// console.log(player);
+		var player = {};
+		var newplayers = {};
+		
+		for (var i = 1 ; i < playerCount+1; i++) {
+				newplayers[i] = players[i-1];
+		}
+
+		// player = newplayers;
+		console.log(newplayers);
+
+
+			for (var i = 0; i <= 8; i++) {
+				if (i==0) {
+					player[0] = new Player("the bank", "", "");
 				}
-			);
-		// console.log(dataString);
-		document.cookie = "gameData=" + encodeURIComponent(dataString);
+				else if(i<playerCount+1){
+					player[i] = new Player(newplayers[i].name, "", newplayers[i].avatar);
+					if (newplayers[i].human) {
+							player[i].human = true;
+					}else{
+							player[i].human = false;
+					}
+				}
+				else{
+					player[i] = new Player("", "", "");
+				}
 
-		var cookieValue = document.cookie  
-		.split('; ')
-	  .find(row => row.startsWith('gameData='))
-	  .split('=')[1];
+				player[i].index = i;
+			}
 
-		console.log(document.cookie);
-		var gameObject = decodeURIComponent(cookieValue);
-		console.log(gameObject);
+			player[1].human = true;
 
-		hideView4();
-		setTimeout(function(){
-			window.location.href = "game.html";
-		}, 500)
+			// console.log(player);
+
+			var groupPropertyArray = [];
+			var groupNumber;
+
+			for (var i = 0; i < 40; i++) {
+				groupNumber = square[i].groupNumber;
+
+				if (groupNumber > 0) {
+					if (!groupPropertyArray[groupNumber]) {
+						groupPropertyArray[groupNumber] = [];
+					}
+
+					groupPropertyArray[groupNumber].push(i);
+				}
+			}
+
+			for (var i = 0; i < 40; i++) {
+				groupNumber = square[i].groupNumber;
+
+				if (groupNumber > 0) {
+					square[i].group = groupPropertyArray[groupNumber];
+				}
+
+				square[i].index = i;
+			}
+
+
+			communityChestCards.index = 0;
+			chanceCards.index = 0;
+
+			communityChestCards.deck = [];
+			chanceCards.deck = [];
+
+			for (var i = 0; i < 16; i++) {
+				chanceCards.deck[i] = i;
+				communityChestCards.deck[i] = i;
+			}
+
+			// Shuffle Chance and Community Chest decks.
+			chanceCards.deck.sort(function() {return Math.random() - 0.5;});
+			communityChestCards.deck.sort(function() {return Math.random() - 0.5;});
+
+
+			var playerArray = player;
+			var p;
+
+			for (var i = 1; i <= playerCount; i++) {
+				p = player[i];
+
+
+				p.avatar = playerArray[i].avatar;
+				$("#avatar"+playerArray[i].avatar).show();
+				$("#avatar"+playerArray[i].avatar).addClass('avatar-active');
+
+				$("#playerstats-col"+playerArray[i].avatar).show();
+				$("#playerstatsName"+playerArray[i].avatar).html(playerArray[i].name);
+
+			}
+
+
+
+
+			var dataString = JSON.stringify(
+				{
+					"playerCount" : playerCount,
+					"turn" : 0,
+					"doublecount" : 0,
+					"lastShownCity" : 'city99',
+					player,
+					square,
+					communityChestCards,
+					chanceCards
+					}
+				);
+
+
+	    localStorage.setItem('gameData', dataString);
+
+
+			var gameObjectString = localStorage.getItem('gameData');
+			var gameObject = JSON.parse(gameObjectString);
+			
+			console.log(gameObject);
+
+			setTimeout(function(){
+				window.location.href = "game.html";
+			}, 500)
 
 	}
 }
-		// console.log(document.cookie);
-console.log(players);
+
+function checkGameData() {
+    // Check if 'gameData' exists in localStorage
+    var gameObjectString = localStorage.getItem('gameData');
+    if (!gameObjectString) {
+        console.log("gameData does not exist in localStorage");
+        return false;
+    }
+
+    try {
+        // Parse 'gameData' string to JSON
+        var gameObject = JSON.parse(gameObjectString);
+
+        // Check if required properties exist in the parsed object
+        if (!gameObject.hasOwnProperty("playerCount") ||
+            !gameObject.hasOwnProperty("turn") ||
+            !gameObject.hasOwnProperty("doublecount") ||
+            !gameObject.hasOwnProperty("lastShownCity") ||
+            !gameObject.hasOwnProperty("player") ||
+            !gameObject.hasOwnProperty("square") ||
+            !gameObject.hasOwnProperty("communityChestCards") ||
+            !gameObject.hasOwnProperty("chanceCards")) {
+            console.log("gameData is missing required properties");
+            return false;
+        }
+
+        // Additional checks if needed
+        // For example, you might want to validate specific properties' types or values
+
+        // If all checks pass, return true
+        return true;
+    } catch (error) {
+        console.error("Error parsing gameData:", error);
+        return false;
+    }
+}
+
+
+if (checkGameData()) {
+	$("#gamebtn1 div").css({"color":"black", "border-color":"black", "cursor":"pointer"});
+	$("#gamebtn1").attr("href", "game.html");
+}
+
+
+// selectPlayerCount(2);
+// showView5();

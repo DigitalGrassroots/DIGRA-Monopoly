@@ -25,6 +25,8 @@ function Game() {
 	};
 
 	this.next = function() {
+		updateGameData();
+
 		if (!p.human && p.money < 0) {
 			p.AI.payDebt();
 
@@ -45,10 +47,10 @@ function Game() {
 	this.getDie = function(die) {
 		if (die === 1) {
 			return dices[0];
-			// return 3;
+			return 3;
 		} else {
 			return dices[1];
-			// return 4;
+			return 4;
 		}
 
 	};
@@ -1188,9 +1190,10 @@ function Trade(initiator, recipient, money, property, communityChestJailCard, ch
 	};
 }
 
-var player = [];
-var pcount;
-var turn = 0, doublecount = 0;
+// var player = [];
+// var pcount;
+// var turn = 0, doublecount = 0;
+
 // Overwrite an array with numbers from one to the array's length in a random order.
 Array.prototype.randomize = function(length) {
 	length = (length || this.length);
@@ -1306,13 +1309,11 @@ function updatePosition() {
 function updateMoney() {
 	var p = player[turn];
 
-	$(".money-bar-row").hide();
+	$('#manageBoardMoney').html(p.money);
 
 	for (var i = 1; i <= pcount; i++) {
 		p_i = player[i];
-
-		$("#moneybarrow" + i).show();
-		document.getElementById("avatar" + i + "money").innerHTML = p_i.name +" D"+p_i.money;
+		document.getElementById("avatar" + p_i.avatar + "money").innerHTML = p_i.name +" D"+p_i.money;
 	}
 
 	if (document.getElementById("landed").innerHTML === "") {
@@ -1333,6 +1334,7 @@ function updateDice() {
 	var die1 = game.getDie(2);
 }
 
+
 function updateOwned() {
 	var p = player[turn];
 	var checkedproperty = getCheckedProperty();
@@ -1345,19 +1347,6 @@ function updateOwned() {
 	var mortgagetext = "",
 	housetext = "";
 	var sq;
-
-	// for (var i = 0; i < 40; i++) {
-	// 	sq = square[i];
-	// 	if (sq.groupNumber && sq.owner === 0) {
-	// 		$("#cell" + i + "owner").hide();
-	// 	} else if (sq.groupNumber && sq.owner > 0) {
-	// 		var currentCellOwner = document.getElementById("cell" + i + "owner");
-
-	// 		currentCellOwner.style.display = "block";
-	// 		currentCellOwner.style.backgroundColor = player[sq.owner].color;
-	// 		currentCellOwner.title = player[sq.owner].name;
-	// 	}
-	// }
 
 	for (var i = 0; i < 40; i++) {
 		sq = square[i];
@@ -1378,9 +1367,6 @@ function updateOwned() {
 				// HTML += "<table>";
 				firstproperty = i;
 			}
-
-
-			// HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox" + i + "' /></td><td class='propertycellcolor' style='background: " + sq.color + ";";
 
 			HTML += "<label class='playertile-label";
 
@@ -1632,6 +1618,7 @@ function chanceCommunityChest() {
 
 	// Chance
 	} else if (p.position === 7 || p.position === 22 || p.position === 35) {
+		console.log(chanceCards.index);
 		var chanceIndex = chanceCards.deck[chanceCards.index];
 
 		// Remove the get out of jail free card from the deck.
@@ -2202,6 +2189,8 @@ function buy() {
 	} else {
 		popup("<p>" + p.name + ", you need D" + (property.price - p.money) + " more to buy " + property.name + ".</p>");
 	}
+
+	updateGameData();
 }
 
 function mortgage(index) {
@@ -2250,6 +2239,7 @@ function unmortgage(index) {
 
 
 function land(increasedRent) {
+
 	increasedRent = !!increasedRent; // Cast increasedRent to a boolean value. It is used for the ADVANCE TO THE NEAREST RAILROAD/UTILITY Chance cards.
 
 	var p = player[turn];
@@ -2400,6 +2390,8 @@ function land(increasedRent) {
 	} else {
 		chanceCommunityChest();
 	}
+
+	updateGameData();
 }
 
 function roll() {
@@ -2625,70 +2617,6 @@ function play() {
 
 
 
-function setup() {
-
-
-	var cookieValue = document.cookie  
-	.split('; ')
-  .find(row => row.startsWith('gameData='))
-  .split('=')[1];
-
-	// console.log(document.cookie);
-	var gameObject = JSON.parse(decodeURIComponent(cookieValue));
-	console.log(gameObject);
-
-
-	pcount = parseInt(document.getElementById("playernumber").value, 10);
-
-	pcount = gameObject.playerCount;
-
-	var playerArray = gameObject.players;
-	var p;
-
-	// playerArray.randomize();
-
-	for (var i = 1; i <= pcount; i++) {
-		p = player[i];
-
-
-		// p.color = document.getElementById("player" + i + "color").value.toLowerCase();
-		// p.icon = document.getElementById("player" + i + "icon").value;
-		p.avatar = playerArray[i].avatar;
-		$("#avatar"+playerArray[i].avatar).show();
-		$("#avatar"+playerArray[i].avatar).addClass('avatar-active');
-
-		// player stats
-		$("#playerstats-col"+playerArray[i].avatar).show();
-		$("#playerstatsName"+playerArray[i].avatar).html(playerArray[i].name);
-		// $("#playerstatsBal"+playerArray[i].avatar).html(playerArray[i].money);
-
-		if (playerArray[i].human == true) {
-			p.name = playerArray[i].name;
-			p.human = true;
-		} else {
-			p.human = false;
-			p.AI = new AITest(p);
-		}
-	}
-
-	// console.log(player);
-
-	$("#board, #moneybar").show();
-	$("#setup").hide();
-
-	if (pcount === 2) {
-		document.getElementById("stats").style.width = "454px";
-	} else if (pcount === 3) {
-		document.getElementById("stats").style.width = "686px";
-	}
-
-	document.getElementById("stats").style.top = "0px";
-	document.getElementById("stats").style.left = "0px";
-
-	play();
-}
-
-
 function getCheckedProperty() {
 	for (var i = 0; i < 42; i++) {
 		if (document.getElementById("propertycheckbox" + i) && document.getElementById("propertycheckbox" + i).checked) {
@@ -2696,18 +2624,6 @@ function getCheckedProperty() {
 		}
 	}
 	return -1; // No property is checked.
-}
-
-
-
-function playernumber_onchange() {
-	pcount = parseInt(document.getElementById("playernumber").value, 10);
-
-	$(".player-input").hide();
-
-	for (var i = 1; i <= pcount; i++) {
-		$("#player" + i + "input").show();
-	}
 }
 
 function menuitem_onmouseover(element) {
@@ -2789,36 +2705,36 @@ function showInfo(e=p.position){
 
 var lastShownCity = 'city99';
 
-function showCity(e){
+function showCity(){
 
 	var boughtSquares = 0;
 	for (var i = 0; i < 40; i++) {
 		if(square[i].owner > 0){boughtSquares++;}
 	}
-	console.log(boughtSquares);
+
 	if (boughtSquares>39) {
 		showBuilding('city7');
-	}else if (boughtSquares>36) {
+	}if (boughtSquares>36) {
 		showBuilding('city5');
-	}else if (boughtSquares>31) {
+	}if (boughtSquares>31) {
 		showBuilding('city8');
-	}else if (boughtSquares>27) {
+	}if (boughtSquares>27) {
 		showBuilding('city11');
-	}else if (boughtSquares>23) {
-		showBuilding('city4');
-	}else if (boughtSquares>19) {
-		showBuilding('city3');
-	}else if (boughtSquares>15) {
-		showBuilding('city2');
-	}else if (boughtSquares>11) {
-		showBuilding('city10');
-	}else if (boughtSquares>7) {
-		showBuilding('city1');
-	}else if (boughtSquares>4) {
+	}if (boughtSquares>23) {
 		showBuilding('city9');
-	}else if (boughtSquares>0) {
+	}if (boughtSquares>19) {
+		showBuilding('city3');
+	}if (boughtSquares>15) {
+		showBuilding('city2');
+	}if (boughtSquares>11) {
+		showBuilding('city10');
+	}if (boughtSquares>7) {
+		showBuilding('city1');
+	}if (boughtSquares>4) {
 		showBuilding('city6');
 		showBuilding('city0');
+	}if (boughtSquares>0) {
+		showBuilding('city4');
 	}
 
 }
@@ -2845,7 +2761,7 @@ function showBuilding(e){
 				$('#'+e).addClass('activated-city');
 				$('#'+e).show();
 				if(sfx){cityAudio.play();}
-				console.log('played');
+				// console.log('played');
 			}, 1000);
 		}
 	}
@@ -2855,47 +2771,260 @@ function showBuilding(e){
 }
 
 
+
+
+
+$("#mortgagebutton").click(function() {
+	var checkedProperty = getCheckedProperty();
+	var s = square[checkedProperty];
+
+
+	if (s.mortgage) {
+		if (player[s.owner].money < Math.round(s.price * 0.55)) {
+			popup("<p>You need D" + (Math.round(s.price * 0.55) - player[s.owner].money) + " more to unmortgage " + s.name + ".</p>");
+
+		} else {
+			popup("<p>" + player[s.owner].name + ", are you sure you want to unmortgage " + s.name + " for D" + Math.round(s.price * 0.55) + "?</p>", function() {
+				unmortgage(checkedProperty);
+			}, "Yes/No");
+		}
+	} else {
+		popup("<p>" + player[s.owner].name + ", are you sure you want to mortgage " + s.name + " for D" + Math.round(s.price * 0.5) + "?</p>", function() {
+			mortgage(checkedProperty);
+		}, "Yes/No");
+	}
+
+	$('#manageBoardMoney').html(player[s.owner].money);
+});
+
+$("#buyhousebutton").on("click", function() {
+	var checkedProperty = getCheckedProperty();
+	var s = square[checkedProperty];
+	var p = player[s.owner];
+	var houseSum = 0;
+	var hotelSum = 0;
+
+	if (p.money < s.houseprice) {
+		if (s.house === 4) {
+			popup("<p>You need D" + (s.houseprice - player[s.owner].money) + " more to buy a law for " + s.name + ".</p>");
+			return;
+		} else {
+			popup("<p>You need D" + (s.houseprice - player[s.owner].money) + " more to buy a policy for " + s.name + ".</p>");
+			return;
+		}
+	}
+
+	for (var i = 0; i < 40; i++) {
+		if (square[i].hotel === 1) {
+			hotelSum++;
+		} else {
+			houseSum += square[i].house;
+		}
+	}
+
+	if (s.house < 4 && houseSum >= 32) {
+		popup("<p>All 32 policies are owned. You must wait until one becomes available.</p>");
+		return;
+	} else if (s.house === 4 && hotelSum >= 12) {
+		popup("<p>All 12 laws are owned. You must wait until one becomes available.</p>");
+		return;
+	}
+
+	buyHouse(checkedProperty);
+
+});
+
+$("#sellhousebutton").click(function() { sellHouse(getCheckedProperty()); });
+
+
+// $("#alert").scrollTop($("#alert").prop("scrollHeight"));
+
+$("#managecircle").click(function() {
+	$('#manageBoardMoney').html(player[turn].money);
+});
+
+
+
+
+function setup() {
+}
+
+	var player = [];
+	var pcount;
+	var turn = 0, doublecount = 0;
+
 window.onload = function() {
+
+
+
+	AITest.count = 0;
+
+	var gameObjectString = localStorage.getItem('gameData');
+	var gameObject = JSON.parse(gameObjectString);
+	console.log(gameObject);
+
 
 	game = new Game();
 
+
+	pcount = gameObject.playerCount;
+	turn = gameObject.turn;
+	doublecount = gameObject.doublecount;
+	lastShownCity = gameObject.lastShownCity;
+
+	player = gameObject.player;
+	square = gameObject.square;
+	communityChestCards = gameObject.communityChestCards;
+	chanceCards = gameObject.chanceCards;
+
+
 	for (var i = 0; i <= 8; i++) {
-		player[i] = new Player("", "");
-		player[i].index = i;
+		player[i].pay = function (amount, creditor) {
+			if (amount <= this.money) {
+				this.money -= amount;
+
+				updateMoney();
+
+				return true;
+			} else {
+				this.money -= amount;
+				this.creditor = creditor;
+
+				updateMoney();
+
+				return false;
+			}
+		};
 	}
+
+	// console.log()
+
+	var playerArray = player;
+	var p;
+
+	for (var i = 1; i <= pcount; i++) {
+		p = player[i];
+
+
+		p.avatar = playerArray[i].avatar;
+		$("#avatar"+playerArray[i].avatar).show();
+		$("#avatar"+playerArray[i].avatar).addClass('avatar-active');
+
+		$("#playerstats-col"+playerArray[i].avatar).show();
+		$("#playerstatsName"+playerArray[i].avatar).html(playerArray[i].name);
+
+		if (playerArray[i].human == true) {
+			p.name = playerArray[i].name;
+			p.human = true;
+		} else {
+			p.human = false;
+			p.AI = new AITest(p);
+		}
+
+		turn = i;
+		updatePosition();
+	}
+	turn = gameObject.turn;
+
+
+
+	for (var i = 0; i < 40; i++) {
+		si = square[i];
+		if (si.owner>0) {
+			var faceProperty = document.createElement("img");
+		    faceProperty.id = "faceProperty"+i;
+		    faceProperty.className = "faceProperty";
+		    faceProperty.src = "images/avatar"+player[si.owner].avatar+".png";
+
+		    faceProperty.style.top = (positions[i][1]+45)+"px";
+		    faceProperty.style.left = (positions[i][0]+10)+"px";
+
+
+		    // console.log(faceProperty);
+		    $("#canvas").append(faceProperty);
+		}
+	}
+
+
+
+// #########################################
+// #########################################
+
+
+	$("#nextbutton").click(game.next);
+	$("#noscript").hide();
+
+	$("#board").show();
+
+
+	play();
+
+
+	// setup();
+
+	// player[2].name = 'ffff';
+
+	console.log(gameObject);
+
+
+	// $("#avatar1").css({"left": positions[infoPos][0]+"px", "top": positions[infoPos][1]+"px"});
+	// showInfo(infoPos);
+
+	updateGameData();
+	showCity();
+};
+
+
+
+function updateGameData(){
+
+	// gameData = {
+	// 	"playerCount" : pcount,
+	// 	"turn" : turn,
+	// 	"doublecount" : doublecount,
+	// 	"lastShownCity" : lastShownCity,
+	// 	player,
+	// 	square,
+	// 	communityChestCards,
+	// 	chanceCards
+	// };
+	// var dataString = JSON.stringify(gameData);
+    // localStorage.setItem('gameData', dataString);
+	// console.log(square);
+
+
+}
+
+
+
+function restart(){
+
+	newplayers = player;
+	player = [];
 
 	var groupPropertyArray = [];
 	var groupNumber;
 
-	for (var i = 0; i < 40; i++) {
-		groupNumber = square[i].groupNumber;
-
-		if (groupNumber > 0) {
-			if (!groupPropertyArray[groupNumber]) {
-				groupPropertyArray[groupNumber] = [];
-			}
-
-			groupPropertyArray[groupNumber].push(i);
+	for (var i = 0; i <= 8; i++) {
+		if (i==0) {
+			player[0] = new Player("the bank", "", "");
+		}else if(i<pcount+1){
+		player[i] = new Player(newplayers[i].name, "", newplayers[i].avatar);
+		}else{
+			player[i] = new Player("", "", "");
 		}
+		player[i].index = i;
 	}
 
+
 	for (var i = 0; i < 40; i++) {
-		groupNumber = square[i].groupNumber;
-
-		if (groupNumber > 0) {
-			square[i].group = groupPropertyArray[groupNumber];
-		}
-
-		square[i].index = i;
+		square[i].hotel = 0;
+		square[i].house = 0;
+		square[i].mortgage = false;
+		square[i].owner = 0;
 	}
 
-	AITest.count = 0;
 
-	player[1].human = true;
-	player[0].name = "the bank";
-
-	communityChestCards.index = 0;
-	chanceCards.index = 0;
 
 	communityChestCards.deck = [];
 	chanceCards.deck = [];
@@ -2904,127 +3033,24 @@ window.onload = function() {
 		chanceCards.deck[i] = i;
 		communityChestCards.deck[i] = i;
 	}
+	
+	communityChestCards.index = 0;
+	chanceCards.index = 0;
 
-	// Shuffle Chance and Community Chest decks.
-	chanceCards.deck.sort(function() {return Math.random() - 0.5;});
-	communityChestCards.deck.sort(function() {return Math.random() - 0.5;});
+	gameData = {
+		"playerCount" : pcount,
+		"turn" : 0,
+		"doublecount" : 0,
+		"lastShownCity" : 'city99',
+		player,
+		square,
+		communityChestCards,
+		chanceCards
+	};
 
-	$("#playernumber").on("change", playernumber_onchange);
-	playernumber_onchange();
+	var dataString = JSON.stringify(gameData);
 
-	$("#nextbutton").click(game.next);
-	$("#noscript").hide();
-	$("#setup, #noF5").show();
-
-	var enlargeWrap = document.body.appendChild(document.createElement("div"));
-
-	enlargeWrap.id = "enlarge-wrap";
-
-	var HTML = "";
-	for (var i = 0; i < 40; i++) {
-		HTML += "<div id='enlarge" + i + "' class='enlarge'>";
-		HTML += "<div id='enlarge" + i + "color' class='enlarge-color'></div><br /><div id='enlarge" + i + "name' class='enlarge-name'></div>";
-		HTML += "<br /><div id='enlarge" + i + "price' class='enlarge-price'></div>";
-		HTML += "<br /><div id='enlarge" + i + "token' class='enlarge-token'></div></div>";
-	}
-
-	enlargeWrap.innerHTML = HTML;
-
-
-	$("#mortgagebutton").click(function() {
-		var checkedProperty = getCheckedProperty();
-		var s = square[checkedProperty];
-
-		if (s.mortgage) {
-			if (player[s.owner].money < Math.round(s.price * 0.55)) {
-				popup("<p>You need $" + (Math.round(s.price * 0.55) - player[s.owner].money) + " more to unmortgage " + s.name + ".</p>");
-
-			} else {
-				popup("<p>" + player[s.owner].name + ", are you sure you want to unmortgage " + s.name + " for D" + Math.round(s.price * 0.55) + "?</p>", function() {
-					unmortgage(checkedProperty);
-				}, "Yes/No");
-			}
-		} else {
-			popup("<p>" + player[s.owner].name + ", are you sure you want to mortgage " + s.name + " for D" + Math.round(s.price * 0.5) + "?</p>", function() {
-				mortgage(checkedProperty);
-			}, "Yes/No");
-		}
-
-	});
-
-	$("#buyhousebutton").on("click", function() {
-		var checkedProperty = getCheckedProperty();
-		var s = square[checkedProperty];
-		var p = player[s.owner];
-		var houseSum = 0;
-		var hotelSum = 0;
-
-		if (p.money < s.houseprice) {
-			if (s.house === 4) {
-				popup("<p>You need D" + (s.houseprice - player[s.owner].money) + " more to buy a law for " + s.name + ".</p>");
-				return;
-			} else {
-				popup("<p>You need D" + (s.houseprice - player[s.owner].money) + " more to buy a policy for " + s.name + ".</p>");
-				return;
-			}
-		}
-
-		for (var i = 0; i < 40; i++) {
-			if (square[i].hotel === 1) {
-				hotelSum++;
-			} else {
-				houseSum += square[i].house;
-			}
-		}
-
-		if (s.house < 4 && houseSum >= 32) {
-			popup("<p>All 32 policies are owned. You must wait until one becomes available.</p>");
-			return;
-		} else if (s.house === 4 && hotelSum >= 12) {
-			popup("<p>All 12 laws are owned. You must wait until one becomes available.</p>");
-			return;
-		}
-
-		buyHouse(checkedProperty);
-
-	});
-
-	$("#sellhousebutton").click(function() { sellHouse(getCheckedProperty()); });
-
-	$("#viewstats").on("click", showStats);
-	$("#statsclose, #statsbackground").on("click", function() {
-		$("#statswrap").hide();
-		$("#statsbackground").fadeOut(400);
-	});
-
-	$("#buy-menu-item").click(function() {
-		$("#buy").show();
-		// $("#manage").hide();
-
-		// Scroll alerts to bottom.
-		$("#alert").scrollTop($("#alert").prop("scrollHeight"));
-	});
-
-
-	$("#manage-menu-item").click(function() {
-		$("#manage").show();
-		$("#buy").hide();
-	});
-
-
-	// $("#tradecircle").click(game.trade);
-
-setup();
-
-// player[2].name = 'ffff';
-
-console.log(player);
-
-
-// $("#avatar1").css({"left": positions[infoPos][0]+"px", "top": positions[infoPos][1]+"px"});
-// showInfo(infoPos);
-
-};
-
-
-
+    localStorage.setItem('gameData', dataString)
+    	window.location.href = "game.html";
+	// console.log(lastShownCity);
+}

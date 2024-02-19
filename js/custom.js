@@ -6,6 +6,8 @@ if(document.cookie=="") {
  // {
  //     return "";
  // };
+
+sfx = false;
  
 var boardzoom = true;
 function tiler(e){
@@ -226,7 +228,7 @@ $('#city3').on('click', function(){
 })
 
 $('#city4').on('click', function(){
-  var HTML = "News Stand <p style='font-weight:normal'> <br><br><a class='btn rollbtn' href='https://digitalgrassroots.org' target='_blank'>Take a look</a> </p>";
+  var HTML = "News Stand <p style='font-weight:normal'> Stay informed and have fun. As you continue to play this game, be on the look out for easter eggs like this one; helping you understand more about the internet and the efforts we at <b>Digital Grassroots</b> are taking to help!<br><br><a class='btn rollbtn' href='https://digitalgrassroots.org' target='_blank'>Take a look</a> </p>";
   popup(HTML, "", "blank");
 })
 
@@ -236,7 +238,7 @@ $('#city5').on('click', function(){
 })
 
 $('#city6').on('click', function(){
-  var HTML = "Bridging the Internet Divide <p style='font-weight:normal'>Even in 2024, the Internet still remains inaccessible for millions of marginilized people. <br> Several limiting factors stand in the way of including everybody. <br> As you continue to play this game, be on the look out for more easter eggs that appear; helping you understand more about the internet and the efforts we at <b>Digital Grassroots</b> are taking to help!</p>";
+  var HTML = "Bridging the Internet Divide <p style='font-weight:normal'>Even in 2024, the Internet still remains inaccessible for millions of marginilized people. <br> Several limiting factors stand in the way of including everybody. <br> <a class='btn rollbtn' href='https://digitalgrassroots.org' target='_blank'>Take a look</a> </p>";
   popup(HTML, "", "blank");
 })
 

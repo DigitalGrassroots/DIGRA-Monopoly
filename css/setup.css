@@ -21,12 +21,17 @@ body{
 	font-weight: 400;
 	width: 100vw;
 	height: 100vh;
-	overflow: hidden;
+/*	overflow: hidden;*/
 }
 
 a{
 	text-decoration: none;
 	color: inherit;
+}
+
+::selection {
+    background-color: var(--maroon);
+    color: #fff;
 }
 
 .setup-views{
@@ -313,7 +318,7 @@ a{
 .setup-player-name-title{
 	color: var(--maroon);
 	font-size: 20px;
-	margin-top: 20px;
+/*	margin-top: 20px;*/
 	margin-bottom: 20px;
 	font-weight: 700;
 }
@@ -503,16 +508,17 @@ margin-top: -50px;
   background-color: transparent;
   border: 0;
 	cursor: pointer;
-	position: absolute;
+/*	position: absolute;*/
 	z-index: 2;
-	top: 40%;
+/*	top: 40%;*/
+	top: 15px;
 }
 
 #prevBtn{
-	left: 25%;
+/*	left: 25%;*/
 }
 #nextBtn{
-	right: 26%;
+/*	right: 26%;*/
 	transform: rotate(180deg);
 }
 
@@ -584,12 +590,12 @@ margin-top: -50px;
 	cursor: pointer;
 	position: absolute;
 	z-index: 2;
-	top: 208px;
+	top: 188px;
 }
 
 .owl-carousel-btn:hover{
 	background: var(--maroon);
-	border: 3px solid var(--maroon);
+	border: 3px solid var(--maroonsetup-carou);
 	color: #fff;
 }
 
@@ -609,6 +615,11 @@ margin-top: -50px;
 	border: 2px solid #fff;
 	box-shadow: 10px 10px 0 rgb(0, 0, 0, 0.8);
 	cursor: pointer;
+	transition: 0.3s;
+}
+
+.setup-next-btn:hover{
+	box-shadow: none;
 }
 
 .setup-next-btn-disabled{
@@ -617,4 +628,97 @@ margin-top: -50px;
 	border:none;
 	color: rgb(255, 255, 255, 0.5);
 	cursor: not-allowed;
+}
+
+.setup-title2{
+	font-size: 30px;
+/*	font-weight: bolder;*/
+}
+
+.shuffle-circle{
+	display: none;
+}
+.shuffle-circle .setup-player-topcircle{
+	transition: 0.3s;
+	animation: shuffle-pulse 1s infinite;
+}
+
+.shuffle-circle:nth-child(1) .setup-player-topcircle{
+	animation-delay: 0.3s;
+}
+
+.shuffle-circle:nth-child(2) .setup-player-topcircle{
+	animation-delay: 0.6s;
+}
+
+.shuffle-circle:nth-child(3) .setup-player-topcircle{
+	animation-delay: 0.9s;
+}
+
+.shuffle-circle:nth-child(4) .setup-player-topcircle{
+	animation-delay: 1.2s;
+}
+
+.shuffle-circle:nth-child(5) .setup-player-topcircle{
+	animation-delay: 1.5s;
+}
+
+.shuffle-circle:nth-child(6) .setup-player-topcircle{
+	animation-delay: 1.8s;
+}
+
+.shuffle-circle:nth-child(7) .setup-player-topcircle{
+	animation-delay: 2.1s;
+}
+
+.shuffle-circle:nth-child(8) .setup-player-topcircle{
+	animation-delay: 2.4s;
+}
+
+@keyframes shuffle-pulse {
+	0% {
+/*		transform: scale(0.95);*/
+		box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+		transform: translate(1px);
+	}
+
+	70% {
+/*		transform: scale(1);*/
+		box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+		transform: none;
+	}
+
+	100% {
+/*		transform: scale(0.95);*/
+		box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+		transform: none;
+	}
+}
+
+.shuffle-name{
+	opacity: 0;
+	transition: 0.3s;
+}
+
+#startBtn{
+	display: none;
+	opacity: 0;
+	transform: translateY(-10px);
+}
+
+.avatarpowers{
+	position: absolute;
+	width: 100%;
+	bottom: 5%;
+}
+
+.avatarpower{
+	display: inline-block;
+/*	background: #111;*/
+	border-bottom: 1px solid #111;
+	color: var(--maroon);
+	padding: 7px 10px;
+	transition: 0.3s;
+	margin-bottom: 10px;
+	opacity: 0.8;
 }
