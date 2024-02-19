@@ -2978,19 +2978,19 @@ window.onload = function() {
 
 function updateGameData(){
 
-	// gameData = {
-	// 	"playerCount" : pcount,
-	// 	"turn" : turn,
-	// 	"doublecount" : doublecount,
-	// 	"lastShownCity" : lastShownCity,
-	// 	player,
-	// 	square,
-	// 	communityChestCards,
-	// 	chanceCards
-	// };
-	// var dataString = JSON.stringify(gameData);
-    // localStorage.setItem('gameData', dataString);
-	// console.log(square);
+	gameData = {
+		"playerCount" : pcount,
+		"turn" : turn,
+		"doublecount" : doublecount,
+		"lastShownCity" : lastShownCity,
+		player,
+		square,
+		communityChestCards,
+		chanceCards
+	};
+	var dataString = JSON.stringify(gameData);
+    localStorage.setItem('gameData', dataString);
+	console.log(square);
 
 
 }
