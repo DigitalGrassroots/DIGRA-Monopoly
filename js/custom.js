@@ -1,6 +1,6 @@
-if(document.cookie=="") {
-  window.location.href = 'setup';
-}
+// if(document.cookie=="") {
+//   window.location.href = 'setup';
+// }
 
  // window.onbeforeunload = function ()
  // {
