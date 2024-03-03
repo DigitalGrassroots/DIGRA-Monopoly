@@ -513,6 +513,10 @@ function insertShuffleNames(){
 	        	}else{
 	            $("#playerTopNameView" + index).html(players[index]['name']+"<br><b>D1500</b>");
 	        	}
+				if (players[index]['avatar']==4) {
+					$("#power3").html("* "+players[index]['name']+" starts with a Get Out of Jail Free card *");
+					$("#power3").slideDown();
+				}
 	            $("#playerTopNameView" + index).css("opacity", 1);
 	        }, 100 * index);
 	    })(i);
@@ -586,16 +590,22 @@ function play(){
 					player[0] = new Player("the bank", "", "");
 				}
 				else if(i<playerCount+1){
+
 					player[i] = new Player(newplayers[i].name, "", newplayers[i].avatar);
 					if (newplayers[i].human) {
 							player[i].human = true;
 					}else{
 							player[i].human = false;
 					}
+					if(newplayers[i].avatar=="4"){
+						player[i].chanceJailCard = true;
+					}
+
 				}
 				else{
 					player[i] = new Player("", "", "");
 				}
+				
 
 				player[i].index = i;
 			}
@@ -632,6 +642,8 @@ function play(){
 
 			communityChestCards.index = 0;
 			chanceCards.index = 0;
+			
+			console.log(communityChestCards);
 
 			communityChestCards.deck = [];
 			chanceCards.deck = [];
@@ -656,15 +668,14 @@ function play(){
 				p.avatar = playerArray[i].avatar;
 				$("#avatar"+playerArray[i].avatar).show();
 				$("#avatar"+playerArray[i].avatar).addClass('avatar-active');
-
+				
 				$("#playerstats-col"+playerArray[i].avatar).show();
 				$("#playerstatsName"+playerArray[i].avatar).html(playerArray[i].name);
-
+				
 			}
 
-
-
-
+			
+			
 			var dataString = JSON.stringify(
 				{
 					"playerCount" : playerCount,
@@ -673,13 +684,18 @@ function play(){
 					"lastShownCity" : 'city99',
 					player,
 					square,
-					communityChestCards,
-					chanceCards
+					"chanceCardsIndex" : chanceCards.index,
+					"communityChestCardsIndex" : communityChestCards.index,
+					"chanceCardsDeck" : chanceCards.deck,
+					"communityChestCardsDeck" : communityChestCards.deck,
+					"pensionerFirstRent" : true,
+					"caregiverFirstRow" : true,
+					"studentFirstRow" : true
 					}
 				);
 
 
-	    localStorage.setItem('gameData', dataString);
+		localStorage.setItem('gameData', dataString);
 
 
 			var gameObjectString = localStorage.getItem('gameData');
@@ -690,7 +706,7 @@ function play(){
 			setTimeout(function(){
 				window.location.href = "game.html";
 			}, 500)
-
+				
 	}
 }
 
@@ -713,8 +729,10 @@ function checkGameData() {
             !gameObject.hasOwnProperty("lastShownCity") ||
             !gameObject.hasOwnProperty("player") ||
             !gameObject.hasOwnProperty("square") ||
-            !gameObject.hasOwnProperty("communityChestCards") ||
-            !gameObject.hasOwnProperty("chanceCards")) {
+            !gameObject.hasOwnProperty("communityChestCardsIndex") ||
+            !gameObject.hasOwnProperty("communityChestCardsDeck") ||
+            !gameObject.hasOwnProperty("chanceCardsDeck") ||
+            !gameObject.hasOwnProperty("chanceCardsIndex")) {
             console.log("gameData is missing required properties");
             return false;
         }

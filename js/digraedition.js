@@ -122,7 +122,7 @@ communityChestCards[12] = new Card("Pay Social Media Tax - Pay D150", function()
 communityChestCards[13] = new Card("You Published an Internet Health Report - Receive D25 consultancy", function() { addamount(25, 'Community Chest');});
 communityChestCards[14] = new Card("You Cannot view this Website in your Region – D80 per space owned", function() { payperspace(80);});
 communityChestCards[15] = new Card("You have attended the Internet Governance Forum – Collect D10", function() { addamount(10, 'Community Chest');});
-communityChestCards[16] = new Card("Declaration of Human Rights, 'everyone has the right to freedom of opinion and expression'. Article 19 — You inherit $100", function() { addamount(100, 'Community Chest');});
+communityChestCards[16] = new Card("Declaration of Human Rights, 'everyone has the right to freedom of opinion and expression'. Article 19 — You inherit D100", function() { addamount(100, 'Community Chest');});
 
 
 chanceCards[0] = new Card("GET OUT OF JAIL FREE. This card may be kept until needed or traded.", function(p) { p.chanceJailCard=true; updateOwned();});

@@ -3,7 +3,7 @@ function resetTour(){
 	$("#avatar1").css({'z-index': 3});
 	$("#info").css({'z-index': 3, 'display':'none'});
 	$("#tour").css("transform", "translate(-50%, -50%)");
-	$(".tour-fade").css("opacity", 0.7);
+	// $(".tour-fade").css("opacity", 0.7);
 	$("#settingscircle, #tradecircle, #managecircle,  #playerstatscircle").css({"opacity":0.05});
 	$("#city1").hide();
 	$("#city1, #board").css({"z-index":1});
@@ -15,9 +15,18 @@ function closeTour(){
 	$("#cpanel").show();
 	$("#settingscircle, #tradecircle, #managecircle,  #playerstatscircle").css({"opacity":1});
 	$("#tour").hide();
-	$(".tour-fade").fadeOut(400);
+	// $(".tour-fade").fadeOut(400);
 	$("#info").css({"z-index": 3, "pointer-events":"auto", 'display':'block'});
 	skipTour();
+}
+
+
+function skipTour(){
+	closePopup();
+	setTimeout(function(){
+	  document.getElementById('audio1').play();
+	  document.getElementById('audio1').volume = 0.5;
+	}, 1000);
 }
 
 
@@ -25,8 +34,8 @@ function tour1(){
 	resetTour();
 	$("#popup, #popupbackground").hide();
 
-	$(".tour-fade").css("opacity", 0.7);
-	$(".tour-fade").show();
+	// $(".tour-fade").css("opacity", 0.7);
+	// $(".tour-fade").show();
 	$("#cpanel").hide();
 	$("#tour").show();
 
@@ -55,7 +64,7 @@ function tour3(){
 	$("#tourcount").html("3/9");
 	$('#tourtext').html("Game Settings <br>Here you can edit the game settings and view more information about the game <br><div class='tour-btns'><div onclick='tour2()'><< Prev</div> <div onclick='tour4()'>Next >></div></div>");
 
-	$(".tour-fade").css("opacity", 0.95);
+	// $(".tour-fade").css("opacity", 0.95);
 	$("#settingscircle, #tradecircle, #managecircle,  #playerstatscircle").css({"opacity":0.05});
 	$("#settingscircle").css({"opacity":1});
 	$("#tour").css("transform", "translate(-500px, -10%)");
@@ -68,7 +77,7 @@ function tour4(){
 	$("#tourcount").html("4/9");
 	$('#tourtext').html("Trade Center <br>This is where you can trade properties and cards with other players <br><div class='tour-btns'><div onclick='tour3()'><< Prev</div> <div onclick='tour5()'>Next >></div></div>");
 
-	$(".tour-fade").css("opacity", 0.95);
+	// $(".tour-fade").css("opacity", 0.95);
 	$("#settingscircle, #tradecircle, #managecircle,  #playerstatscircle").css({"opacity":0.05});
 	$("#tradecircle").css({"opacity":1});
 	$("#tour").css("transform", "translate(-300px, -10%)");
@@ -81,7 +90,7 @@ function tour5(){
 	$("#tourcount").html("5/9");
 	$('#tourtext').html("Manage Properties <br>Here you can buy policies, upgrade to laws, mortgage and unmortgage your properties <br><div class='tour-btns'><div onclick='tour4()'><< Prev</div> <div onclick='tour6()'>Next >></div></div>");
 
-	$(".tour-fade").css("opacity", 0.95);
+	// $(".tour-fade").css("opacity", 0.95);
 	$("#settingscircle, #tradecircle, #managecircle,  #playerstatscircle").css({"opacity":0.05});
 	$("#managecircle").css({"opacity":1});
 	$("#tour").css("transform", "translate(-100px, -10%)");
@@ -94,7 +103,7 @@ function tour6(){
 	$("#tourcount").html("6/9");
 	$('#tourtext').html("Player Stats <br>You can easily view information about all of the players here <br><div class='tour-btns'><div onclick='tour5()'><< Prev</div> <div onclick='tour7()'>Next >></div></div>");
 
-	$(".tour-fade").css("opacity", 0.95);
+	// $(".tour-fade").css("opacity", 0.95);
 	$("#settingscircle, #tradecircle, #managecircle,  #playerstatscircle").css({"opacity":0.05});
 	$("#playerstatscircle").css({"opacity":1});
 	$("#tour").css("transform", "translate(0px, -10%)");
@@ -107,7 +116,7 @@ function tour7(){
 	$("#tourcount").html("7/9");
 	$('#tourtext').html("The city grows as players get richer during the game so take some time to click on buildings and discover Easter Eggs about the Digital Grassroots organization <br><div class='tour-btns'><div onclick='tour6()'><< Prev</div> <div onclick='tour8()'>Next >></div></div>");
 
-	$(".tour-fade").css("opacity", 0.8);
+	// $(".tour-fade").css("opacity", 0.8);
 	$("#settingscircle, #tradecircle, #managecircle,  #playerstatscircle").css({"opacity":0.05});
 
 	$("#city1").fadeIn();
@@ -121,7 +130,7 @@ function tour8(){
 	$("#tourcount").html("8/9");
 	$('#tourtext').html("You can click on a Title Deed to find out more information about it<br><div class='tour-btns'><div onclick='tour7()'><< Prev</div> <div onclick='tour9()'>Next >></div></div>");
 
-	$(".tour-fade").css("opacity", 0.8);
+	// $(".tour-fade").css("opacity", 0.8);
 
 	$("#board").css({"z-index":7});
 	$("#tour").css("transform", "translate(-50%, -50%)");
@@ -147,3 +156,5 @@ function tour9(){
 	// $("#tour").show();
 
 // tour7();
+
+skipTour();

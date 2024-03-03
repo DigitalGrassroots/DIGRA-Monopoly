@@ -1,0 +1,111 @@
+:root {
+    --mustard: #F4BC51;
+    --maroon: #800022;
+    --third: #D96558;
+    --4: #AE4E5C;
+  }
+  
+.animation-layer{
+    z-index: 7;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    pointer-events: none;
+    display: none;
+}
+
+
+/* PICK CARD */
+
+.deck{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background:black; */
+    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* padding-top: -50px; */
+    /* margin-left: -50px; */
+    transform-style: preserve-3d;
+}
+
+.an-card {
+    position: absolute;
+    /* width: 7em; */
+    width: 200px;
+    height: 280px;
+    /* background-color: #ffffff; */
+    border: 0.5px solid rgb(0, 0, 0, 0.4);
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.4);
+    background-color: #fff;
+    /* background: #fff url("../images/card-back.png") center no-repeat; */
+    /* background-size: cover; */
+}
+
+@keyframes shuffle-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50px); }
+}
+
+@keyframes shuffle-right {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50px); }
+}
+
+#anChanceCards{
+    width: 100vw;
+    height: 100vh;
+    background: var(--4);
+    top: 0;
+    position: fixed;
+    pointer-events: auto;
+}
+.an-card-text{
+    text-align: center;
+    font-size: 24px;
+}
+
+.an-card:last-child{
+    /* display: none; */
+    cursor: pointer;
+}
+
+.an-card:last-child:hover{
+    /* display: none; */
+    box-shadow: 0 0 10px maroon;
+}
+.an-card:last-child .an-card-text{
+    display: none;
+}
+
+.shuffle-icon{
+    bottom: 30px;
+    position: absolute;
+    width: 100vw;
+    text-align: center;
+    cursor: pointer;
+}
+
+.card-close{
+    bottom: 15%;
+    position: absolute;
+    width: 100vw;
+    text-align: center;
+    display: none;
+}
+
+.pick-card-title{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 20px;
+    color: #fff;
+    padding-top: 5%;
+}

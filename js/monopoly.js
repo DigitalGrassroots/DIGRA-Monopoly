@@ -8,6 +8,8 @@ function Game() {
 	var highestbid;
 	var currentbidder = 1;
 	var auctionproperty;
+	var communityDrawDouble = 0;
+
 
 	this.rollDice = function() {
 		closeAlert();
@@ -27,6 +29,7 @@ function Game() {
 	this.next = function() {
 		updateGameData();
 
+		p.pay(0, 0);
 		if (!p.human && p.money < 0) {
 			p.AI.payDebt();
 
@@ -41,16 +44,32 @@ function Game() {
 			roll();
 		}
 
-		// console.log(player);
+		console.log(player);
 	};
 
 	this.getDie = function(die) {
 		if (die === 1) {
+			
+			// return 1;
+			if(player[turn].avatar==2 && studentFirstRow){
+				studentFirstRow = false;
+				avatarPower(player[turn].name + " used the Avatar Power to roll a double!");
+			}
+			
+			if(player[turn].avatar==5 && caregiverFirstRow){
+				dices[0] *= 2;
+				avatarPower(player[turn].name + "'s first roll is multiplied by 2!");
+			}
+
 			return dices[0];
-			return 3;
 		} else {
+			
+			// return 1;
+			if(player[turn].avatar==5 && caregiverFirstRow){
+				dices[1] *= 2;
+				caregiverFirstRow = false;
+			}
 			return dices[1];
-			return 4;
 		}
 
 	};
@@ -969,6 +988,8 @@ function Game() {
 	this.eliminatePlayer = function() {
 		var p = player[turn];
 
+		aa("https://cdn.lordicon.com/ysheqztl.json", p.name+" has been eliminated from the game.");
+
 		for (var i = p.index; i < pcount; i++) {
 			player[i] = player[i + 1];
 			player[i].index = i;
@@ -983,12 +1004,6 @@ function Game() {
 
 		pcount--;
 		turn--;
-
-		if (pcount === 2) {
-			document.getElementById("stats").style.width = "454px";
-		} else if (pcount === 3) {
-			document.getElementById("stats").style.width = "686px";
-		}
 
 		if (pcount === 1) {
 			updateMoney();
@@ -1006,7 +1021,8 @@ function Game() {
 			// }
 			// document.getElementById("refresh").innerHTML += "<br><br><div><textarea type='text' style='width: 980px;' onclick='javascript:select();' />" + text + "</textarea></div>";
 
-			popup("<p>Congratulations, " + player[1].name + ", you have won the game.</p><div>");
+			// popup("<p>Congratulations, " + player[1].name + ", you have won the game.</p><div>");
+			winningAnimation();
 
 		} else {
 			play();
@@ -1038,7 +1054,7 @@ function Game() {
 				}
 
 				// Player already paid interest, so they can unmortgage for the mortgage price.
-				HTML += "' onmouseover='showdeed(" + i + ");' onmouseout='hidedeed();'></td><td class='propertycellname'><a href='javascript:void(0);' title='Unmortgage " + sq.name + " for D" + price + ".' onclick='if (" + price + " <= player[" + p.creditor + "].money) {player[" + p.creditor + "].pay(" + price + ", 0); square[" + i + "].mortgage = false; addAlert(\"" + player[p.creditor].name + " unmortgaged " + sq.name + " for $" + price + ".\");} this.parentElement.parentElement.style.display = \"none\";'>Unmortgage " + sq.name + " ($" + price + ")</a></td></tr>";
+				HTML += "' onmouseover='showdeed(" + i + ");' onmouseout='hidedeed();'></td><td class='propertycellname'><a href='javascript:void(0);' title='Unmortgage " + sq.name + " for D" + price + ".' onclick='if (" + price + " <= player[" + p.creditor + "].money) {player[" + p.creditor + "].pay(" + price + ", 0); square[" + i + "].mortgage = false; addAlert(\"" + player[p.creditor].name + " unmortgaged " + sq.name + " for D" + price + ".\");} this.parentElement.parentElement.style.display = \"none\";'>Unmortgage " + sq.name + " ($" + price + ")</a></td></tr>";
 
 				sq.owner = p.creditor;
 
@@ -1289,6 +1305,9 @@ function closePopup(){
 	$("#popupbackground").fadeOut(400);
 }
 
+function cardPick(){
+
+}
 
 function updatePosition() {
 
@@ -1599,42 +1618,41 @@ function chanceCommunityChest() {
 
 	// Community Chest
 	if (p.position === 2 || p.position === 17 || p.position === 33) {
-		var communityChestIndex = communityChestCards.deck[communityChestCards.index];
+		communityChestIndex = communityChestCards.deck[communityChestCards.index];
+
 
 		// Remove the get out of jail free card from the deck.
 		if (communityChestIndex === 0) {
 			communityChestCards.deck.splice(communityChestCards.index, 1);
 		}
 
-		popup("<div style='font-weight: bold; font-size: 16px; '>Community Chest:</div><div style='text-align: justify;'>" + communityChestCards[communityChestIndex].text + "</div>", function() {
-			communityChestAction(communityChestIndex);
-		});
-
-		communityChestCards.index++;
-
-		if (communityChestCards.index >= communityChestCards.deck.length) {
-			communityChestCards.index = 0;
-		}
-
-	// Chance
+		card_type = 'communityChest';
+		
+		document.getElementById("landed").innerHTML = "You landed on Community Chest. <br><br> <div class='btn rollbtn' onclick='openCards()' id='pickCardBtn'>Pick Card</div></span>";
+		// document.getElementById("landed").innerHTML = "You landed on Community Chest. <br><br>Click on a deck to pick a card</span>";
+		$("#nextbutton").hide();
+		// openCards();
+		
+		
+		
+		// Chance
 	} else if (p.position === 7 || p.position === 22 || p.position === 35) {
-		console.log(chanceCards.index);
-		var chanceIndex = chanceCards.deck[chanceCards.index];
-
+		console.log(chanceCards);
+		chanceIndex = chanceCards.deck[chanceCards.index];
+		
 		// Remove the get out of jail free card from the deck.
 		if (chanceIndex === 0) {
 			chanceCards.deck.splice(chanceCards.index, 1);
 		}
+		
+		
+		card_type = 'chance';
+		
+		document.getElementById("landed").innerHTML = "You landed on Chance. <br><br> <div class='btn rollbtn' onclick='openCards()' id='pickCardBtn'>Pick Card</div></span>";
+		// document.getElementById("landed").innerHTML = "You landed on Chance <br> <br>Click on a deck to pick a card</span>";
+		$("#nextbutton").hide();
+		// openCards();
 
-		popup("<div style='font-weight: bold; font-size: 16px; '>Chance:</div><div style='text-align: justify;'>" + chanceCards[chanceIndex].text + "</div>", function() {
-			chanceAction(chanceIndex);
-		});
-
-		chanceCards.index++;
-
-		if (chanceCards.index >= chanceCards.deck.length) {
-			chanceCards.index = 0;
-		}
 	} else {
 		if (!p.human) {
 			p.AI.alertList = "";
@@ -1647,36 +1665,54 @@ function chanceCommunityChest() {
 }
 
 function chanceAction(chanceIndex) {
-	var p = player[turn]; // This is needed for reference in action() method.
-
-	// $('#popupbackground').hide();
-	// $('#popup').hide();
+	console.log(chanceIndex);
+	var p = player[turn]; 
 
 	chanceCards[chanceIndex].action(p);
-
-
+	
 	updateMoney();
 
 	if (chanceIndex !== 15 && !p.human) {
 		p.AI.alertList = "";
 		game.next();
 	}
+	
+	chanceCards.index++;
+
+	if (chanceCards.index >= chanceCards.deck.length) {
+		chanceCards.index = 0;
+	}
 }
+
+// 
 
 function communityChestAction(communityChestIndex) {
 	var p = player[turn]; // This is needed for reference in action() method.
-
-	// $('#popupbackground').hide();
-	// $('#popup').hide();
+	
 	communityChestCards[communityChestIndex].action(p);
-
+	
 	updateMoney();
-
+	
 	if (communityChestIndex !== 15 && !p.human) {
 		p.AI.alertList = "";
 		game.next();
 	}
+
+	communityChestCards.index++;
+	
+	if (communityChestCards.index >= communityChestCards.deck.length) {
+		communityChestCards.index = 0;
+	}
+	
+	if(communityDrawDouble == 1 && p.avatar == 4){
+		avatarPower(p.name + " get's to draw another card!", "https://cdn.lordicon.com/neujejkf.json");
+		communityDrawDouble = 0;
+		chanceCommunityChest();
+		pickCard();
+	}
 }
+
+// 
 
 function addamount(amount, cause) {
 	var p = player[turn];
@@ -1902,9 +1938,16 @@ function payfifty() {
 	p.jail = false;
 	p.jailroll = 0;
 	p.position = 10;
-	p.pay(50, 0);
+	var jailfee = 50;
 
-	addAlert(p.name + " paid the D50 fine to get out of jail.");
+	if (p.avatar==3){
+		jailfee *= 0.5;
+		avatarPower(p.name + " paid 50% less jail fee.");
+	}
+
+	p.pay(jailfee, 0);
+
+	addAlert(p.name + " paid the D" + jailfee + " fine to get out of jail.");
 	updateMoney();
 	updatePosition();
 }
@@ -1980,7 +2023,7 @@ function buyHouse(index) {
 
 			} else {
 				sq.house++;
-				addAlert(p.name + " placed a policy on " + sq.name + ".");
+				addAlert(p.name + " bought a policy on " + sq.name + ".");
 			}
 
 		} else {
@@ -1990,11 +2033,19 @@ function buyHouse(index) {
 			} else {
 				sq.house = 5;
 				sq.hotel = 1;
-				addAlert(p.name + " placed a law on " + sq.name + ".");
+				addAlert(p.name + " bought a law on " + sq.name + ".");
 			}
 		}
 
-		p.pay(sq.houseprice, 0);
+		var payAmount = sq.houseprice;
+		if(p.avatar == 8){
+			payAmount *= 0.9;
+			avatarPower(p.name + " paid 10% less for the policy.");
+		}else{
+			aa("https://cdn.lordicon.com/lsrcesku.json", "Policy Created!");
+		}
+
+		p.pay(payAmount, 0);
 
 		updateOwned();
 		updateMoney();
@@ -2160,6 +2211,46 @@ function buy() {
 	var cost = property.price;
 
 	if (p.money >= cost) {
+
+		aa("https://cdn.lordicon.com/jtiihjyw.json", "Sold!");
+
+		
+		if(cost>100 && p.avatar==1){
+			cost *= 0.9;
+			avatarPower(p.name+" just bought "+property.name+" for 10% less.");
+		}
+
+		if(p.avatar==5 && p.position==32){
+			cost = 0;
+			avatarPower(p.name+" just bought "+property.name+" for free.", "https://cdn.lordicon.com/tjgiycnd.json");
+		}
+
+		if(p.avatar==6 && getPlayerProperties(turn).length==0){
+			cost *= 0.5;
+			avatarPower(p.name+" just bought "+property.name+" for 50% less.");
+		}
+
+		if(p.avatar==6 && p.position==3){
+			cost = 0;
+			avatarPower(p.name+" just bought "+property.name+" for free.", "https://cdn.lordicon.com/tjgiycnd.json");
+		}
+
+		if(p.avatar==7 && p.position==36){
+			cost = 0;
+			avatarPower(p.name+" just bought "+property.name+" for free.", "https://cdn.lordicon.com/tjgiycnd.json");
+		}
+
+		if(p.avatar==3 && p.position==6){
+			cost = 0;
+			avatarPower(p.name+" just bought "+property.name+" for free.", "https://cdn.lordicon.com/tjgiycnd.json");
+		}
+
+		if(p.avatar==10 && p.position==26){
+			cost = 0;
+			avatarPower(p.name+" just bought "+property.name+" for free.", "https://cdn.lordicon.com/tjgiycnd.json");
+		}
+
+
 		p.pay(cost, 0);
 
 		property.owner = turn;
@@ -2177,6 +2268,7 @@ function buy() {
 
         faceProperty.style.top = (positions[p.position][1]+45)+"px";
         faceProperty.style.left = (positions[p.position][0]+10)+"px";
+		
 
 
         // console.log(faceProperty);
@@ -2227,6 +2319,12 @@ function unmortgage(index) {
 		return false;
 	}
 
+	// journalist unmortgage for free
+	if(p.avatar==10){
+		unmortgagePrice = 0;
+		avatarPower(p.name+" just unmortgaged "+sq.name+" for free.");
+	}
+
 	p.pay(unmortgagePrice, 0);
 	sq.mortgage = false;
 	document.getElementById("mortgagebutton").value = "Mortgage for D" + mortgagePrice;
@@ -2253,7 +2351,11 @@ function land(increasedRent) {
 	blackFade();
 
 
-	document.getElementById("landed").innerHTML = "You landed on <span style='text-decoration:underline'>" + s.name + "</span>.";
+	if (p.position === 2 || p.position === 17 || p.position === 33 || p.position === 7 || p.position === 22 || p.position === 35) {
+	}else{
+		document.getElementById("landed").innerHTML = "You landed on <span style='text-decoration:underline'>" + s.name + "</span>.";
+	}
+
 	s.landcount++;
 	// addAlert(p.name + " landed on " + s.name + ".");
 
@@ -2287,28 +2389,6 @@ function land(increasedRent) {
 			rent = (die1 + die2) * 6;
 
 		}
-
-		// else if (p.position == 5 || p.position == 15 || p.position == 25 || p.position == 35) {
-		// 	if (increasedRent) {
-		// 		rent = 25;
-		// 	} else {
-		// 		rent = 12.5;
-		// 	}
-
-		// 	if (s.owner == square[5].owner) {
-		// 		rent *= 2;
-		// 	}
-		// 	if (s.owner == square[15].owner) {
-		// 		rent *= 2;
-		// 	}
-		// 	if (s.owner == square[25].owner) {
-		// 		rent *= 2;
-		// 	}
-		// 	if (s.owner == square[35].owner) {
-		// 		rent *= 2;
-		// 	}
-
-		// } 
 
 		else if (p.position === 12) {
 			if (increasedRent || square[28].owner == s.owner) {
@@ -2345,6 +2425,48 @@ function land(increasedRent) {
 				}
 			}
 		}
+
+		if(p.avatar==2){
+			rent *= 0.95;
+			avatarPower(p.name+" just paid 5% less rent"+s.name+".", "https://cdn.lordicon.com/epietrpn.json");
+		}
+		
+		if(p.avatar==3 && p.position==6){
+			rent = 0;
+			avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+		}
+
+		if(p.avatar==5 && p.position==32){
+			rent = 0;
+			avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+		}
+		
+		if(p.avatar==6 && p.position==16){
+			rent = 0;
+			avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+		}
+
+		if(p.avatar==7 && p.position==3){
+			rent = 0;
+			avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+		}
+		
+		if(p.avatar==7 && p.position==36){
+			rent = 0;
+			avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+		}
+
+		if(p.avatar==9 && pensionerFirstRent==true){
+			rent = 0;
+			pensionerFirstRent = false;
+			avatarPower("Free first rent <br>"+p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+		}
+
+		if(p.avatar==10 && p.position==26){
+			rent = 0;
+			avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+		}
+		
 
 		addAlert(p.name + " paid D" + rent + " rent to " + player[s.owner].name + ".");
 		p.pay(rent, s.owner);
@@ -2383,6 +2505,10 @@ function land(increasedRent) {
 	updatePosition();
 	updateOwned();
 
+
+	if(p.avatar == 5){
+		communityDrawDouble = 1;
+	}
 	if (!p.human) {
 		popup(p.AI.alertList, chanceCommunityChest);
 		// chanceCommunityChest();
@@ -2514,8 +2640,13 @@ function roll() {
 		// Collect $200 salary as you pass GO
 		if (p.position >= 40) {
 			p.position -= 40;
-			p.money += 200;
-			addAlert(p.name + " collected a D200 salary for passing GO.");
+			var goSalary = 200;
+			if(p.avatar==9){
+				goSalary = 250;
+				avatarPower(p.name+" just collected D50 extra for passing GO.", "https://cdn.lordicon.com/lxizbtuq.json");
+			}
+			p.money += goSalary;
+			addAlert(p.name + " collected a D"+goSalary+" salary for passing GO.");
 		}
 
 		land();
@@ -2697,10 +2828,11 @@ function showInfo(e=p.position){
 	// $("#info").css("background", "red");
 	if (sfx) {swooshAudio.play()}
 	$("#info").show();
-	$("#info").css("transform", "scale(1.1)");
-	setTimeout(function(){
-		$("#info").css("transform", "scale(1)");
-	},300)
+	// $("#info").addClass("animate__bounceIn");
+	// $("#info").css("transform", "scale(1.1)");
+	// setTimeout(function(){
+		// $("#info").css("transform", "scale(1)");
+	// },300)
 };
 
 var lastShownCity = 'city99';
@@ -2758,7 +2890,7 @@ function showBuilding(e){
 		if (lastShownCity==e) {
 		}else{
 			setTimeout(function(){
-				$('#'+e).addClass('activated-city');
+				$('#'+e).addClass('activated-city', "animate__animated", "animate__tada");
 				$('#'+e).show();
 				if(sfx){cityAudio.play();}
 				// console.log('played');
@@ -2844,27 +2976,50 @@ $("#managecircle").click(function() {
 });
 
 
-
-
-function setup() {
+function getPlayerProperties() {
+	var props = [];
+	for (var i = 0; i < 40; i++) {
+		if (square[i].owner === turn) {
+			props.push(i);
+		}
+	}
+	return props;
 }
 
-	var player = [];
-	var pcount;
-	var turn = 0, doublecount = 0;
+
+var player = [];
+var pcount;
+var turn = 0, doublecount = 0;
+
+var loadgame = false;
+
+const urlParams = new URLSearchParams(window.location.search);
+const loadParam = urlParams.get('load');
+if (loadParam) {
+	loadgame = true;
+}
+
 
 window.onload = function() {
 
 
 
 	AITest.count = 0;
+	var gameObjectString;
 
-	var gameObjectString = localStorage.getItem('gameData');
+	if (loadgame) {
+		const saved_url = `presaved_sessions/${loadParam}.json`;
+		gameObjectString = loadGameDataFromURL(saved_url);
+	}
+	else{
+		gameObjectString = localStorage.getItem('gameData');
+	}
 	var gameObject = JSON.parse(gameObjectString);
-	console.log(gameObject);
+	// console.log(gameObject);
 
 
 	game = new Game();
+
 
 
 	pcount = gameObject.playerCount;
@@ -2874,9 +3029,20 @@ window.onload = function() {
 
 	player = gameObject.player;
 	square = gameObject.square;
-	communityChestCards = gameObject.communityChestCards;
-	chanceCards = gameObject.chanceCards;
 
+
+	// communityChestCards = gameObject.communityChestCards;
+	// chanceCards = gameObject.chanceCards;
+
+	chanceCards.index = gameObject.chanceCardsIndex;
+	communityChestCards.index = gameObject.communityChestCardsIndex;
+
+	chanceCards.deck = gameObject.chanceCardsDeck;
+	communityChestCards.deck = gameObject.communityChestCardsDeck;
+
+	pensionerFirstRent = gameObject.pensionerFirstRent;
+	caregiverFirstRow = gameObject.caregiverFirstRow;
+	studentFirstRow = gameObject.studentFirstRow;
 
 	for (var i = 0; i <= 8; i++) {
 		player[i].pay = function (amount, creditor) {
@@ -2964,7 +3130,7 @@ window.onload = function() {
 
 	// player[2].name = 'ffff';
 
-	console.log(gameObject);
+	// console.log(gameObject);
 
 
 	// $("#avatar1").css({"left": positions[infoPos][0]+"px", "top": positions[infoPos][1]+"px"});
@@ -2978,21 +3144,30 @@ window.onload = function() {
 
 function updateGameData(){
 
-	gameData = {
-		"playerCount" : pcount,
-		"turn" : turn,
-		"doublecount" : doublecount,
-		"lastShownCity" : lastShownCity,
-		player,
-		square,
-		communityChestCards,
-		chanceCards
-	};
-	var dataString = JSON.stringify(gameData);
-    localStorage.setItem('gameData', dataString);
-	console.log(square);
+	if(1){
 
+		gameData = {
+			"playerCount" : pcount,
+			"turn" : turn,
+			"doublecount" : doublecount,
+			"lastShownCity" : lastShownCity,
+			player,
+			square,
+			"chanceCardsIndex" : chanceCards.index,
+			"communityChestCardsIndex" : communityChestCards.index,
+			"chanceCardsDeck" : chanceCards.deck,
+			"communityChestCardsDeck" : communityChestCards.deck,
+			"pensionerFirstRent" : pensionerFirstRent,
+			"caregiverFirstRow" : caregiverFirstRow,
+			"studentFirstRow" : studentFirstRow
+		};
+		var dataString = JSON.stringify(gameData);
+		localStorage.setItem('gameData', dataString);
+		// console.log(square);
+		
+	}
 
+	// console.log(pensionerFirstRent);
 }
 
 
@@ -3044,8 +3219,13 @@ function restart(){
 		"lastShownCity" : 'city99',
 		player,
 		square,
-		communityChestCards,
-		chanceCards
+		"chanceCardsIndex" : chanceCards.index,
+		"communityChestCardsIndex" : communityChestCards.index,
+		"chanceCardsDeck" : chanceCards.deck,
+		"communityChestCardsDeck" : communityChestCards.deck,
+		"pensionerFirstRent" : pensionerFirstRent,
+		"caregiverFirstRow" : caregiverFirstRow,
+		"studentFirstRow" : studentFirstRow
 	};
 
 	var dataString = JSON.stringify(gameData);
@@ -3053,4 +3233,87 @@ function restart(){
     localStorage.setItem('gameData', dataString)
     	window.location.href = "game.html";
 	// console.log(lastShownCity);
+	
 }
+
+
+function checkGameData() {
+    // Check if 'gameData' exists in localStorage
+    var gameObjectString = localStorage.getItem('gameData');
+    if (!gameObjectString) {
+        console.log("gameData does not exist in localStorage");
+        return false;
+    }
+
+    try {
+        // Parse 'gameData' string to JSON
+        var gameObject = JSON.parse(gameObjectString);
+
+        // Check if required properties exist in the parsed object
+        if (!gameObject.hasOwnProperty("playerCount") ||
+            !gameObject.hasOwnProperty("turn") ||
+            !gameObject.hasOwnProperty("doublecount") ||
+            !gameObject.hasOwnProperty("lastShownCity") ||
+            !gameObject.hasOwnProperty("player") ||
+            !gameObject.hasOwnProperty("square") ||
+            !gameObject.hasOwnProperty("communityChestCardsIndex") ||
+            !gameObject.hasOwnProperty("communityChestCardsDeck") ||
+            !gameObject.hasOwnProperty("chanceCardsDeck") ||
+			!gameObject.hasOwnProperty("pensionerFirstRent") ||
+			!gameObject.hasOwnProperty("caregiverFirstRow") ||
+			!gameObject.hasOwnProperty("studentFirstRow") ||
+            !gameObject.hasOwnProperty("chanceCardsIndex")) {
+            console.log("gameData is missing required properties");
+            return false;
+        }
+
+        // Additional checks if needed
+        // For example, you might want to validate specific properties' types or values
+
+        // If all checks pass, return true
+        return true;
+    } catch (error) {
+        console.error("Error parsing gameData:", error);
+        return false;
+    }
+}
+
+
+if (checkGameData() || loadgame) {
+}else{
+	window.location.href = "setup.html";
+}
+
+function downloadGameData(){
+	var gameObjectString = localStorage.getItem('gameData');
+	var gameObject = JSON.parse(gameObjectString);
+	var dataString = JSON.stringify(gameObject);
+	var blob = new Blob([dataString], {type: "application/json"});
+	var url = URL.createObjectURL(blob);
+  
+	var a = document.createElement('a');
+	a.href = url;
+	a.download = 'game_data.json';
+	a.style.display = 'none';
+	document.body.appendChild(a);
+	
+	a.click();
+  
+	// Remove the element after the download
+	document.body.removeChild(a);
+  
+	// Clean up the URL object
+	URL.revokeObjectURL(url);
+  }
+
+  
+function loadGameDataFromURL(url) {
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', url, false);
+	xhr.send();
+	if (xhr.status === 200) {
+	  return xhr.responseText;
+	}
+  }
+  
+  

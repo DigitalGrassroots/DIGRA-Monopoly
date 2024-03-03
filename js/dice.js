@@ -47,7 +47,8 @@ function createDice(number) {
 
   const dice = document.createElement("div");
 
-  dice.classList.add("dice");
+  // dice.classList.add("dice");
+  dice.classList.add("dice", "animate__animated", "animate__headShake", "animate__duration-1s");
 
   for (const dotPosition of dotPositionMatrix[number]) {
     const dot = document.createElement("div");
@@ -66,10 +67,17 @@ function randomizeDice(diceContainer, numberOfDice) {
 
   for (let i = 0; i < numberOfDice; i++) {
     // setTimeout(function(){
-    const random = Math.floor((Math.random() * 6) + 1);
-    const dice = createDice(random);
+    var random = Math.floor((Math.random() * 6) + 1);
+    
+    if(typeof player !== 'undefined'){
+      if(i==1 && player[turn].avatar==2 && studentFirstRow){
+        random = dices[0];
+      }
+    }
 
+    const dice = createDice(random);
     dices[i] = random;
+
     diceContainer.appendChild(dice);
       
     // }, 500);
@@ -99,6 +107,7 @@ function roller() {
     setTimeout(function() {
       $('.dice-container').css("transform", "translate(-50%, -10px)")
       $('.dice-container').css("opacity", 0)
+      // $('.dice').remove("animate__animated", "animate__shakeX", "animate__slow");
     }, 3000);
   }, 4000);
 }

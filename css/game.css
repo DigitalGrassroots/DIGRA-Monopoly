@@ -37,6 +37,9 @@ a{
 	text-decoration: none;
 	color: inherit;
 }
+.custom-cursor{
+	cursor: url("../images/cursor2.ico"), pointer;
+}
 
 .btn{
 	border-radius: 4px;
@@ -1030,3 +1033,50 @@ a{
 	text-align: center;
 	width: 100px;
 }
+
+
+
+/* CLOUD */
+.cloud1{
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	z-index: 1;
+	opacity: 0.5;
+	animation: float 120s linear infinite;
+	pointer-events: none;
+}
+
+.cloud2{
+	position: absolute;
+	bottom: 200px;
+	right: 100px;
+	z-index: 1;
+	opacity: 0.5;
+	animation: float2 90s linear infinite;
+	pointer-events: none;
+}
+
+@keyframes float {
+	0% {
+	  transform: translateX(0);
+	}
+	50% {
+	  transform: translateX(400px);
+	}
+	100% {
+	  transform: translateX(0);
+	}
+  }
+
+@keyframes float2 {
+	0% {
+	  transform: translateX(0);
+	}
+	50% {
+	  transform: translateX(-600px);
+	}
+	100% {
+	  transform: translateX(0);
+	}
+  }

@@ -204,14 +204,6 @@ function changeSFX(){
   }
 }
 
-function skipTour(){
-  closePopup();
-  setTimeout(function(){
-    document.getElementById('audio1').play();
-    document.getElementById('audio1').volume = 0.5;
-  }, 1000);
-}
-
 $('#city1').on('click', function(){
   var HTML = "Internet Health <p style='font-weight:normal'>Enabling people in underrepresented regions to assess the state of the Internet in their community <br> A Digital Grassroots Project <br><br><a class='btn rollbtn' href='https://digitalgrassroots.org/community-leaders-for-internet-health.html' target='_blank'>Community Leaders</a> </p>";
   popup(HTML, "", "blank");
