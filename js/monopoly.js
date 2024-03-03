@@ -2227,7 +2227,7 @@ function buy() {
 
 		if(p.avatar==6 && getPlayerProperties(turn).length==0){
 			cost *= 0.5;
-			avatarPower(p.name+" just bought "+property.name+" for 50% less.");
+			avatarPower(p.name+" has 50% off as a first-time buyer!");
 		}
 
 		if(p.avatar==6 && p.position==3){

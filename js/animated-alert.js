@@ -55,8 +55,6 @@ function avatarPower(text, src="https://cdn.lordicon.com/hgqdtxby.json"){
 }
 
 
-aa("https://cdn.lordicon.com/hpoomrpy.json", "Welcome! Would you like a guided Tour? <br><br> <div onclick='tour1();changeSFX();hideaa();' class='btn rollbtn'>Yes please!</div>", 100, 100, 20000);
-
 
 // aa("https://cdn.lordicon.com/jtiihjyw.json", "Sold!");
 
@@ -111,3 +109,35 @@ function winningAnimation(){
     $('.winning-story-title').html(p.name + " has won the game!");
     }, 1000);
 }
+
+
+  // Call this function after the window is fully loaded
+  function increaseProgressFast() {
+    clearInterval(progressInterval); // Stop the previous interval
+    increment = 20; // Set a faster increment
+    progressInterval = setInterval(increaseProgress, 100);
+  }
+
+
+document.onreadystatechange = function () {
+    maxProgressWidth = 100;
+    increaseProgressFast();
+    progressInner.classList.remove("animate__flash");
+    setTimeout(function(){
+        clearInterval(progressInterval);
+        $("#progress").addClass("animate__bounceOutDown");
+        $("#logo").removeClass("animate__flipInX");
+        $("#logo").addClass("animate__bounceOutUp");
+        setTimeout(function(){
+            $('#preloader').addClass("animate__fadeOut");
+            setTimeout(function(){
+                $('#preloader').hide();
+            }, 1000);
+    }, 300);
+}, 2000);
+
+    
+
+aa("https://cdn.lordicon.com/hpoomrpy.json", "Welcome! Would you like a guided Tour? <br><br> <div onclick='tour1();changeSFX();hideaa();' class='btn rollbtn'>Yes please!</div>", 100, 100, 20000);
+
+};

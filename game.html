@@ -19,6 +19,7 @@
 
 	<script src="https://cdn.lordicon.com/lordicon.js"></script>
 	
+	
 	<link rel="preload" href="https://cdn.lordicon.com/jtiihjyw.json" as="fetch" crossorigin="anonymous">
 	<link rel="preload" href="https://cdn.lordicon.com/tjgiycnd.json" as="fetch" crossorigin="anonymous">
 	<!-- star -->
@@ -38,6 +39,91 @@
   
 
 </head>
+<style>
+	#preloader {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: #F4BC51;
+		z-index: 9999;
+		padding-top: 300px;
+		text-align: center;
+	}
+
+.setup-progress-back{
+	background: rgb(0, 0, 0, 0.5);
+	height: 50px;
+	width: 350px;
+	border-radius: 100px;
+	margin-top: 30px;
+	display: flex;
+}
+
+.setup-progress-inner{
+	background: var(--maroon);
+	border-radius: 100px;
+	height: 100%;
+	width: 15%;
+	transition: 0.3s;
+}
+
+.setup-progress-loading{
+	font-size: 25px;
+	margin-top: 20px;
+}
+
+</style>
+
+<div id="preloader" class="preloader animate__animated">
+	<center>
+	<img src="images/logo-center.png" id="logo" class="animate__animated animate__flipInX">
+
+	<div id="progress" class="animate__animated">
+		<div class="setup-progress-back animate__animated ">
+			<div class="setup-progress-inner animate__animated animate__flash animate__infinite animate__slower" id="progressInner"></div>
+		</div>
+		<div class="setup-progress-loading">Loading...</div>
+	</div>
+	</center>
+
+</div>
+
+
+<script>	
+var progressInner = document.getElementById("progressInner");
+var progressWidth = 15;
+
+var increment = 0.5; 
+var maxProgressWidth = 80;
+
+  function increaseProgress() {
+    if (progressWidth >= maxProgressWidth) {
+      clearInterval(progressInterval);
+      return;
+    }
+
+    // Decrease increment gradually
+    if (increment > 1) {
+      increment--;
+    }
+
+    progressWidth += increment;
+    progressInner.style.width = progressWidth + "%";
+  }
+
+  var progressInterval = setInterval(increaseProgress, 100);
+
+</script>
+
+
+
+
+
+<!--  -->
+<!--  -->
+
 <body id="bodyPage">
 
 	<style type="text/css">

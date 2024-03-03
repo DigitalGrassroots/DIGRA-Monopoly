@@ -157,6 +157,7 @@ a{
 	top: 20px;
 	position: absolute;
 	transform: translate(-50%, 0%) scale(1.0);
+	display: none;
 }
 #board.zoomed{
 	transform: translate(-50%, 0%) scale(2);
