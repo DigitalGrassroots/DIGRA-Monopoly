@@ -690,7 +690,8 @@ function play(){
 					"communityChestCardsDeck" : communityChestCards.deck,
 					"pensionerFirstRent" : true,
 					"caregiverFirstRow" : true,
-					"studentFirstRow" : true
+					"studentFirstRow" : true,
+					"first_load" : true
 					}
 				);
 
@@ -732,6 +733,7 @@ function checkGameData() {
             !gameObject.hasOwnProperty("communityChestCardsIndex") ||
             !gameObject.hasOwnProperty("communityChestCardsDeck") ||
             !gameObject.hasOwnProperty("chanceCardsDeck") ||
+            !gameObject.hasOwnProperty("first_load") ||
             !gameObject.hasOwnProperty("chanceCardsIndex")) {
             console.log("gameData is missing required properties");
             return false;

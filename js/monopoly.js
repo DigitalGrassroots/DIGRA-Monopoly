@@ -3044,6 +3044,8 @@ window.onload = function() {
 	caregiverFirstRow = gameObject.caregiverFirstRow;
 	studentFirstRow = gameObject.studentFirstRow;
 
+	first_load = gameObject.first_load;
+
 	for (var i = 0; i <= 8; i++) {
 		player[i].pay = function (amount, creditor) {
 			if (amount <= this.money) {
@@ -3090,7 +3092,12 @@ window.onload = function() {
 		turn = i;
 		updatePosition();
 	}
-	turn = gameObject.turn;
+
+	if(first_load){
+		turn = gameObject.turn;
+	}else{
+		turn = gameObject.turn-1;
+	}
 
 
 
@@ -3159,7 +3166,8 @@ function updateGameData(){
 			"communityChestCardsDeck" : communityChestCards.deck,
 			"pensionerFirstRent" : pensionerFirstRent,
 			"caregiverFirstRow" : caregiverFirstRow,
-			"studentFirstRow" : studentFirstRow
+			"studentFirstRow" : studentFirstRow,
+			"first_load" : false
 		};
 		var dataString = JSON.stringify(gameData);
 		localStorage.setItem('gameData', dataString);
@@ -3225,7 +3233,8 @@ function restart(){
 		"communityChestCardsDeck" : communityChestCards.deck,
 		"pensionerFirstRent" : pensionerFirstRent,
 		"caregiverFirstRow" : caregiverFirstRow,
-		"studentFirstRow" : studentFirstRow
+		"studentFirstRow" : studentFirstRow,
+		"first_load" : false
 	};
 
 	var dataString = JSON.stringify(gameData);
@@ -3262,6 +3271,7 @@ function checkGameData() {
 			!gameObject.hasOwnProperty("pensionerFirstRent") ||
 			!gameObject.hasOwnProperty("caregiverFirstRow") ||
 			!gameObject.hasOwnProperty("studentFirstRow") ||
+			!gameObject.hasOwnProperty("first_load") ||
             !gameObject.hasOwnProperty("chanceCardsIndex")) {
             console.log("gameData is missing required properties");
             return false;
