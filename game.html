@@ -124,6 +124,11 @@ var maxProgressWidth = 80;
 <!--  -->
 <!--  -->
 
+<div class="setup-exit-btn" onclick="if(confirm('Are you sure you want to exit?')){ window.location = 'index.html'}">
+	<div class="setup-exit-square">x</div>
+	<div class="setup-exit-text">Quit</div>
+</div>
+
 <body id="bodyPage">
 
 	<style type="text/css">
@@ -415,9 +420,9 @@ var maxProgressWidth = 80;
 		<a onclick="if(confirm('Are you sure you want to exit?')){ window.location = 'index.html'}">Exit Game</a>
 
 		<br>
-		<a onclick="downloadGameData()">Exoprt Game</a>
-		<br>
-		<a onclick="winningAnimation()">Test Winning Game</a>
+		<a onclick="downloadGameData()">Export Game</a>
+		<!-- <br> -->
+		<!-- <a onclick="winningAnimation()">Test Winning Game</a> -->
 	</div>
 	</div>
 	<div class="settings-footer">CC 2024. Digital Grassroots</div>

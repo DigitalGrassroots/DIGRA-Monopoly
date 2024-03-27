@@ -39,6 +39,7 @@ a{
 	width: 100%;
 	position: fixed;
 	z-index: 2;
+	background: var(--mustard);
 }
 
 .nav-pad{
@@ -341,9 +342,9 @@ a{
 }
 
 .banner-title{
-	font-size: 40px;
+	font-size: 30px;
 	font-weight: bolder;
-	margin: 5px 0;
+	margin: 15px 0;
 }
 
 .btn{
