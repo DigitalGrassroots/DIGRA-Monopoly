@@ -166,7 +166,7 @@ AREXPORT template<> int ArPacketUtil::getNextField<int>(ArBasePacket& p
 
 AREXPORT template<> unsigned int ArPacketUtil::getNextField<unsigned int>(ArBasePacket& p) 
 {
-try {
+try 
 {
   if(!p.bufferContainsBytes(sizeof(ArTypes::UByte4))) throw std::out_of_range(PACKET_OUT_OF_RANGE_ERR);
   return (unsigned int) p.bufToUByte4();
@@ -180,7 +180,7 @@ try {
 
 AREXPORT template<> short ArPacketUtil::getNextField<short>(ArBasePacket& p) 
 {
-try {
+try 
 {
   if(!p.bufferContainsBytes(sizeof(ArTypes::Byte2))) throw std::out_of_range(PACKET_OUT_OF_RANGE_ERR);
   return (short) p.bufToByte2();
@@ -194,16 +194,10 @@ try {
 
 AREXPORT template<> unsigned short ArPacketUtil::getNextField<unsigned short>(ArBasePacket& p) 
 {
-try {
+try 
 {
   if(!p.bufferContainsBytes(sizeof(ArTypes::UByte2))) throw std::out_of_range(PACKET_OUT_OF_RANGE_ERR);
   return (unsigned short) p.bufToUByte2();
-} catch (const std::out_of_range& e) {
-    // handle the out_of_range exception
-    // For example, you could log the error and return a default value
-    ArLog::log(ArLog::Terse, "Error: Out of range exception occurred: %s", e.what());
-    return 0; // return a default value
-  }
 } catch (const std::out_of_range& e) {
     // handle the out_of_range exception
     // For example, you could log the error and return a default value
@@ -226,7 +220,7 @@ AREXPORT template<> void ArPacketUtil::getNextField<std::string>(ArBasePacket& p
 
 AREXPORT template<> float ArPacketUtil::getNextField<float>(ArBasePacket& p) 
 {
-try {
+try 
 {
   if(!p.bufferContainsBytes(sizeof(ArTypes::Byte4))) throw std::out_of_range(PACKET_OUT_OF_RANGE_ERR);
   return (float)p.bufToByte4() / 10e4;
@@ -240,7 +234,7 @@ try {
 
 AREXPORT template<> double ArPacketUtil::getNextField<double>(ArBasePacket& p) 
 {
-try {
+try 
 {
   if(!p.bufferContainsBytes(sizeof(ArTypes::Byte4))) throw std::out_of_range(PACKET_OUT_OF_RANGE_ERR);
   return (double)p.bufToByte4() / 10e4;
@@ -266,7 +260,7 @@ AREXPORT template<> char ArPacketUtil::getNextField<char>(ArBasePacket& p)
 
 AREXPORT template<> unsigned char ArPacketUtil::getNextField<unsigned char>(ArBasePacket& p) 
 {
-try {
+try 
 {
   if(!p.bufferContainsBytes(sizeof(ArTypes::UByte))) throw std::out_of_range(PACKET_OUT_OF_RANGE_ERR);
   return p.bufToUByte();
@@ -283,7 +277,7 @@ try {
 /// in the packet, return an ArPose with X and Y set but 0 for Theta.
 AREXPORT template<> ArPose ArPacketUtil::getNextField<ArPose>(ArBasePacket& p) 
 {
-try {
+try 
 {
   if(!p.bufferContainsBytes(2 * sizeof(ArTypes::Byte4))) throw std::out_of_range(PACKET_OUT_OF_RANGE_ERR);
   return ArPose(p.bufToByte4(), p.bufToByte4(), p.bufferContainsBytes(sizeof(ArTypes::Byte4)) ? p.bufToByte4() : 0);
@@ -305,7 +299,7 @@ try {
 /// X, Y are truncated to integer values 
 AREXPORT template<> ArLineSegment ArPacketUtil::getNextField<ArLineSegment>(ArBasePacket& p) 
 {
-try {
+try 
 {
   if(!p.bufferContainsBytes(4 * sizeof(ArTypes::Byte4))) throw std::out_of_range(PACKET_OUT_OF_RANGE_ERR);
   return ArLineSegment(p.bufToByte4(), p.bufToByte4(), p.bufToByte4(), p.bufToByte4());
@@ -328,7 +322,7 @@ try {
 /// X, Y are truncated to integer values
 AREXPORT template<> ArPos2D ArPacketUtil::getNextField<ArPos2D>(ArBasePacket& p) 
 {
-try {
+try 
 {
   if(!p.bufferContainsBytes(2 * sizeof(ArTypes::Byte4))) throw std::out_of_range(PACKET_OUT_OF_RANGE_ERR);
   return ArPos2D(p.bufToByte4(), p.bufToByte4());
