@@ -30,7 +30,59 @@
 /*	.view3{
 		display: block;
 	}*/
+
+	#rotate-device-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  z-index: 1000;
+}
+
+
 </style>
+
+<!-- Add this inside your <body> tag -->
+<div id="rotate-device-overlay" style="display: none;">
+	Please rotate your device to landscape mode to play the game.
+</div>
+
+
+<script>
+	function checkOrientation() {
+  // Check if user is on a mobile device
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    // Check if orientation is portrait
+    if (window.innerHeight > window.innerWidth) {
+      // Show overlay
+      document.getElementById('rotate-device-overlay').style.display = 'flex';
+    } else {
+      // Hide overlay
+      document.getElementById('rotate-device-overlay').style.display = 'none';
+    }
+  } else {
+    // For non-mobile devices, always hide overlay
+    document.getElementById('rotate-device-overlay').style.display = 'none';
+  }
+}
+
+// Initial check when the page loads
+checkOrientation();
+
+// Add event listener for when the device orientation changes
+window.addEventListener('resize', checkOrientation);
+
+</script>
+
 
 <div class="setup-sure-black" id="sureBlack">
 	<div class="setup-sure-box">
@@ -529,6 +581,7 @@
 })
 </script>
 
+<div style="height: 100px;"></div>
 
 <script type="text/javascript" src="js/digraedition.js"></script>
 <script type="text/javascript" src="js/setup.js"></script>
