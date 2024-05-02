@@ -24,7 +24,7 @@ function closeTour(){
 function skipTour(){
 	closePopup();
 	setTimeout(function(){
-	  document.getElementById('audio1').play();
+	//   document.getElementById('audio1').play();
 	  document.getElementById('audio1').volume = 0.5;
 	}, 1000);
 }

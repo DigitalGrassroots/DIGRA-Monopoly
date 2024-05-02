@@ -50,7 +50,7 @@ function luxurytax() {
 	addAlert(player[turn].name + " paid D100 for landing on Open Internet.");
 	player[turn].pay(100, 0);
 
-	$("#landed").show().text("You landed on Open Internet. Pay D100.");
+	$("#landed").show().text("You landed on Open Internet. You owe D100.");
 }
 
 function citytax() {

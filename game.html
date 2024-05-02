@@ -5,7 +5,6 @@
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 	<title>Digital Grassroots Online Monopoly</title>
 
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
 
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Alata&family=Grandstander:wght@500;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
@@ -76,7 +75,7 @@
 
 </style>
 
-<div id="preloader" class="preloader animate__animated">
+<div id="preloader" class="preloader ">
 	<center>
 	<img src="images/logo-center.png" id="logo" class="animate__animated animate__flipInX">
 
@@ -129,7 +128,68 @@ var maxProgressWidth = 80;
 	<div class="setup-exit-text">Quit</div>
 </div>
 
+
+
+  
+<!--  -->
+<!--  -->
+
+  
 <body id="bodyPage">
+  
+<!--  -->
+<!--  -->
+
+<style>
+	#rotate-device-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 101vw;
+		height: 101vh;
+		background-color: rgba(0, 0, 0, 0.8);
+		color: white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 24px;
+		z-index: 1000;
+	  }
+	  
+	  
+	  </style>
+  <div id="rotate-device-overlay" style="display: none;">
+	  Please rotate your device to landscape mode to play the game.
+	</div>
+  
+	
+<script>
+	function checkOrientation() {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+	// isMobile=true;
+
+  if (isMobile) {
+    if (window.innerHeight > window.innerWidth) {
+    // if (true) {
+      document.getElementById('rotate-device-overlay').style.display = 'flex';
+    } else {
+		document.getElementById('rotate-device-overlay').style.display = 'none';
+    }
+	document.body.style.overflowY = 'scroll';
+	document.body.style.overflowX = 'hidden';
+    document.getElementById('cloud1').style.display = 'none';
+    document.getElementById('cloud2').style.display = 'none';
+
+  } else {
+    document.getElementById('rotate-device-overlay').style.display = 'none';
+  }
+}
+
+checkOrientation();
+
+
+</script>
+
 
 	<style type="text/css">
 		#enlarge-wrap{
@@ -145,9 +205,6 @@ var maxProgressWidth = 80;
 <audio id="audio1" src="audio/background.mp3" loop>
   Your browser does not support the audio element.
 </audio>
-
-<script type="text/javascript">
-</script>
 
 
 <!--  -->
@@ -170,8 +227,8 @@ var maxProgressWidth = 80;
 <!--  -->
 
 
-<img src="images/cloud 1.png" class="cloud1" alt="">
-<img src="images/cloud 2.png" class="cloud2" alt="">
+<img src="images/cloud 1.png" id="cloud1" class="cloud1" alt="">
+<img src="images/cloud 2.png" id="cloud2" class="cloud2" alt="">
 
 <div id="cpanel">
 	<div onclick="showCpanelBoard('settingscircle','settings-board');" id="settingscircle" style="pointer-events: auto;">
@@ -564,7 +621,7 @@ var maxProgressWidth = 80;
 	<div id="landed"></div>
 	<div style="padding-top: 8px;">
 		<input type="button" class="btn rollbtn animate__animated animate__fadeInUp" id="nextbutton" title="Roll the dice and move your token accordingly." value=""/>
-		<input type="button" class="btn redbtn" style="display:block" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="" onclick="game.resign();" />
+		<input type="button" class="btn redbtn" style="display:block" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="Resign" onclick="game.resign();" />
 	</div>
 
 </div>

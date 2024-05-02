@@ -131,6 +131,8 @@ $('#alertDiv').css("left", alertLeft+"px");
 //     positions[key][0] *= scale_x;
 // }
 
+checkOrientation();
+
 });
 
  

@@ -6,7 +6,7 @@ function AITest(p) {
 	this.constructor.count++;
 
 	// p.name = "Computer " + this.constructor.count;
-	p.name = p.name + " (AI)";
+	// p.name = p.name + " (AI)";
 
 	// Decide whether to buy a property the AI landed on.
 	// Return: boolean (true to buy).

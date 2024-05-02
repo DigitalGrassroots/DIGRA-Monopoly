@@ -1,12 +1,15 @@
 function Game() {
 	var die1;
 	var die2;
+	var areDiceRolled = false;
 
 	var auctionQueue = [];
 	var highestbidder;
 	var highestbid;
 	var currentbidder = 1;
 	var auctionproperty;
+	var communityDrawDouble = 0;
+
 
 	this.rollDice = function() {
 		closeAlert();
@@ -16,6 +19,7 @@ function Game() {
 		// die1 = dices[0];
 		// die2 = dices[1];
 		areDiceRolled = true;
+		console.log("Dice rolled");
 	};
 
 
@@ -70,9 +74,7 @@ function Game() {
 	};
 
 
-
 	// Auction functions:
-
 
 
 	var finalizeAuction = function() {
@@ -244,7 +246,7 @@ function Game() {
 		} else {
 
 			if (bid > player[currentbidder].money) {
-				document.getElementById("bid").value = "You don't have enough money to bid $" + bid + ".";
+				document.getElementById("bid").value = "You don't have enough money to bid D" + bid + ".";
 				document.getElementById("bid").style.color = "red";
 			} else if (bid > highestbid) {
 				highestbid = bid;
@@ -258,7 +260,7 @@ function Game() {
 					this.auctionPass();
 				}
 			} else {
-				document.getElementById("bid").value = "Your bid must be greater than highest bid. ($" + highestbid + ")";
+				document.getElementById("bid").value = "Your bid must be greater than highest bid. (D" + highestbid + ")";
 				document.getElementById("bid").style.color = "red";
 			}
 		}
@@ -1132,7 +1134,7 @@ function Game() {
 var game;
 
 
-function Player(name, color, avatar, human) {
+function Player(name, color, avatar) {
 	this.name = name;
 	this.color = color;
 	this.avatar = avatar;
@@ -1145,7 +1147,7 @@ function Player(name, color, avatar, human) {
 	this.communityChestJailCard = false;
 	this.chanceJailCard = false;
 	this.bidding = true;
-	this.human = human;
+	this.human = true;
 	// this.AI = null;
 
 	this.pay = function (amount, creditor) {
@@ -1225,6 +1227,7 @@ Array.prototype.randomize = function(length) {
 };
 
 alertTimeout = setTimeout(function(){}, 10);
+
 function addAlert(alertText) {
 	$alert = $("#alert");
 
@@ -1615,6 +1618,7 @@ function chanceCommunityChest() {
 	if (p.position === 2 || p.position === 17 || p.position === 33) {
 		communityChestIndex = communityChestCards.deck[communityChestCards.index];
 
+
 		// Remove the get out of jail free card from the deck.
 		if (communityChestIndex === 0) {
 			communityChestCards.deck.splice(communityChestCards.index, 1);
@@ -1624,12 +1628,9 @@ function chanceCommunityChest() {
 		
 		document.getElementById("landed").innerHTML = "You landed on Community Chest. <br><br> <div class='btn rollbtn' onclick='openCards()' id='pickCardBtn'>Pick Card</div></span>";
 		$("#nextbutton").hide();
-
-		if(!p.human){
-			openCards();
-			setTimeout(pickCard, 3000);
-			setTimeout(closeCards, 6000);
-		}
+		// openCards();
+		
+		
 		
 		// Chance
 	} else if (p.position === 7 || p.position === 22 || p.position === 35) {
@@ -1641,16 +1642,12 @@ function chanceCommunityChest() {
 			chanceCards.deck.splice(chanceCards.index, 1);
 		}
 		
+		
 		card_type = 'chance';
 		
 		document.getElementById("landed").innerHTML = "You landed on Chance. <br><br> <div class='btn rollbtn' onclick='openCards()' id='pickCardBtn'>Pick Card</div></span>";
 		$("#nextbutton").hide();
-
-		if(!p.human){
-			openCards();
-			setTimeout(pickCard, 3000);
-			setTimeout(closeCards, 6000);
-		}
+		// openCards();
 
 	} else {
 		if (!p.human) {
@@ -1661,34 +1658,26 @@ function chanceCommunityChest() {
 			}
 		}
 	}
-
 }
 
 function chanceAction(chanceIndex) {
 	console.log(chanceIndex);
 	var p = player[turn]; 
-	
+
 	chanceCards[chanceIndex].action(p);
 	
 	updateMoney();
-	
+
 	if (chanceIndex !== 15 && !p.human) {
 		p.AI.alertList = "";
 		game.next();
 	}
 	
 	chanceCards.index++;
-	
+
 	if (chanceCards.index >= chanceCards.deck.length) {
 		chanceCards.index = 0;
 	}
-	
-	turn++;
-	if (turn > pcount) {
-		turn -= pcount;
-	}
-	areDiceRolled = false;
-	updateGameData();
 }
 
 // 
@@ -1704,7 +1693,7 @@ function communityChestAction(communityChestIndex) {
 		p.AI.alertList = "";
 		game.next();
 	}
-	
+
 	communityChestCards.index++;
 	
 	if (communityChestCards.index >= communityChestCards.deck.length) {
@@ -1717,13 +1706,6 @@ function communityChestAction(communityChestIndex) {
 		chanceCommunityChest();
 		pickCard();
 	}
-	
-	turn++;
-	if (turn > pcount) {
-		turn -= pcount;
-	}
-	areDiceRolled = false;
-	updateGameData();
 }
 
 // 
@@ -2220,6 +2202,9 @@ function hidedeed() {
 }
 
 function buy() {
+	last_action = "buy_start";
+	console.log("buy_start");
+
 	var p = player[turn];
 	var property = square[p.position];
 	var cost = property.price;
@@ -2296,6 +2281,8 @@ function buy() {
 		popup("<p>" + p.name + ", you need D" + (property.price - p.money) + " more to buy " + property.name + ".</p>");
 	}
 
+	last_action = "buy_end";
+	console.log(last_action);
 	updateGameData();
 }
 
@@ -2350,8 +2337,15 @@ function unmortgage(index) {
 }
 
 
-function land(increasedRent, firstTime=true) {
+function land(increasedRent) {
 	last_action = "land_start";
+	console.log("land_start");
+
+	landed_fulfiled = false;
+
+	if (!landed_fulfiled) {
+
+	updateGameData();
 
 	increasedRent = !!increasedRent; // Cast increasedRent to a boolean value. It is used for the ADVANCE TO THE NEAREST RAILROAD/UTILITY Chance cards.
 
@@ -2390,7 +2384,6 @@ function land(increasedRent, firstTime=true) {
 		game.addPropertyToAuctionQueue(p.position);
 	}
 
-	else if (firstTime){
 	// Collect rent
 	if (s.owner !== 0 && s.owner != turn && !s.mortgage) {
 		var groupowned = true;
@@ -2517,16 +2510,17 @@ function land(increasedRent, firstTime=true) {
 		luxurytax();
 	}
 
-	}
-	
 	updateMoney();
 	updatePosition();
 	updateOwned();
-	
-	
+
+
 	if(p.avatar == 5){
 		communityDrawDouble = 1;
 	}
+
+	// chancecommunitychest reload check
+
 	if (!p.human) {
 		popup(p.AI.alertList, chanceCommunityChest);
 		// chanceCommunityChest();
@@ -2534,14 +2528,20 @@ function land(increasedRent, firstTime=true) {
 	} else {
 		chanceCommunityChest();
 	}
-	
-	// }
-	
+
+	}
+
 	updateGameData();
+	last_action = "land_end";
+	console.log(last_action);
 }
 
 function roll() {
+	console.log("roll_start");
+
 	var p = player[turn];
+	last_action = "rolled";
+	updateGameData();
 
 	$("#option").hide();
 	$("#buy").show();
@@ -2672,10 +2672,14 @@ function roll() {
 		land();
 	}
 
+	last_action = "roll_end";
+	console.log(last_action);
 }, 6000);
 }
 
-function play(firstload=false) {
+function play() {
+
+	console.log("play_start");
 
 // switch auction back on
 	if (game.auction()) {
@@ -2695,10 +2699,7 @@ function play(firstload=false) {
 	$('#manageBoardName').html(p.name);
 	$('#manageBoardMoney').html(p.money);
 	$('#manageBoardAvatar').attr({ "src": "images/avatar"+p.avatar+".png"});
-
-	if(!firstload){
-		game.resetDice();
-	}
+	game.resetDice();
 
 	// document.getElementById("pname").innerHTML = p.name;
 	// highlightAvatar(p.avatar);
@@ -2717,9 +2718,11 @@ function play(firstload=false) {
 	if (p.human) {
 		document.getElementById("nextbutton").focus();
 	}
+
 	document.getElementById("nextbutton").value = "Roll Dice";
 	document.getElementById("nextbutton").classList.add('rollbtn');
 	document.getElementById("nextbutton").title = "Roll the dice and move your token accordingly.";
+	
 
 	$("#die0").hide();
 	$("#die1").hide();
@@ -2767,6 +2770,9 @@ function play(firstload=false) {
 			game.next();
 		}
 	}
+
+	last_action = "play_end";
+	console.log(last_action);
 }
 
 
@@ -3017,8 +3023,6 @@ var turn = 0, doublecount = 0;
 var loadgame = false;
 
 var last_action = "";
-var communityDrawDouble = 0;
-
 
 const urlParams = new URLSearchParams(window.location.search);
 const loadParam = urlParams.get('load');
@@ -3028,6 +3032,8 @@ if (loadParam) {
 
 
 window.onload = function() {
+
+
 
 	AITest.count = 0;
 	var gameObjectString;
@@ -3070,10 +3076,6 @@ window.onload = function() {
 	studentFirstRow = gameObject.studentFirstRow;
 
 	first_load = gameObject.first_load;
-	last_action = gameObject.last_action;
-	areDiceRolled = gameObject.areDiceRolled;
-
-	console.log(areDiceRolled);
 
 	for (var i = 0; i <= 8; i++) {
 		player[i].pay = function (amount, creditor) {
@@ -3101,7 +3103,7 @@ window.onload = function() {
 
 	for (var i = 1; i <= pcount; i++) {
 		p = player[i];
-		console.log(p);
+
 
 		p.avatar = playerArray[i].avatar;
 		$("#avatar"+playerArray[i].avatar).show();
@@ -3116,28 +3118,12 @@ window.onload = function() {
 		} else {
 			p.human = false;
 			p.AI = new AITest(p);
-
-			if (first_load) {
-				// check if (ai) is in the name
-				if (p.name.indexOf(" (AI)") == -1) {
-					p.name = p.name + " (AI)";
-					console.log("AI added to name");
-				}else{
-					console.log("AI already in name");
-				}
-
-			}
 		}
 
 		turn = i;
 		updatePosition();
 	}
 
-	if(first_load){
-		turn = gameObject.turn;
-	}else{
-		turn = gameObject.turn-1;
-	}
 
 
 	for (var i = 0; i < 40; i++) {
@@ -3157,28 +3143,152 @@ window.onload = function() {
 		}
 	}
 
-	
+
+
+// #########################################
+// #########################################
+
+
 	$("#nextbutton").click(game.next);
 	$("#noscript").hide();
-	
+
 	$("#board").show();
 
-// #########################################
-// #########################################
 
-
-
-	play(true);
-	if(last_action == "land_start" && areDiceRolled){
-		land(false, firstTime=false);
-		document.getElementById("nextbutton").value = "End turn";
-		document.getElementById("nextbutton").title = "End turn and advance to the next player.";
+	
+	
+	if(first_load){
+		turn = gameObject.turn;
+	}else{
+		turn = gameObject.turn-1;
+		// landed();
+	}
+	
+	
+	console.log(gameObject.turn);
+	console.log(player[turn]);
+	
+	
+	play();
+	
+	last_action = gameObject.last_action;
+	if(last_action == "landed"){
+		areDiceRolled = true;
+		land();
+		// turn++;
+		// game.next();
+	}else if(last_action == "rolled"){
+		// roll();
 	}
 
+	
+	console.log("play_start");
+
+
+
+	// turn++;
+	// if (turn > pcount) {
+	// 	turn -= pcount;
+	// }
+
+	// var p = player[turn];
+	// // $('.avatar').css("z-index", 2);
+	// $('.avatar').removeClass("avatar-highlight");
+	// $('#avatar'+p.avatar).addClass("avatar-highlight");
+
+	// $('#manageBoardName').html(p.name);
+	// $('#manageBoardMoney').html(p.money);
+	// $('#manageBoardAvatar').attr({ "src": "images/avatar"+p.avatar+".png"});
+	// game.resetDice();
+
+
+	// moveInfoPosition();
+
+	// addAlert("It is " + p.name + "'s turn.");
+
+	// // Check for bankruptcy.
+	// p.pay(0, p.creditor);
+
+	// $("#landed, #option").hide();
+	// $("#board, #control, #moneybar, #viewstats, #buy").show();
+
+	// doublecount = 0;
+	// if (p.human) {
+	// 	document.getElementById("nextbutton").focus();
+	// }
+
+	// document.getElementById("nextbutton").value = "Roll Dice";
+	// document.getElementById("nextbutton").classList.add('rollbtn');
+	// document.getElementById("nextbutton").title = "Roll the dice and move your token accordingly.";
+	
+
+	// $("#die0").hide();
+	// $("#die1").hide();
+
+	// if (p.jail) {
+	// 	$("#landed").show();
+	// 	document.getElementById("landed").innerHTML = "You are in jail.<input type='button' class='btn redbtn' title='Pay D50 fine to get out of jail immediately.' value='Pay D50 fine' onclick='payfifty();' />";
+
+	// 	if (p.communityChestJailCard || p.chanceJailCard) {
+	// 		document.getElementById("landed").innerHTML += "<input type='button' id='gojfbutton' title='Use &quot;Get Out of Jail Free&quot; card.' onclick='useJailCard();' value='Use Card' />";
+	// 	}
+
+	// 	document.getElementById("nextbutton").title = "Roll the dice. If you throw doubles, you will get out of jail.";
+
+	// 	if (p.jailroll === 0)
+	// 		addAlert("This is " + p.name + "'s first turn in jail.");
+	// 	else if (p.jailroll === 1)
+	// 		addAlert("This is " + p.name + "'s second turn in jail.");
+	// 	else if (p.jailroll === 2) {
+	// 		document.getElementById("landed").innerHTML += "<div>NOTE: If you do not throw doubles after this roll, you <i>must</i> pay the $50 fine.</div>";
+	// 		addAlert("This is " + p.name + "'s third turn in jail.");
+	// 	}
+
+	// 	if (!p.human && p.AI.postBail()) {
+	// 		if (p.communityChestJailCard || p.chanceJailCard) {
+	// 			useJailCard();
+	// 		} else {
+	// 			payfifty();
+	// 		}
+	// 	}
+	// }
+
+	// updateMoney();
+	// updatePosition();
+	// updateOwned();
+
+	// $(".money-bar-arrow").hide();
+	// $("#p" + turn + "arrow").show();
+
+	// $(".player-stat").removeClass('player-stat-active');
+	// $("#p" + turn + "stat").addClass('player-stat-active');
+
+	// if (!p.human) {
+	// 	if (!p.AI.beforeTurn()) {
+	// 		game.next();
+	// 	}
+	// }
+
+
+
+
+
+	// OLD
+
+	// console.log(last_action);
+
+	// setup();
+
+	// player[2].name = 'ffff';
+
+	// console.log(gameObject);
+
+
+	// $("#avatar1").css({"left": positions[infoPos][0]+"px", "top": positions[infoPos][1]+"px"});
+	// showInfo(infoPos);
 
 	updateGameData();
 	showCity();
-	
 };
 
 
@@ -3202,8 +3312,7 @@ function updateGameData(){
 			"caregiverFirstRow" : caregiverFirstRow,
 			"studentFirstRow" : studentFirstRow,
 			"first_load" : false,
-			"last_action" : last_action,
-			"areDiceRolled" : areDiceRolled
+			"last_action" : last_action
 		};
 		var dataString = JSON.stringify(gameData);
 		localStorage.setItem('gameData', dataString);
@@ -3212,8 +3321,6 @@ function updateGameData(){
 	}
 
 	// console.log(pensionerFirstRent);
-	console.log("last_action + "+last_action);
-	console.log("areDiceRolled + "+areDiceRolled);
 }
 
 
@@ -3230,9 +3337,9 @@ function restart(){
 		if (i==0) {
 			player[0] = new Player("the bank", "", "");
 		}else if(i<pcount+1){
-		player[i] = new Player(newplayers[i].name, "", newplayers[i].avatar, newplayers[i].human);
+		player[i] = new Player(newplayers[i].name, "", newplayers[i].avatar);
 		}else{
-			player[i] = new Player("", "", "", "");
+			player[i] = new Player("", "", "");
 		}
 		player[i].index = i;
 	}
@@ -3272,9 +3379,8 @@ function restart(){
 		"pensionerFirstRent" : pensionerFirstRent,
 		"caregiverFirstRow" : caregiverFirstRow,
 		"studentFirstRow" : studentFirstRow,
-		"first_load" : true,
-		"last_action" : last_action,
-		"areDiceRolled" : areDiceRolled
+		"first_load" : false,
+		"last_action" : last_action
 	};
 
 	var dataString = JSON.stringify(gameData);
@@ -3312,7 +3418,6 @@ function checkGameData() {
 			!gameObject.hasOwnProperty("caregiverFirstRow") ||
 			!gameObject.hasOwnProperty("studentFirstRow") ||
 			!gameObject.hasOwnProperty("first_load") ||
-			!gameObject.hasOwnProperty("areDiceRolled") ||
             !gameObject.hasOwnProperty("chanceCardsIndex")) {
             console.log("gameData is missing required properties");
             return false;

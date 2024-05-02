@@ -1,7 +1,9 @@
 var players = [];
+var oldplayers = [];
+
 var playerIndex = 1;
 
-var currentView =1;
+var currentView = 1;
 
 $('#power1, #power2').slideUp();
 
@@ -36,11 +38,11 @@ var playerSelects = document.getElementsByClassName('setup-player-select');
 
 var btn3 = document.getElementById('btn3');
 
-var selectedPlayerCount = 0;
+var selectedPlayerCount = 2;
 
 view1.style.display = 'block';
 
-  if (1) {
+if (1) {
 setTimeout(function(){
     var progressInterval = setInterval(frame, 10);
     function frame() {
@@ -59,7 +61,28 @@ setTimeout(function(){
       }
     }
 }, 1000)
-  }
+}
+
+
+
+function goBack() {
+	if (currentView == 3) {
+	  hideView3().then(function() {
+		showView2();
+	  });
+	} else if (currentView == 4) {
+	  hideView4().then(function() {
+		showView3();
+	  });
+	} else if (currentView == 5) {
+		players = oldplayers;
+		oldplayers = [];
+		hideView5().then(function() {
+		  showView4();
+		});
+	}
+}
+
 
   function hideView1(){
   	var viewImg1 = document.getElementById('viewImg1');
@@ -71,7 +94,7 @@ setTimeout(function(){
 	    	progress.style.opacity = 0;
 	    	setTimeout(function(){
 		    	view1.style.display = 'none';
-		    	console.log('hv1')
+		    	// console.log('hv1')
 	    		resolve();
 	    	}, 300);
 
@@ -91,7 +114,7 @@ setTimeout(function(){
 	    	gamebtn1.style.opacity = 1;
 	    	setTimeout(function(){
 		    	gamebtn2.style.opacity = 1;
-		    	console.log('sv2')
+		    	// console.log('sv2')
 	    		resolve();
 	    	}, 100);
 
@@ -108,7 +131,7 @@ setTimeout(function(){
 	    	gamebtn2.style.opacity = 0;
 	    	setTimeout(function(){
 		    	view2.style.display = 'none';
-		    	console.log('hv2')
+		    	// console.log('hv2')
 	    		resolve();
 	    	}, 500);
 
@@ -269,9 +292,12 @@ function hideView4(){
 
 
 function showView5() {
+	// console.log(players);
+	oldplayers = players;
+
     view5.style.display = "block";
     view5Fade1.style.opacity = 0;
-    $('.shuffle-circle').hide();
+    $('.shuffle-circle, #backBtn').hide();
 
     view5Fade1.style.opacity = 1;
     view5Fade2.style.opacity = 1;
@@ -297,9 +323,11 @@ function showView5() {
 				    var avatar8Index = selectedPlayers.findIndex(player => player.avatar == "8");
 				    if (avatar8Index !== -1) {
 				        selectedPlayers.unshift(selectedPlayers.splice(avatar8Index, 1)[0]);
-	            $("#power2").html("* The Ambassador starts first *");
-	            $("#power2").slideDown();
+						$("#power2").html("* The Ambassador starts first *");
+						$("#power2").slideDown();
 				    }
+					$("#backBtn").show();
+
 				    updateDisplay(selectedPlayers);
 				    players = selectedPlayers;
 
@@ -350,6 +378,7 @@ function hideView5(){
     setTimeout(function(){
         		$('#view5Fade1').html("Here we go again..");
 						view5.style.display = "none";
+						$('#startBtn').css({'display':'none','opacity':0,'transform':'translateY(0)'});
 					  currentView = 4;
 		        resolve();
 			}, 800);
@@ -387,18 +416,7 @@ function selectPlayerCount(e){
 
 }
 
-
-function goBack(){
-	if (currentView==3) {
-		hideView3().then(function(){showView2();});
-	}
-	if (currentView==4) {
-		hideView4().then(function(){showView3();});
-	}
-	if (currentView==5) {
-		hideView5().then(function(){showView4();});
-	}
-}
+  
 
 
 
@@ -491,13 +509,18 @@ function insertAvatar(e){
 }
 
 function insertPlayerType(e){
+	// change type back to human if playerIndex is 1
+	if (playerIndex == 1) {
+		document.getElementById("playerType").checked = false;
+		return;
+	}
 	if(document.getElementById("playerType").checked){
   	players[playerIndex].human = false;
 	}else{
   	players[playerIndex].human = true;
 	}
 
-	checkProcess()
+	checkProcess();
 
 	console.log(players);
 }
@@ -525,22 +548,22 @@ function insertShuffleNames(){
 
 
 function checkProcess(){
-var proceedBtn = document.getElementById("proceedBtn");
+	var proceedBtn = document.getElementById("proceedBtn");
 
-
-// console.log(players);
-var proceedState = true;
-// console.log(playerCount);
-for (var i = 1; i < playerCount; i++) {
-	if (players[i].name == "" || players[i].avatar == "") {
-		proceedState = false;
+	var proceedState = true;
+	playerCount = selectedPlayerCount;
+	for (var i = 1; i < playerCount+1; i++) {
+		if (players[i].name == "" || players[i].avatar == "") {
+			proceedState = false;
+		}
+	}
+	if (proceedState) {
+		proceedBtn.classList.remove('setup-next-btn-disabled');
+		return true;
+	}else{
+		proceedBtn.classList.add('setup-next-btn-disabled');
 		return false;
 	}
-}
-if (proceedState) {
-	proceedBtn.classList.remove('setup-next-btn-disabled');
-	return true;
-}
 
 }
 
@@ -548,7 +571,7 @@ if (proceedState) {
 
 
 
-function Player(name, color, avatar) {
+function Player(name, color, avatar, human) {
 	this.name = name;
 	this.color = color;
 	this.avatar = avatar;
@@ -561,14 +584,14 @@ function Player(name, color, avatar) {
 	this.communityChestJailCard = false;
 	this.chanceJailCard = false;
 	this.bidding = true;
-	this.human = true;
+	this.human = human;
 	// this.AI = null;
 }
 
 
 
 function play(){
-	if (checkProcess()) {
+	// if (checkProcess()) {
 
 		hideView5();
 
@@ -582,7 +605,7 @@ function play(){
 		}
 
 		// player = newplayers;
-		console.log(newplayers);
+		// console.log(newplayers);
 
 
 			for (var i = 0; i <= 8; i++) {
@@ -591,7 +614,7 @@ function play(){
 				}
 				else if(i<playerCount+1){
 
-					player[i] = new Player(newplayers[i].name, "", newplayers[i].avatar);
+					player[i] = new Player(newplayers[i].name, "", newplayers[i].avatar, newplayers[i].human);
 					if (newplayers[i].human) {
 							player[i].human = true;
 					}else{
@@ -603,14 +626,12 @@ function play(){
 
 				}
 				else{
-					player[i] = new Player("", "", "");
+					player[i] = new Player("", "", "", "");
 				}
 				
 
 				player[i].index = i;
 			}
-
-			player[1].human = true;
 
 			// console.log(player);
 
@@ -643,7 +664,7 @@ function play(){
 			communityChestCards.index = 0;
 			chanceCards.index = 0;
 			
-			console.log(communityChestCards);
+			// console.log(communityChestCards);
 
 			communityChestCards.deck = [];
 			chanceCards.deck = [];
@@ -691,7 +712,9 @@ function play(){
 					"pensionerFirstRent" : true,
 					"caregiverFirstRow" : true,
 					"studentFirstRow" : true,
-					"first_load" : true
+					"first_load" : true,
+					"last_action" : "start",
+					"areDiceRolled" : false
 					}
 				);
 
@@ -708,7 +731,7 @@ function play(){
 				window.location.href = "game.html";
 			}, 500)
 				
-	}
+	// }
 }
 
 function checkGameData() {

@@ -1,12 +1,15 @@
+
 function Game() {
 	var die1;
 	var die2;
-
+	
 	var auctionQueue = [];
 	var highestbidder;
 	var highestbid;
 	var currentbidder = 1;
 	var auctionproperty;
+	var communityDrawDouble = 0;
+
 
 	this.rollDice = function() {
 		closeAlert();
@@ -16,6 +19,7 @@ function Game() {
 		// die1 = dices[0];
 		// die2 = dices[1];
 		areDiceRolled = true;
+		last_action = "rolled";
 	};
 
 
@@ -24,6 +28,8 @@ function Game() {
 	};
 
 	this.next = function() {
+		console.log("nexted");
+
 		updateGameData();
 
 		p.pay(0, 0);
@@ -37,8 +43,10 @@ function Game() {
 			}
 		} else if (areDiceRolled && doublecount === 0) {
 			play();
+			console.log("played");
 		} else {
 			roll();
+			console.log("rolled here");
 		}
 	};
 
@@ -70,9 +78,7 @@ function Game() {
 	};
 
 
-
 	// Auction functions:
-
 
 
 	var finalizeAuction = function() {
@@ -244,7 +250,7 @@ function Game() {
 		} else {
 
 			if (bid > player[currentbidder].money) {
-				document.getElementById("bid").value = "You don't have enough money to bid $" + bid + ".";
+				document.getElementById("bid").value = "You don't have enough money to bid D" + bid + ".";
 				document.getElementById("bid").style.color = "red";
 			} else if (bid > highestbid) {
 				highestbid = bid;
@@ -258,7 +264,7 @@ function Game() {
 					this.auctionPass();
 				}
 			} else {
-				document.getElementById("bid").value = "Your bid must be greater than highest bid. ($" + highestbid + ")";
+				document.getElementById("bid").value = "Your bid must be greater than highest bid. (D" + highestbid + ")";
 				document.getElementById("bid").style.color = "red";
 			}
 		}
@@ -1132,7 +1138,7 @@ function Game() {
 var game;
 
 
-function Player(name, color, avatar, human) {
+function Player(name, color, avatar) {
 	this.name = name;
 	this.color = color;
 	this.avatar = avatar;
@@ -1145,7 +1151,7 @@ function Player(name, color, avatar, human) {
 	this.communityChestJailCard = false;
 	this.chanceJailCard = false;
 	this.bidding = true;
-	this.human = human;
+	this.human = true;
 	// this.AI = null;
 
 	this.pay = function (amount, creditor) {
@@ -1225,6 +1231,7 @@ Array.prototype.randomize = function(length) {
 };
 
 alertTimeout = setTimeout(function(){}, 10);
+
 function addAlert(alertText) {
 	$alert = $("#alert");
 
@@ -1615,6 +1622,7 @@ function chanceCommunityChest() {
 	if (p.position === 2 || p.position === 17 || p.position === 33) {
 		communityChestIndex = communityChestCards.deck[communityChestCards.index];
 
+
 		// Remove the get out of jail free card from the deck.
 		if (communityChestIndex === 0) {
 			communityChestCards.deck.splice(communityChestCards.index, 1);
@@ -1624,12 +1632,9 @@ function chanceCommunityChest() {
 		
 		document.getElementById("landed").innerHTML = "You landed on Community Chest. <br><br> <div class='btn rollbtn' onclick='openCards()' id='pickCardBtn'>Pick Card</div></span>";
 		$("#nextbutton").hide();
-
-		if(!p.human){
-			openCards();
-			setTimeout(pickCard, 3000);
-			setTimeout(closeCards, 6000);
-		}
+		// openCards();
+		
+		
 		
 		// Chance
 	} else if (p.position === 7 || p.position === 22 || p.position === 35) {
@@ -1641,16 +1646,12 @@ function chanceCommunityChest() {
 			chanceCards.deck.splice(chanceCards.index, 1);
 		}
 		
+		
 		card_type = 'chance';
 		
 		document.getElementById("landed").innerHTML = "You landed on Chance. <br><br> <div class='btn rollbtn' onclick='openCards()' id='pickCardBtn'>Pick Card</div></span>";
 		$("#nextbutton").hide();
-
-		if(!p.human){
-			openCards();
-			setTimeout(pickCard, 3000);
-			setTimeout(closeCards, 6000);
-		}
+		// openCards();
 
 	} else {
 		if (!p.human) {
@@ -1661,34 +1662,26 @@ function chanceCommunityChest() {
 			}
 		}
 	}
-
 }
 
 function chanceAction(chanceIndex) {
 	console.log(chanceIndex);
 	var p = player[turn]; 
-	
+
 	chanceCards[chanceIndex].action(p);
 	
 	updateMoney();
-	
+
 	if (chanceIndex !== 15 && !p.human) {
 		p.AI.alertList = "";
 		game.next();
 	}
 	
 	chanceCards.index++;
-	
+
 	if (chanceCards.index >= chanceCards.deck.length) {
 		chanceCards.index = 0;
 	}
-	
-	turn++;
-	if (turn > pcount) {
-		turn -= pcount;
-	}
-	areDiceRolled = false;
-	updateGameData();
 }
 
 // 
@@ -1704,7 +1697,7 @@ function communityChestAction(communityChestIndex) {
 		p.AI.alertList = "";
 		game.next();
 	}
-	
+
 	communityChestCards.index++;
 	
 	if (communityChestCards.index >= communityChestCards.deck.length) {
@@ -1717,13 +1710,6 @@ function communityChestAction(communityChestIndex) {
 		chanceCommunityChest();
 		pickCard();
 	}
-	
-	turn++;
-	if (turn > pcount) {
-		turn -= pcount;
-	}
-	areDiceRolled = false;
-	updateGameData();
 }
 
 // 
@@ -2220,6 +2206,7 @@ function hidedeed() {
 }
 
 function buy() {
+
 	var p = player[turn];
 	var property = square[p.position];
 	var cost = property.price;
@@ -2353,6 +2340,12 @@ function unmortgage(index) {
 function land(increasedRent, firstTime=true) {
 	last_action = "land_start";
 
+	landed_fulfiled = false;
+
+	// if (!landed_fulfiled) {
+
+	updateGameData();
+
 	increasedRent = !!increasedRent; // Cast increasedRent to a boolean value. It is used for the ADVANCE TO THE NEAREST RAILROAD/UTILITY Chance cards.
 
 	var p = player[turn];
@@ -2365,14 +2358,13 @@ function land(increasedRent, firstTime=true) {
 
 	blackFade();
 
-
+	// check if communite chest or chance
 	if (p.position === 2 || p.position === 17 || p.position === 33 || p.position === 7 || p.position === 22 || p.position === 35) {
 	}else{
 		document.getElementById("landed").innerHTML = "You landed on <span style='text-decoration:underline'>" + s.name + "</span>.";
 	}
 
 	s.landcount++;
-	// addAlert(p.name + " landed on " + s.name + ".");
 
 	// Allow player to buy the property on which he landed.
 	if (s.price !== 0 && s.owner === 0) {
@@ -2391,112 +2383,121 @@ function land(increasedRent, firstTime=true) {
 	}
 
 	else if (firstTime){
-	// Collect rent
-	if (s.owner !== 0 && s.owner != turn && !s.mortgage) {
-		var groupowned = true;
-		var rent;
+		// Collect rent
+		if (s.owner !== 0 && s.owner != turn && !s.mortgage) {
+			var groupowned = true;
+			var rent;
 
-		if(p.position == 11){
+			if(p.position == 11){
 
-			rent = (die1 + die2) * 10;
-
-		}else if(p.position == 16){
-
-			rent = (die1 + die2) * 6;
-
-		}
-
-		else if (p.position === 12) {
-			if (increasedRent || square[28].owner == s.owner) {
 				rent = (die1 + die2) * 10;
-			} else {
-				rent = (die1 + die2) * 4;
+
+			}else if(p.position == 16){
+
+				rent = (die1 + die2) * 6;
+
 			}
 
-		} else if (p.position === 28) {
-			if (increasedRent || square[12].owner == s.owner) {
-				rent = (die1 + die2) * 10;
-			} else {
-				rent = (die1 + die2) * 4;
-			}
-
-		} 
-
-		else {
-
-			for (var i = 0; i < 40; i++) {
-				sq = square[i];
-				if (sq.groupNumber == s.groupNumber && sq.owner != s.owner) {
-					groupowned = false;
-				}
-			}
-
-			if (!groupowned) {
-				rent = s.baserent;
-			} else {
-				if (s.house === 0) {
-					rent = s.baserent * 2;
+			else if (p.position === 12) {
+				if (increasedRent || square[28].owner == s.owner) {
+					rent = (die1 + die2) * 10;
 				} else {
-					rent = s["rent" + s.house];
+					rent = (die1 + die2) * 4;
+				}
+
+			} else if (p.position === 28) {
+				if (increasedRent || square[12].owner == s.owner) {
+					rent = (die1 + die2) * 10;
+				} else {
+					rent = (die1 + die2) * 4;
+				}
+
+			} 
+
+			else {
+
+				for (var i = 0; i < 40; i++) {
+					sq = square[i];
+					if (sq.groupNumber == s.groupNumber && sq.owner != s.owner) {
+						groupowned = false;
+					}
+				}
+
+				if (!groupowned) {
+					rent = s.baserent;
+				} else {
+					if (s.house === 0) {
+						rent = s.baserent * 2;
+					} else {
+						rent = s["rent" + s.house];
+					}
 				}
 			}
+
+			if(p.avatar==2){
+				rent *= 0.95;
+				avatarPower(p.name+" just paid 5% less rent"+s.name+".", "https://cdn.lordicon.com/epietrpn.json");
+			}
+			
+			if(p.avatar==3 && p.position==6){
+				rent = 0;
+				avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+			}
+
+			if(p.avatar==5 && p.position==32){
+				rent = 0;
+				avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+			}
+			
+			if(p.avatar==6 && p.position==16){
+				rent = 0;
+				avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+			}
+
+			if(p.avatar==7 && p.position==3){
+				rent = 0;
+				avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+			}
+			
+			if(p.avatar==7 && p.position==36){
+				rent = 0;
+				avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+			}
+
+			if(p.avatar==9 && pensionerFirstRent==true){
+				rent = 0;
+				pensionerFirstRent = false;
+				avatarPower("Free first rent <br>"+p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+			}
+
+			if(p.avatar==10 && p.position==26){
+				rent = 0;
+				avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+			}
+			
+
+			addAlert(p.name + " paid D" + rent + " rent to " + player[s.owner].name + ".");
+			p.pay(rent, s.owner);
+			player[s.owner].money += rent;
+
+			document.getElementById("landed").innerHTML = "You landed on " + s.name + ". " + player[s.owner].name + " collected D" + rent + " rent.";
+		} else if (s.owner > 0 && s.owner != turn && s.mortgage) {
+			document.getElementById("landed").innerHTML = "You landed on " + s.name + ". Property is mortgaged; no rent was collected.";
 		}
 
-		if(p.avatar==2){
-			rent *= 0.95;
-			avatarPower(p.name+" just paid 5% less rent"+s.name+".", "https://cdn.lordicon.com/epietrpn.json");
-		}
-		
-		if(p.avatar==3 && p.position==6){
-			rent = 0;
-			avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+		// City Tax
+		if (p.position === 4) {
+			citytax();
 		}
 
-		if(p.avatar==5 && p.position==32){
-			rent = 0;
-			avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
-		}
-		
-		if(p.avatar==6 && p.position==16){
-			rent = 0;
-			avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
+		// Luxury Tax
+		if (p.position === 38) {
+			luxurytax();
 		}
 
-		if(p.avatar==7 && p.position==3){
-			rent = 0;
-			avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
-		}
-		
-		if(p.avatar==7 && p.position==36){
-			rent = 0;
-			avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
-		}
-
-		if(p.avatar==9 && pensionerFirstRent==true){
-			rent = 0;
-			pensionerFirstRent = false;
-			avatarPower("Free first rent <br>"+p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
-		}
-
-		if(p.avatar==10 && p.position==26){
-			rent = 0;
-			avatarPower(p.name+" just paid nothing for landing on "+s.name+".", "https://cdn.lordicon.com/jrxatxqu.json");
-		}
-		
-
-		addAlert(p.name + " paid D" + rent + " rent to " + player[s.owner].name + ".");
-		p.pay(rent, s.owner);
-		player[s.owner].money += rent;
-
-		document.getElementById("landed").innerHTML = "You landed on " + s.name + ". " + player[s.owner].name + " collected D" + rent + " rent.";
-	} else if (s.owner > 0 && s.owner != turn && s.mortgage) {
-		document.getElementById("landed").innerHTML = "You landed on " + s.name + ". Property is mortgaged; no rent was collected.";
 	}
 
-	// City Tax
-	if (p.position === 4) {
-		citytax();
-	}
+	
 
 	// Go to jail. Go directly to Jail. Do not pass GO. Do not collect $200.
 	if (p.position === 30) {
@@ -2512,21 +2513,16 @@ function land(increasedRent, firstTime=true) {
 		return;
 	}
 
-	// Luxury Tax
-	if (p.position === 38) {
-		luxurytax();
-	}
-
-	}
-	
 	updateMoney();
 	updatePosition();
 	updateOwned();
-	
-	
+
+
 	if(p.avatar == 5){
 		communityDrawDouble = 1;
 	}
+
+
 	if (!p.human) {
 		popup(p.AI.alertList, chanceCommunityChest);
 		// chanceCommunityChest();
@@ -2534,14 +2530,17 @@ function land(increasedRent, firstTime=true) {
 	} else {
 		chanceCommunityChest();
 	}
-	
+
 	// }
-	
+
 	updateGameData();
+	// last_action = "land_end";
 }
 
 function roll() {
+
 	var p = player[turn];
+	updateGameData();
 
 	$("#option").hide();
 	$("#buy").show();
@@ -2671,11 +2670,10 @@ function roll() {
 
 		land();
 	}
-
 }, 6000);
 }
 
-function play(firstload=false) {
+function play() {
 
 // switch auction back on
 	if (game.auction()) {
@@ -2695,10 +2693,7 @@ function play(firstload=false) {
 	$('#manageBoardName').html(p.name);
 	$('#manageBoardMoney').html(p.money);
 	$('#manageBoardAvatar').attr({ "src": "images/avatar"+p.avatar+".png"});
-
-	if(!firstload){
-		game.resetDice();
-	}
+	game.resetDice();
 
 	// document.getElementById("pname").innerHTML = p.name;
 	// highlightAvatar(p.avatar);
@@ -2717,9 +2712,11 @@ function play(firstload=false) {
 	if (p.human) {
 		document.getElementById("nextbutton").focus();
 	}
+
 	document.getElementById("nextbutton").value = "Roll Dice";
 	document.getElementById("nextbutton").classList.add('rollbtn');
 	document.getElementById("nextbutton").title = "Roll the dice and move your token accordingly.";
+	
 
 	$("#die0").hide();
 	$("#die1").hide();
@@ -3017,8 +3014,6 @@ var turn = 0, doublecount = 0;
 var loadgame = false;
 
 var last_action = "";
-var communityDrawDouble = 0;
-
 
 const urlParams = new URLSearchParams(window.location.search);
 const loadParam = urlParams.get('load');
@@ -3028,6 +3023,8 @@ if (loadParam) {
 
 
 window.onload = function() {
+
+
 
 	AITest.count = 0;
 	var gameObjectString;
@@ -3040,7 +3037,7 @@ window.onload = function() {
 		gameObjectString = localStorage.getItem('gameData');
 	}
 	var gameObject = JSON.parse(gameObjectString);
-	// console.log(gameObject);
+	console.log(gameObject);
 
 
 	game = new Game();
@@ -3070,10 +3067,7 @@ window.onload = function() {
 	studentFirstRow = gameObject.studentFirstRow;
 
 	first_load = gameObject.first_load;
-	last_action = gameObject.last_action;
 	areDiceRolled = gameObject.areDiceRolled;
-
-	console.log(areDiceRolled);
 
 	for (var i = 0; i <= 8; i++) {
 		player[i].pay = function (amount, creditor) {
@@ -3101,7 +3095,7 @@ window.onload = function() {
 
 	for (var i = 1; i <= pcount; i++) {
 		p = player[i];
-		console.log(p);
+
 
 		p.avatar = playerArray[i].avatar;
 		$("#avatar"+playerArray[i].avatar).show();
@@ -3110,34 +3104,20 @@ window.onload = function() {
 		$("#playerstats-col"+playerArray[i].avatar).show();
 		$("#playerstatsName"+playerArray[i].avatar).html(playerArray[i].name);
 
+		console.log(playerArray[i]);
+
 		if (playerArray[i].human == true) {
 			p.name = playerArray[i].name;
 			p.human = true;
 		} else {
 			p.human = false;
 			p.AI = new AITest(p);
-
-			if (first_load) {
-				// check if (ai) is in the name
-				if (p.name.indexOf(" (AI)") == -1) {
-					p.name = p.name + " (AI)";
-					console.log("AI added to name");
-				}else{
-					console.log("AI already in name");
-				}
-
-			}
 		}
 
 		turn = i;
 		updatePosition();
 	}
 
-	if(first_load){
-		turn = gameObject.turn;
-	}else{
-		turn = gameObject.turn-1;
-	}
 
 
 	for (var i = 0; i < 40; i++) {
@@ -3157,35 +3137,172 @@ window.onload = function() {
 		}
 	}
 
-	
+
+
+// #########################################
+// #########################################
+
+
 	$("#nextbutton").click(game.next);
 	$("#noscript").hide();
-	
+
 	$("#board").show();
 
-// #########################################
-// #########################################
+
+	last_action = gameObject.last_action;
+	
+	console.log(gameObject);
+
+	turn = gameObject.turn;
+	if (turn > pcount) {
+		turn -= pcount;
+	}
+
+	console.log(turn);
+	
+	if(first_load){
+		turn++;
+		game.next();
+	}else{
+		
+		
+		// console.log(gameObject.turn);
+		// console.log(player[turn]);
+		
+		
+		// play();
+		
+		// if(last_action == "landed"){
+		// 	// areDiceRolled = true;
+		// 	// land();
+		// 	// turn++;
+		// 	// game.next();
+		// }else if(last_action == "rolled"){
+		// 	// roll();
+		// }
+		
+		
+		
+		
+
+		var p = player[turn];
+		// $('.avatar').css("z-index", 2);
+		$('.avatar').removeClass("avatar-highlight");
+		$('#avatar'+p.avatar).addClass("avatar-highlight");
 
 
+		// // turn++;
 
-	play(true);
-	if(last_action == "land_start" && areDiceRolled){
-		land(false, firstTime=false);
-		document.getElementById("nextbutton").value = "End turn";
-		document.getElementById("nextbutton").title = "End turn and advance to the next player.";
+
+		$('#manageBoardName').html(p.name);
+		$('#manageBoardMoney').html(p.money);
+		$('#manageBoardAvatar').attr({ "src": "images/avatar"+p.avatar+".png"});
+		
+		
+		moveInfoPosition();
+		
+		// game.resetDice();
+
+		addAlert("It is " + p.name + "'s turn.");
+
+		// Check for bankruptcy.
+		p.pay(0, p.creditor);
+
+		// $("#landed, #option").hide();
+		// // $("#board, #control, #moneybar, #viewstats, #buy").show();
+
+		// doublecount = 0;
+		if (p.human) {
+			if (last_action == "buy_end" || last_action == "land_end") {
+				document.getElementById("nextbutton").value = "End turn";
+				document.getElementById("nextbutton").title = "End turn and advance to the next player.";
+			}
+			
+			if(last_action == "land_start"){
+				land(false, firstTime=false);
+				document.getElementById("nextbutton").value = "End turn";
+				document.getElementById("nextbutton").title = "End turn and advance to the next player.";
+			}
+			
+		}else{
+			play();
+		}
+	}	
+
+	// $("#die0").hide();
+	// $("#die1").hide();
+
+	// if (p.jail) {
+	// 	$("#landed").show();
+	// 	document.getElementById("landed").innerHTML = "You are in jail.<input type='button' class='btn redbtn' title='Pay D50 fine to get out of jail immediately.' value='Pay D50 fine' onclick='payfifty();' />";
+
+	// 	if (p.communityChestJailCard || p.chanceJailCard) {
+	// 		document.getElementById("landed").innerHTML += "<input type='button' id='gojfbutton' title='Use &quot;Get Out of Jail Free&quot; card.' onclick='useJailCard();' value='Use Card' />";
+	// 	}
+
+	// 	document.getElementById("nextbutton").title = "Roll the dice. If you throw doubles, you will get out of jail.";
+
+	// 	if (p.jailroll === 0)
+	// 		addAlert("This is " + p.name + "'s first turn in jail.");
+	// 	else if (p.jailroll === 1)
+	// 		addAlert("This is " + p.name + "'s second turn in jail.");
+	// 	else if (p.jailroll === 2) {
+	// 		document.getElementById("landed").innerHTML += "<div>NOTE: If you do not throw doubles after this roll, you <i>must</i> pay the $50 fine.</div>";
+	// 		addAlert("This is " + p.name + "'s third turn in jail.");
+	// 	}
+
+	// 	if (!p.human && p.AI.postBail()) {
+	// 		if (p.communityChestJailCard || p.chanceJailCard) {
+	// 			useJailCard();
+	// 		} else {
+	// 			payfifty();
+	// 		}
+	// 	}
+	// }
+
+	// updateMoney();
+	// updatePosition();
+	// updateOwned();
+
+	// $(".money-bar-arrow").hide();
+	// $("#p" + turn + "arrow").show();
+
+	// $(".player-stat").removeClass('player-stat-active');
+	// $("#p" + turn + "stat").addClass('player-stat-active');
+
+	if (!p.human) {
+		if (!p.AI.beforeTurn()) {
+			game.next();
+		}
 	}
 
 
+
+
+
+	// OLD
+
+	// console.log(last_action);
+
+	// setup();
+
+	// player[2].name = 'ffff';
+
+	// console.log(gameObject);
+
+
+	// $("#avatar1").css({"left": positions[infoPos][0]+"px", "top": positions[infoPos][1]+"px"});
+	// showInfo(infoPos);
+
 	updateGameData();
 	showCity();
-	
 };
 
 
 
 function updateGameData(){
 
-	if(1){
+	if(0){
 
 		gameData = {
 			"playerCount" : pcount,
@@ -3201,7 +3318,7 @@ function updateGameData(){
 			"pensionerFirstRent" : pensionerFirstRent,
 			"caregiverFirstRow" : caregiverFirstRow,
 			"studentFirstRow" : studentFirstRow,
-			"first_load" : false,
+			"first_load" : true,
 			"last_action" : last_action,
 			"areDiceRolled" : areDiceRolled
 		};
@@ -3211,9 +3328,7 @@ function updateGameData(){
 		
 	}
 
-	// console.log(pensionerFirstRent);
-	console.log("last_action + "+last_action);
-	console.log("areDiceRolled + "+areDiceRolled);
+	console.log("last_action = " + last_action);
 }
 
 
@@ -3230,9 +3345,9 @@ function restart(){
 		if (i==0) {
 			player[0] = new Player("the bank", "", "");
 		}else if(i<pcount+1){
-		player[i] = new Player(newplayers[i].name, "", newplayers[i].avatar, newplayers[i].human);
+		player[i] = new Player(newplayers[i].name, "", newplayers[i].avatar);
 		}else{
-			player[i] = new Player("", "", "", "");
+			player[i] = new Player("", "", "");
 		}
 		player[i].index = i;
 	}
@@ -3272,9 +3387,9 @@ function restart(){
 		"pensionerFirstRent" : pensionerFirstRent,
 		"caregiverFirstRow" : caregiverFirstRow,
 		"studentFirstRow" : studentFirstRow,
-		"first_load" : true,
+		"first_load" : false,
 		"last_action" : last_action,
-		"areDiceRolled" : areDiceRolled
+		"areDiceRolled" : false
 	};
 
 	var dataString = JSON.stringify(gameData);

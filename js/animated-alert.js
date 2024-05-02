@@ -120,6 +120,7 @@ function winningAnimation(){
 
 
 document.onreadystatechange = function () {
+    $('#preloader').addClass("animate__animated");
     maxProgressWidth = 100;
     increaseProgressFast();
     progressInner.classList.remove("animate__flash");
