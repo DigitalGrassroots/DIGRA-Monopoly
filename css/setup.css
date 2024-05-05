@@ -440,7 +440,6 @@ a{
 	display: flex;
 	box-shadow: 10px 10px 0px var(--maroon);
 	flex-wrap: wrap;
-/*	overflow: hidden;*/
 }
 
 .setup-carousel-avatar{
@@ -449,6 +448,8 @@ a{
 .setup-carousel-text{
 	width: 70%;
 	padding-top: 15px;
+	padding-bottom: 15px;
+	height: 150px;
 }
 
 .setup-carousel-item:hover{
@@ -590,7 +591,8 @@ margin-top: -50px;
 	cursor: pointer;
 	position: absolute;
 	z-index: 2;
-	top: 188px;
+	/* top: 188px; */
+	top:224px;
 }
 
 .owl-carousel-btn:hover{

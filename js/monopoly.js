@@ -3409,6 +3409,8 @@ window.onload = function() {
 
 
 
+	console.log(turn);
+	console.log(player);
 	play(true);
 	if(last_action == "land_start" && areDiceRolled){
 		land(false, firstTime=false);
