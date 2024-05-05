@@ -185,7 +185,7 @@ a{
 
 
 .board{
-	width: 100vw;
+	/* width: 100vw; */
 	margin: auto;
 /*	background: red;*/
 	left: 50%;
@@ -264,6 +264,7 @@ a{
 	transition: 0.3s;
 	display: none;
 	opacity: 0;
+	pointer-events: none;
 }
 
 .center-cards{
@@ -322,10 +323,20 @@ a{
 	opacity: 0;
 }
 
+.cpanel-board{
+	overflow-y: none;
+}
+
+@media only screen and (max-width: 1100px) {
+.cpanel-board{
+	overflow-y: scroll;
+}
+}
+
 .cpanel-board-black{
 	display: none;
 	opacity: 0;
-	width: 100vw;
+	width: 101vw;
 	height: 100vh;
 	z-index: 3;
 	background: rgb(0, 0, 0, 0.5);
@@ -366,7 +377,7 @@ a{
 	display: flex;
 /*	display: none;*/
 	margin-top: 20px;
-	height: 350px;
+	min-height: 350px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	justify-content: center;
@@ -430,9 +441,11 @@ a{
 }
 .playerstats-tile img{
 	margin-right: 10px;
+	margin-top: 2px;
 }
 
-#playerstatscircle{
+.pst-name{
+	margin-top: 5px;
 }
 
 .playertile-label{
@@ -456,13 +469,13 @@ a{
 
 
 .manage-board{
-	width: 40vw;
+	width: 50vw;
 	height: 75vh;
 	background: var(--mustard);
 	border: 3px solid black;
 	position: fixed;
 	z-index: 4;
-	left: 30vw;
+	left: 25vw;
 	top: 5vh;
 	border-radius: 20px;
 	text-align: center;
@@ -471,10 +484,9 @@ a{
 }
 
 .trade-board{
-	width: 60vw;
-	min-width: 750px;
+	width: 80vw;
 	height: 75vh;
-	left: 20vw;
+	left: 10vw;
 	top: 5vh;
 	background: var(--mustard);
 	border: 3px solid black;
@@ -569,7 +581,7 @@ a{
 /*	top: 45vh;*/
 /*	left: 50%;*/
 /*	transform: translate(-50%, 0);*/
-	z-index: 3;
+	z-index: 5;
 }
 
 .dice-container {
@@ -615,7 +627,7 @@ a{
 }
 
 #popupbackground{
-	width: 100vw;
+	width: 101vw;
 	height: 100vh;
 	background: rgb(0, 0, 0, 0.4);
 	position: fixed;
@@ -901,7 +913,6 @@ a{
 }
 
 .settings-footer{
-	position: absolute;
 	bottom: 0;
 	font-size: 14px;
 	font-weight: normal;
@@ -911,12 +922,58 @@ a{
 }
 
 .faceProperty{
-	z-index: 3;	
+	z-index: 2;	
 	position: absolute;
 	width: 40px;
 }
 
 
+/* leaderboard */
+#leaderboard{
+	position: absolute;
+	bottom: 0px;
+	z-index: 2;
+	/* transform: scale(0.9); */
+	left: 10px;
+	opacity: 0.8;
+	/* pointer-events: none; */
+}
+
+#leaderboard:hover{
+	opacity: 1;
+}
+
+.sb-div{
+	margin-top: -10px;
+	display: flex;
+	display: none;
+    transition: transform 0.5s ease;
+	position: absolute;
+	transition: 1s;
+}
+
+.sb-avatar{
+	width: 70px;
+	height: 70px;
+	background: var(--maroon);
+	border-radius: 100px;
+	z-index: 3;
+}
+
+/* background: #333; */
+.sb-name{
+	background: var(--maroon);
+	color: #fff;
+	padding: 10px;
+	margin-left: -40px;
+	padding-left: 40px;
+	margin-top: 13px;
+	font-size: 14px;
+	border-radius: 100px;
+	width: 100px;
+	padding-right: 20px;
+	height: 25px;
+}
 
 /*CITY*/
 
@@ -991,16 +1048,15 @@ a{
 }
 
 .bridge{
-		width: 100px;
-		height: 600px;
-		position: absolute;
-		background: none;
-		bottom: -180px;
-		right: 150px;
-		transform: rotate(55deg);
-		cursor: url("../images/cursor2.ico"), pointer;
-		z-index: 2;
-		display: none;
+	width: 150px;
+	height: 400px;
+	position: absolute;
+	background: none;
+	bottom: -100px;
+	right: 150px;
+	transform: rotate(55deg);
+	cursor: url("../images/cursor2.ico"), pointer;
+	z-index: 2;
 }
 
 .bridge-svg{

@@ -121,15 +121,11 @@ $(window).resize(function() {
 
 scale_x = $(window).width() / 1366;
 alertLeft = 540 * scale_x;
-// scale_y = $(window).height() / 619;
 $('#canvas').css("transform-origin","top left");
 $('#canvas').css("transform","scale("+scale_x+")");
 $('#alertDiv').css("left", alertLeft+"px");
-
-// for (var key in positions) {
-//     positions[key][1] *= scale_x;
-//     positions[key][0] *= scale_x;
-// }
+// scale leaderboard
+$('#leaderboard').css("transform", "scale("+scale_x+")");
 
 checkOrientation();
 

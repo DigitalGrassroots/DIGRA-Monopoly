@@ -126,16 +126,19 @@ function closeCards(){
     }, 500);
 }
 
-function openCards(){
-    if(card_type != ""){
+function openCards(demo=false){
+    // if(card_type != ""){
         $(".animation-layer").show();
         $("#anChanceCards").removeClass('animate__bounceOut');
         $("#anChanceCards").addClass('animate__zoomInDown');
         $("#pickCardBtn").hide();
         setTimeout(() => {
+            if(demo){
+                card_type = "demo";
+            }
             cardsAnimation();
         }, 700);
-    }
+    // }
 }
 
 
@@ -206,13 +209,44 @@ function cardsAnimation(){
         // communityChestIndex = communityChestCards.deck[communityChestCards.index];
         cards[cards.length-1].element.querySelector('.an-card-text').innerHTML =  communityChestCards[communityChestIndex].text;
     }
+    
+    // create demo cards
+    if(card_type == "demo"){
 
-    // Add onclick to last cards element
-    cards[cards.length - 1].element.addEventListener('click', function() {
-        pickCard();
-    });
+        demoCards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+        demoCards.forEach((card, index) => {
+        const cardElement = createCard({text: ''});
+        cardElement.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+        cardElement.style.backgroundColor = '#F4BC51';
+        cardElement.style.backgroundImage = 'url("images/card-back2.png")';
+        cardElement.style.backgroundSize = `cover`;
+        // Increase offset for the next card
+        xOffset -= 2;
+        yOffset -= 2;
+        
+        deckDiv.appendChild(cardElement);
+        
+        // Store the created card for later animations
+        cards.push({
+            element: cardElement,
+            x: xOffset,
+            y: yOffset+800
+        });
 
+        });
+        cards[cards.length - 1].element.addEventListener('click', function() {
+            closeCards();
+        });   
+
+        
+    }else{
+        // Add onclick to last cards element
+        cards[cards.length - 1].element.addEventListener('click', function() {
+            pickCard();
+        });   
+        
+    }
     returnCards();
 
 }

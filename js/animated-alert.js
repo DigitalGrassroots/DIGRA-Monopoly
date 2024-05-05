@@ -102,8 +102,8 @@ function winningAnimation(){
     }
     })();
 
+    p = player[1];
     setTimeout(function(){
-        console.log(p.avatar);
     var winnaerImg = "images/avatar"+p.avatar+".png";
     $('.winning-story-icon').css({"background": "url("+winnaerImg+")", "background-size": "cover"});
     $('.winning-story-title').html(p.name + " has won the game!");
@@ -132,6 +132,7 @@ document.onreadystatechange = function () {
         setTimeout(function(){
             $('#preloader').addClass("animate__fadeOut");
             setTimeout(function(){
+                scale_x = $(window).width() / 1366;
                 $('#preloader').hide();
             }, 1000);
     }, 300);
