@@ -218,7 +218,7 @@ $('#city3').on('click', function(){
 })
 
 $('#city4').on('click', function(){
-  var HTML = "News Stand <p style='font-weight:normal'> Stay informed and have fun. As you continue to play this game, be on the look out for easter eggs like this one; helping you understand more about the internet and the efforts we at <b>Digital Grassroots</b> are taking to help!<br><br><a class='btn rollbtn' href='https://digitalgrassroots.org' target='_blank'>Take a look</a> </p>";
+  var HTML = "News Stand <p style='font-weight:normal'> Stay informed and have fun. <br>As you continue to play this game, be on the look out for easter eggs like this one; helping you understand more about the internet and the efforts we at <b>Digital Grassroots</b> are taking to help!<br><br><a class='btn rollbtn' href='https://digitalgrassroots.org' target='_blank'>Take a look</a> </p>";
   popup(HTML, "", "blank");
 })
 

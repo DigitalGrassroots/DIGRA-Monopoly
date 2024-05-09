@@ -241,7 +241,7 @@ function Game() {
 		} else {
 
 			if (bid > player[currentbidder].money) {
-				document.getElementById("bid").value = "You don't have enough money to bid $" + bid + ".";
+				document.getElementById("bid").value = "You don't have enough money to bid D" + bid + ".";
 				document.getElementById("bid").style.color = "red";
 			} else if (bid > highestbid) {
 				highestbid = bid;
@@ -255,7 +255,7 @@ function Game() {
 					this.auctionPass();
 				}
 			} else {
-				document.getElementById("bid").value = "Your bid must be greater than highest bid. ($" + highestbid + ")";
+				document.getElementById("bid").value = "Your bid must be greater than highest bid. (D" + highestbid + ")";
 				document.getElementById("bid").style.color = "red";
 			}
 		}
@@ -1369,10 +1369,11 @@ function updateMoney() {
 	}
 	
 	if (p.money < 0) {
-		$("#resignbutton").show();
+
+		$("#resign").show();
 		$("#nextbutton").hide();
 	} else {
-		$("#resignbutton").hide();
+		$("#resign").hide();
 		$("#nextbutton").show();
 	}
 
@@ -1669,10 +1670,12 @@ function chanceCommunityChest() {
 		$("#nextbutton").hide();
 
 		if(!p.human){
+			('.pick-card-title').html('AI is picking a card...');
 			openCards();
 			setTimeout(shuffleAnimation, 1000);
 			setTimeout(pickCard, 3000);
 			setTimeout(closeCards, 5000);
+			('.pick-card-title').html('PICK A CARD');
 		}
 		
 		// Chance
@@ -1689,12 +1692,14 @@ function chanceCommunityChest() {
 		
 		document.getElementById("landed").innerHTML = "You landed on Chance. <br><br> <div class='btn rollbtn' onclick='openCards()' id='pickCardBtn'>Pick Card</div></span>";
 		$("#nextbutton").hide();
-
+		
 		if(!p.human){
+			('.pick-card-title').html('AI is picking a card...');
 			openCards();
 			setTimeout(shuffleAnimation, 1000);
 			setTimeout(pickCard, 3000);
 			setTimeout(closeCards, 5000);
+			('.pick-card-title').html('PICK A CARD');
 		}
 
 	} else {
@@ -2266,7 +2271,9 @@ function buy() {
 	var property = square[p.position];
 	var cost = property.price;
 
-	if (p.money >= cost) {
+	if (p.position === 2 || p.position === 17 || p.position === 33 || p.position === 7 || p.position === 22 || p.position === 35) {
+	}
+	else if (p.money >= cost) {
 
 		aa("https://cdn.lordicon.com/jtiihjyw.json", "Sold!");
 
@@ -2486,7 +2493,7 @@ function land(increasedRent, firstTime=true) {
 
 		if(p.avatar==2){
 			rent *= 0.95;
-			avatarPower(p.name+" just paid 5% less rent"+s.name+".", "https://cdn.lordicon.com/epietrpn.json");
+			avatarPower(p.name+" just paid 5% less rent for "+s.name+".", "https://cdn.lordicon.com/epietrpn.json");
 		}
 		
 		if(p.avatar==3 && p.position==6){

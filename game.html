@@ -653,7 +653,14 @@ checkOrientation();
 	<div id="landed"></div>
 	<div style="padding-top: 8px;">
 		<input type="button" class="btn rollbtn animate__animated animate__fadeInUp" id="nextbutton" title="Roll the dice and move your token accordingly." value=""/>
-		<input type="button" class="btn redbtn" style="display:block" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="Resign" onclick="game.resign();" />
+		<center>
+			<div id="resign">
+				<!-- mortgagebutton -->
+				<input type="button" class="btn bluebtn"  id="mortgagebutton" title="Mortgage your property to get some money." value="Mortgage a Property" onclick="showCpanelBoard('managecircle', 'manage-board');" />
+				<br><br>
+				<input type="button" class="btn redbtn" style="display:block" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="Resign" onclick="game.resign();" />
+			</div>
+		</center>
 	</div>
 
 </div>
