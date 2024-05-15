@@ -2731,9 +2731,9 @@ function roll() {
 function play(firstload=false) {
 
 // switch auction back on
-	// if (game.auction()) {
-	// 	return;
-	// }
+	if (game.auction()) {
+	 	return;
+	 }
 
 	turn++;
 	if (turn > pcount) {
