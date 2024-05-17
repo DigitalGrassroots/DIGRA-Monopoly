@@ -987,7 +987,7 @@ function Game() {
 
 		updateOwned();
 
-		aa("https://cdn.lordicon.com/ysheqztl.json", p.name+" has been eliminated from the game.");
+		aa("https://cdn.lordicon.com/ysheqztl.json", p.name+" has been eliminated from the game.", 100, 100, 10000);
 
 		for (var i = p.index; i < pcount; i++) {
 			player[i] = player[i + 1];
