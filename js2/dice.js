@@ -108,6 +108,6 @@ function roller() {
       $('.dice-container').css("transform", "translate(-50%, -10px)")
       $('.dice-container').css("opacity", 0)
       // $('.dice').remove("animate__animated", "animate__shakeX", "animate__slow");
-    }, 3000);
-  }, 4000);
+    }, 1000);
+  }, 3000);
 }

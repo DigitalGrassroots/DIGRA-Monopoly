@@ -1670,12 +1670,12 @@ function chanceCommunityChest() {
 		$("#nextbutton").hide();
 
 		if(!p.human){
-			('.pick-card-title').html('AI is picking a card...');
+			$('.pick-card-title').html('AI is picking a card...');
 			openCards();
 			setTimeout(shuffleAnimation, 1000);
 			setTimeout(pickCard, 3000);
 			setTimeout(closeCards, 5000);
-			('.pick-card-title').html('PICK A CARD');
+			setTimeout(function(){ $('.pick-card-title').html('PICK A CARD');}, 5000);
 		}
 		
 		// Chance
@@ -1694,12 +1694,12 @@ function chanceCommunityChest() {
 		$("#nextbutton").hide();
 		
 		if(!p.human){
-			('.pick-card-title').html('AI is picking a card...');
+			$('.pick-card-title').html('AI is picking a card...');
 			openCards();
 			setTimeout(shuffleAnimation, 1000);
 			setTimeout(pickCard, 3000);
 			setTimeout(closeCards, 5000);
-			('.pick-card-title').html('PICK A CARD');
+			setTimeout(function(){ $('.pick-card-title').html('PICK A CARD');}, 5000);
 		}
 
 	} else {
@@ -2596,6 +2596,9 @@ function land(increasedRent, firstTime=true) {
 function roll() {
 	var p = player[turn];
 
+	$('.avatar').removeClass("avatar-highlight");
+	$('#avatar'+p.avatar).addClass("avatar-highlight");
+
 	$("#option").hide();
 	$("#buy").show();
 	// $("#manage").hide();
@@ -2725,15 +2728,15 @@ function roll() {
 		land();
 	}
 
-}, 6000);
+}, 4000);
 }
 
 function play(firstload=false) {
 
 // switch auction back on
 	if (game.auction()) {
-	 	return;
-	 }
+		return;
+	}
 
 	turn++;
 	if (turn > pcount) {
