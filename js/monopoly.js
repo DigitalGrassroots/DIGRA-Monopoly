@@ -1512,8 +1512,8 @@ function updateOption() {
 		$("#mortgagebutton").hide();
 
 
-		var housesum = 32;
-		var hotelsum = 12;
+		var housesum = 32 * 2;
+		var hotelsum = 12 * 2;
 
 		for (var i = 0; i < 40; i++) {
 			s = square[i];
