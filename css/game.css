@@ -324,8 +324,15 @@ a{
 }
 
 .cpanel-board{
-	overflow-y: none;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
+
+.cpanel-board::-webkit-scrollbar { width: 8px; } 
+.cpanel-board::-webkit-scrollbar-track { background: var(--maroon); } 
+.cpanel-board::-webkit-scrollbar-thumb { background: var(--third);cursor:pointer; } 
+.cpanel-board::-webkit-scrollbar-thumb:hover { background: #555; } 
+.cpanel-board::-webkit-scrollbar-button { display: none; }
 
 @media only screen and (max-width: 1100px) {
 .cpanel-board{
@@ -356,7 +363,7 @@ a{
 	border: 4px solid #fff;
 	position: absolute;
 	right: 30px;
-	top: -10px;
+	top: 10px;
 	background: var(--maroon);
 	font-weight: 700;
 	font-size: 24px;
