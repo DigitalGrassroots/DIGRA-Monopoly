@@ -953,6 +953,7 @@ function Game() {
 
 			addAlert(initiator.name + " initiated a trade with " + recipient.name + ".");
 			popup("<p>" + initiator.name + " has proposed a trade with you, " + recipient.name + ". You may accept, reject, or modify the offer.</p>");
+			showCpanelBoard('tradecircle','trade-board');
 		} else {
 			var tradeResponse = recipient.AI.acceptTrade(tradeObj);
 
