@@ -7,7 +7,7 @@
  //     return "";
  // };
 
-sfx = false;
+sfx = true;
  
 var boardzoom = true;
 function tiler(e){
