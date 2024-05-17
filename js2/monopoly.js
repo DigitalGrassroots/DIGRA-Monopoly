@@ -1246,6 +1246,10 @@ function addAlert(alertText) {
 
 	// Animate scrolling down alert element.
 	$alert.stop().animate({"scrollTop": $alert.prop("scrollHeight")}, 1000);
+	
+	if(player[turn].name == 'the bank'){
+		turn = 1;
+	}
 
 	if (!player[turn].human) {
 		player[turn].AI.alertList += "<div>" + alertText + "</div>";
