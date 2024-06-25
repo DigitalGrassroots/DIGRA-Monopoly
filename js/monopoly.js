@@ -241,49 +241,65 @@ function Game() {
 		return true;
 	};
 
+	
 	this.auctionPass = function() {
 		if (highestbidder === 0) {
 			highestbidder = currentbidder;
 		}
-
-		while (true) {
+	
+		const processNextBidder = () => {
 			currentbidder++;
-
+	
 			if (currentbidder > pcount) {
 				currentbidder -= pcount;
 			}
-
+	
 			if (currentbidder == highestbidder) {
 				finalizeAuction();
 				return;
 			} else if (player[currentbidder].bidding) {
 				var p = player[currentbidder];
-
+	
 				if (!p.human) {
-					var bid = p.AI.bid(auctionproperty, highestbid);
-
-					if (bid === -1 || highestbid >= p.money) {
-						p.bidding = false;
-						$("#auction-msg").html(p.name + " exited the auction.");
-						$("#avatarAuction"+currentbidder).remove();
-						continue;
-						
-					} else if (bid === 0) {
-						$("#auction-msg").html(p.name + " passed.");
-						continue;
-
-					} else if (bid > 0) {
-						this.auctionBid(bid);
-						$("#auction-msg").html(p.name + " bid D" + bid + ".");
-						continue;
-					}
+					console.log("AI is bidding");
+					
+					setTimeout(() => {
+						var bid = p.AI.bid(auctionproperty, highestbid);
+	
+						if (bid === -1 || highestbid >= p.money) {
+							p.bidding = false;
+							$("#auction-msg").html(p.name + " exited the auction.");
+							$("#avatarAuction"+currentbidder).remove();
+							processNextBidder(); // Continue to the next bidder
+						} else if (bid === 0) {
+							$("#auction-msg").html(p.name + " passed.");
+							processNextBidder(); // Continue to the next bidder
+						} else if (bid > 0) {
+							this.auctionBid(bid);
+							$("#auction-msg").html(p.name + " bid D" + bid + ".");
+							processNextBidder(); // Continue to the next bidder
+						}
+					}, 1000);
 					return;
 				} else {
-					break;
+					// Human player bidding logic
+					document.getElementById("currentbidder").innerHTML = player[currentbidder].name;
+					document.getElementById("bid").value = "";
+					document.getElementById("bid").style.color = "black";
+					
+					// Add class avatar-auction-highlight to the current bidder
+					$(".avatar-auction").removeClass("avatar-auction-highlight");
+					$("#avatarAuction"+currentbidder).addClass("avatar-auction-highlight");
 				}
+			} else {
+				// If the current bidder is not bidding, move to the next bidder
+				processNextBidder();
 			}
-
-		}
+		};
+	
+		// Start processing the first bidder
+		processNextBidder();
+	
 
 		document.getElementById("currentbidder").innerHTML = player[currentbidder].name;
 		document.getElementById("bid").value = "";
