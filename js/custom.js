@@ -165,7 +165,10 @@ function showCpanelBoard(radio, board){
 
 function closeCpanel(radio, board){
   console.log(isAuctionActive);
-  if(!isAuctionActive){
+  if(isAuctionActive){
+    showDeedCards();
+    showCpanelBoard('auctioncircle','auction-board');
+  }else{
     hideDeedCards();
     $(".cpanel-board").css("opacity", 0);
     $(".cpanel-board-black").css("opacity", 0);
@@ -178,9 +181,6 @@ function closeCpanel(radio, board){
     $(".cpanel-board").css("display", "none");
     $(".cpanel-board-black").css("display", "none");
     }, 100)
-  }else{
-    showDeedCards();
-    showCpanelBoard('auctioncircle','auction-board');
   }
 }
 
