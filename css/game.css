@@ -1005,7 +1005,7 @@ a{
 }
 
 .avatar-auction-highest-bidder{
-	transform: translateY(-10px);
+	/* transform: translateY(-10px); */
 	font-weight: bolder;
 }
 
