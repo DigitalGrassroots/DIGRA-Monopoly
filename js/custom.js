@@ -163,8 +163,7 @@ function showCpanelBoard(radio, board){
 }
 
 
-function closeCpanel(radio, board){
-  console.log(isAuctionActive);
+function closeCpanel(){
   if(isAuctionActive){
     showDeedCards();
     showCpanelBoard('auctioncircle','auction-board');

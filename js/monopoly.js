@@ -125,8 +125,6 @@ function Game() {
 		if (auctionQueue.length === 0) {
 			return false;
 		}
-		
-		isAuctionActive = true;
 
 		index = auctionQueue.shift();
 
@@ -2867,7 +2865,10 @@ function play(firstload=false) {
 
 // switch auction back on
 	if (game.auction()) {
+		isAuctionActive = true;
 		return;
+	}else{
+		isAuctionActive = false;
 	}
 
 	turn++;
