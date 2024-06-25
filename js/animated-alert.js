@@ -140,6 +140,6 @@ document.onreadystatechange = function () {
 
     
 
-aa("https://cdn.lordicon.com/hpoomrpy.json", "Welcome! Would you like a guided Tour? <br><br> <div onclick='tour1();changeSFX();hideaa();' class='btn rollbtn'>Yes please!</div>", 100, 100, 20000);
+aa("https://cdn.lordicon.com/hpoomrpy.json", "Welcome! Would you like a Tour? <br><br> <div onclick='tour1();changeSFX();hideaa();' class='btn rollbtn'>Yes please!</div>", 100, 100, 20000);
 
 };

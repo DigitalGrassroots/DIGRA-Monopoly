@@ -10,6 +10,7 @@
 sfx = true;
  
 var boardzoom = true;
+
 function tiler(e){
       const container = document.getElementById('board');
       const containerRect = container.getBoundingClientRect();
@@ -27,7 +28,7 @@ function tiler(e){
       const percentY = clickY / containerRect.height;
 
       // Set the new transform origin based on the click position
-      container.style.transformOrigin = `${percentX * 100}% ${percentY * 100}%`;
+      container.style.transformOrigin = `${percentX * 130}% ${percentY * 130}%`;
 
       // Toggle the 'zoomed' class on the container
       container.classList.toggle('zoomed');
@@ -35,41 +36,45 @@ function tiler(e){
 
       if (boardzoom) {
 
-        $(".avatar, #cpanel, #alertDiv, #info, .city").hide();
+        $(".avatar, #cpanel, #alertDiv, #info, .city, #city6, #leaderboard").hide();
         $(".faceProperty").css("opacity", 0);
         $("body").addClass('body-plain');
         $("#tile"+e).addClass("tile-selected");
-        $("#centerCards").css("display", "flex");
-        showdeed(e);
 
-        if (e>0 && e<10) {
-          $('#centerCards').css("transform", "translate(100px, -100px)");
-        }
-        if (e>10 && e<20) {
-          $('#centerCards').css("transform", "translate(100px, 100px)");
-        }
-        if (e>20 && e<30) {
-          $('#centerCards').css("transform", "translate(-50px, 50px)");
-        }
-        if (e>30 && e<40) {
-          $('#centerCards').css("transform", "translate(0px, -30px)");
-        }
+        showdeed(e);
+        showDeedCards();
+
         boardzoom = false;
       }else{
+        hideDeedCards();
         $(".tile").removeClass("tile-selected");
-        $(".avatar-active, #cpanel, #alertDiv, #info, .faceProperty").css("opacity", 0);
-        $(".avatar-active, #cpanel, #alertDiv, #info, .activated-city").show();
-        $("#centerCards").css("display", "none");
+        $(".avatar-active, #cpanel, #alertDiv, #info, .faceProperty, #leaderboard").css("opacity", 0);
+        $(".avatar-active, #cpanel, #alertDiv, #info, .activated-city, #city6, #leaderboard").show();
         $("body").removeClass('body-plain');
-          $('#centerCards').css("transform", "translate(0, 0)");
         setTimeout(function(){
-        $(".avatar-active, #cpanel, #alertDiv, #info, .faceProperty").css("opacity", 1);
+        $(".avatar-active, #cpanel, #alertDiv, #info, .faceProperty, #leaderboard").css("opacity", 1);
         $(".activated-city").css("opacity", 0.6);
           boardzoom = true;
         }, 500)
       }
 
   };
+
+  function showDeedCards(){
+    $("#centerCards").css("display", "block");
+    $('#centerCards').css("left", "-100%");
+    $("#alertAnimationDiv").hide();
+    setTimeout(function(){
+      $('#centerCards').css("left", "100px");
+    }, 500);
+  }
+
+  function hideDeedCards(){
+    $('#centerCards').css("left", "-100%");
+    setTimeout(function(){
+      $("#centerCards").css("display", "none");
+    }, 500);
+  }
 
 var positions = {
   0 : [650, 500],
@@ -142,7 +147,8 @@ $("#avatar1, #avatar2, #avatar3, #avatar4, #avatar5, #avatar6, #avatar7").css({"
 
 
 function showCpanelBoard(radio, board){
-  $(".cpanel-board").css("display", "none");
+  if(isAuctionActive && board!='auction-board'){hideDeedCards();}
+  $(".cpanel-board, .setup-exit-btn").css("display", "none");
   $(".cpanel-circle").removeClass("cpanel-circle-active");
   $("#"+radio+" .cpanel-circle").addClass("cpanel-circle-active");
   $("."+board).css("display", "block");
@@ -158,17 +164,24 @@ function showCpanelBoard(radio, board){
 
 
 function closeCpanel(radio, board){
-  $(".cpanel-board").css("opacity", 0);
-  $(".cpanel-board-black").css("opacity", 0);
-  $(".cpanel-circle").removeClass("cpanel-circle-active");
-  $(".cpanel-board-black").css("opacity", 0);
-    $(".cpanel-board-black").css("display", "block");
-  $("#cpanel").css("z-index", 1);
+  console.log(isAuctionActive);
+  if(!isAuctionActive){
+    hideDeedCards();
+    $(".cpanel-board").css("opacity", 0);
+    $(".cpanel-board-black").css("opacity", 0);
+    $(".cpanel-circle").removeClass("cpanel-circle-active");
+    $(".cpanel-board-black").css("opacity", 0);
+      $(".cpanel-board-black, .setup-exit-btn").css("display", "block");
+    $("#cpanel").css("z-index", 1);
 
-  setTimeout(function(){
-  $(".cpanel-board").css("display", "none");
-  $(".cpanel-board-black").css("display", "none");
-  }, 100)
+    setTimeout(function(){
+    $(".cpanel-board").css("display", "none");
+    $(".cpanel-board-black").css("display", "none");
+    }, 100)
+  }else{
+    showDeedCards();
+    showCpanelBoard('auctioncircle','auction-board');
+  }
 }
 
 function closeAlert(){
@@ -266,5 +279,8 @@ $('#city11').on('click', function(){
 // showCpanelBoard('settingscircle','settings-board')
 
 
-
-// tiler(11);
+setTimeout(function(){
+  // showdeed(1);
+  // showCpanelBoard('auctioncircle','auction-board');
+  // showDeedCards();
+}, 1500); 

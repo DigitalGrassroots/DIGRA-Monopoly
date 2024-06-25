@@ -83,8 +83,15 @@
 			<br>
 			<br>
 
+			<style>
+				.youtube-video {
+				aspect-ratio: 16 / 9;
+				width: 100%;
+				}
+			</style>
+			<!-- <img src="images/rules/board-city.jpg" style="width: 100%;"> -->
 
-			<img src="images/rules/board-city.jpg" style="width: 100%;">
+			<iframe class="youtube-video" src="https://www.youtube.com/embed/4JRnO3rvi5I?si=ZBd6gD1h4-kRvAPD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 			<br>
 			<br>
@@ -106,32 +113,53 @@
 				<p>
 					<img src="images/rules/select-players.jpg" style="width: 100%;">
 					<ul>
-						<li><b>Number of Players:</b> Form a group of 2 to 6 players for a varied and engaging game experience.</li>
+						<li><b>Number of Players:</b> Form a group of 2 to 8 players for a varied and engaging game experience.</li>
+						<img src="images/rules/setting-players.jpg" style="width: 100%;">
 						<li><b>Setting Players:</b> Before beginning, select the number of players. If you are playing solo or wish for a challenge, you can set a player as a computer</li>
 					</ul>
-
+					
 					<center><img src="images/rules/avatar.jpg" style="max-width: 100%;"></center>
-
+					
 					<ul>
 						<li><b>Player Details:</b> Begin by entering your name or a nickname and choose from a selection of pre-made avatars.</li>
-						<li><b>Starting Funds:</b> You will start with 2500 DIGRA currency units to buy properties and manage other expenses.</li>
+						<center><img src="images/rules/shuffle.jpg" style="width: 100%;max-width: 400px;"></center>
 						<li><b>Who Goes First:</b> Let the game take the lead! Watch as it shuffles the rolls and announces the first player to kick things off.</li>
+						
+						<center><img src="images/rules/starting-funds.jpg" style="width: 100%;"></center>
+						<li><b>Starting Funds:</b> You will start with 1500 DIGRA currency units to buy properties and manage other expenses. The entreprenuer starts with D1500.</li>
 					</ul>
 				</p>
 			</div>
-
+			
 			<div id="how-to-play" class="rule-group">
 				<div class="header1">How to Play</div>
+				<center>
 				<p>
-					<ul>
-						<li><b>Roll the dice:</b> On your turn, roll the dice to advance your avatar along the board.</li>
-						<li><b>Unowned Space:</b> If you land on an unowned space, a pop-up will explain its associated digital rights issue, giving you the option to buy or auction it.</li>
-						<li><b>Owned Space:</b> Landing on a space owned by another player will prompt you to pay the required fee.</li>
-						<li><b>Chance or Community:</b> Find yourself in one of these spaces? Draw a card and follow the instructions.</li>
-						<li><b>Zero Rating:</b> Landing here means you will skip your next turn, a pop-up will provide more information on the "Zero Rating" concept.</li>
-						<li><b>Jail:</b> In jail, you won't collect D200 units on your next turn. To leave, roll matching numbers on both dice or pay a fine. After three failed exit attempts, paying the fine is compulsory.</li>
-					</ul>
+						<img src="images/rules/roll.jpg" style="width: 100%;">
+						<div><b>Roll the dice:</b> On your turn, roll the dice to advance your avatar along the board.</div>
+						
+						<br>
+						
+						<img src="images/rules/empty-land.jpg" style="width: 100%;">
+						<div><b>Unowned Space:</b> If you land on an unowned space, a pop-up will explain its associated digital rights issue, giving you the option to buy or auction it.</div>
+						<br>
+						
+						
+						<img src="images/rules/empty-land.jpg" style="width: 100%;">
+						<div><b>Owned Space:</b> Landing on a space owned by another player will prompt you to pay the required fee.</div>
+						<br>
+						
+						<img src="images/rules/chance1.jpg" style="width: 50%;float: left;">
+						<img src="images/rules/chance2.jpg" style="width: 50%;float: left;">
+						<div style="clear: both;"></div>
+						<div><b>Chance or Community:</b> Find yourself in one of these spaces? Draw a card and follow the instructions.</div>
+						<br>
+						
+						
+
+						<div><b>Jail:</b> In jail, you won't collect D200 units on your next turn. To leave, roll matching numbers on both dice or pay a fine. After three failed exit attempts, paying the fine is compulsory.</div>
 				</p>
+				</center>
 			</div>
 
 			<div id="important-points" class="rule-group">
@@ -155,7 +183,42 @@
 		<div style="clear:both"></div>
 	</div>
 
+	<style>
+	.next{
+		position: fixed;
+		right: 70px;
+		bottom: 50px;
+		cursor: pointer;
+		background: var(--maroon);
+		border:4px solid #fff;
+		color: #fff;
+		height: 40px;
+		text-align: center;
+		padding: 0 30px;
+		display: flex;
+		align-items: center;
+		box-shadow: 10px 10px 0 rgb(0, 0, 0, 0.8);
+	}.next:hover{
+		box-shadow: none;
+		margin-bottom: 10px;
+	}
+	</style>
+	<div class="next" id="nextButton">Next </div>
 
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			const sectionIds = ['welcome', 'objective', 'getting', 'how-to-play', 'important-points'];
+			let currentIndex = 0;
+
+			document.getElementById('nextButton').addEventListener('click', () => {
+				// Increment the index to point to the next section
+				currentIndex = (currentIndex + 1) % sectionIds.length;
+				// Scroll to the next section by ID
+				document.getElementById(sectionIds[currentIndex]).scrollIntoView({ behavior: 'smooth' });
+			});
+		});
+
+	</script>
 </div>
 
 </body>

@@ -133,9 +133,9 @@ var maxProgressWidth = 80;
 <!--  -->
 <!--  -->
 
-<div class="setup-exit-btn" onclick="if(confirm('Are you sure you want to exit?')){ window.location = 'index.html'}">
+<div class="setup-exit-btn" onclick="if(confirm('Are you sure you want to exit this game?')){ window.location = 'index.html'}">
 	<div class="setup-exit-square">x</div>
-	<div class="setup-exit-text">Quit</div>
+	<div class="setup-exit-text">Quit Game</div>
 </div>
 
 
@@ -287,8 +287,8 @@ checkOrientation();
 				<div class="playerstats-profile">
 					<img class="playerstats-img" id="trade-leftp-avatar">
 					<div class="playerstats-profile-name" style="text-align:left;">
-						<div id="trade-leftp-name">Larry</div><br>
-						<b><div id="trade-leftp-amount">D1500</div></b>
+						<div id="trade-leftp-name"></div><br>
+						<b><div id="trade-leftp-amount"></div></b>
 					</div>
 				</div>
 				<br>
@@ -342,6 +342,11 @@ checkOrientation();
 		</div>
 
 		<center>
+			Whatever is on the left, gets exchanged for whatever is on the right.
+			<br><br>
+			<br><br>
+			
+
 			<input type="button" class="btn rollbtn" id="proposetradebutton" value="Propose Trade" onclick="game.proposeTrade();" title="Exchange the money and properties that are checked above." />
 			<input type="button" class="btn redbtn" id="canceltradebutton" value="Cancel Trade" onclick='game.cancelTrade();closeCpanel()' title="Cancel the trade." />
 			<input type="button" class="btn buybtn" id="accepttradebutton" value="Accept Trade" onclick="game.acceptTrade();" title="Accept the proposed trade." />
@@ -364,7 +369,7 @@ checkOrientation();
 	<div class="playerstats-profile">
 		<img class="playerstats-img" id="manageBoardAvatar" src="images/avatar4.png">
 		<div class="playerstats-profile-name">
-			<div id="manageBoardName">Larry</div><br>
+			<div id="manageBoardName">Player</div><br>
 			<b><div id="manageBoardMoney">D1500</div></b>
 		</div>
 	</div>
@@ -397,7 +402,7 @@ checkOrientation();
 </div>
 
 
-<!--  -->
+<!-- Settings -->
 <div class="cpanel-board settings-board">
 	<div onclick="closeCpanel()" class="board-close">x</div>
 	<div class="playerstats-pad">
@@ -465,7 +470,7 @@ checkOrientation();
 </div>
 <!--  -->
 
-
+<!-- Player Stats -->
 <div class="cpanel-board playerstats-board">
 	<div onclick="closeCpanel()" class="board-close">x</div>
 	<div class="playerstats-pad">
@@ -492,23 +497,7 @@ checkOrientation();
 			</div>
 		</div>
 	</div>
-
-	<div class="playerstats-col" id="playerstats-col2">
-		<div class="playerstats-profile">
-			<img class="playerstats-img" src="images/avatar2.png">
-			<div class="playerstats-profile-name">
-				<div id="playerstatsName2">Larry</div><br>
-				<b><div id="playerstatsMoney2">(D1500)</div></b>
-				<div class="playerstats-tile-policy">1</div>
-			</div>
-		</div>
-		<div id="playerstatsAvatar2">
-		<div class="playerstats-tile">
-			<div class="playerstats-tile-color"></div>
-			<div class="playerstats-tile-name">Data Cost</div>
-		</div>
-		</div>
-	</div> -->
+ -->
 
 	</div>
 	
@@ -516,25 +505,173 @@ checkOrientation();
 </div>
 
 
-<div id="popupbackground" style="display:block;"></div>
-<!-- <div id="popupwrap"> -->
-	<div id="popup" style="display:block;">
-			<div id="popupcount"></div>
-		<div style="position: relative;">
-			<img id="popupx" src="images/close.png" title="Close" alt="x" onclick="closePopup()" />
-			<div id="popuptext">
-				
-				Welcome to the online <br> DIGITAL RIGHTS MONOPOLY experience! 
-			<br><br>
-			<!-- <div style="display:flex;justify-content: space-between;width: 150px;margin: auto;">
-				<div class="btn rollbtn" onclick="tour1();changeSFX();">Tour!</div>
-				<div style="padding-top:5px;" onclick="skipTour();changeSFX()">Skip Tour</div>
-			</div> -->
-			</div>
+<!-- Auction -->
+<div class="cpanel-board auction-board">
+	<div class="playerstats-pad">
+	<div class="board-title">Auction for <span id='propertyname'></span> in progress</div>
 
+
+	<div class="auction-top" id="">
+		The highest bid is D<span id='highestbid'>0</span> by <span id='highestbidder'>no one.</span>
+	</div>
+
+	<div class="avatar-auction-row" id="avatar-auction-row">
+
+		<div class="avatar-auction">
+			<div class="avatar-auction-img" style="background: url(images/avatar1.png) center no-repeat;background-size: contain;"></div>
+			<div class="avatar-auction-name" id="avatarAuctionName1">Larry</div>
+			<div class="avatar-auction-bid" id="avatarAuctionBid1">0</div>
+		</div>
+
+		<div class="avatar-auction">
+			<div class="avatar-auction-img" style="background: url(images/avatar2.png) center no-repeat;background-size: contain;"></div>
+			<div class="avatar-auction-name" id="avatarAuctionName2">Larry</div>
+			<div class="avatar-auction-bid" id="avatarAuctionBid2">0</div>
+		</div>
+
+		<div class="avatar-auction">
+			<div class="avatar-auction-img" style="background: url(images/avatar3.png) center no-repeat;background-size: contain;"></div>
+			<div class="avatar-auction-name" id="avatarAuctionName2">Larry</div>
+			<div class="avatar-auction-bid" id="avatarAuctionBid2">0</div>
+		</div>
+
+
+	</div>
+	<br>
+	<center>
+		<div id="auction-msg"></div>
+	</center>
+
+	<br>
+	<br>
+
+	<div class="auction-text">
+		<div style="font-weight: bolder;font-size: 18px;"><span id='currentbidder'></span>, it is your turn to bid.</div>
+
+		<div> 
+		<br>  
+		<input id='bid' title='Enter an amount to bid' class='bid-input' />&nbsp;<input type='button' class='btn buybtn' value='Bid' onclick='game.auctionBid();' title='Place your bid.' /></div> 
+
+		<br>
+		<br>
+		
+		<input type='button' class='btn redbtn' value='Exit Auction' title='Stop bidding on " + s.name + " altogether.' onclick='game.auctionExit();' /></div>
+	</div>
+
+	
+
+	</div>
+
+	<div id="auctioncircle"></div>
+</div>
+
+
+
+<!-- Cards -->
+<div id="centerCards" class="center-cards">
+	<div class="center-card">
+	<div class="center-card-padding">
+		<div class="close-alert close-card" onclick="tiler(0)">x</div>
+			
+		<div id="deed" style="display:">
+			<div id="deed-normal" style="display: none;">
+				<div id="deed-header">
+					<div id="deed-name"></div>
+				</div>
+				<table id="deed-table" style="width:100%">
+					<tr>
+						<td>
+							PRICE&nbsp;<span id="deed-price">100</span>
+						</td>
+						<td>
+							RENT&nbsp;D<span id="deed-baserent">12</span>
+						</td>
+					</tr>
+					<tr colspan="2">
+						<td colspan="2">
+							<div style="width:100%;height: 2px;background: #fff;"></div>
+						</td>
+					</tr>
+					<tr colspan="2"><td>&nbsp;</td></tr>
+					<tr>
+						<td style="text-align: left;">WITH 1 POLICY</td>
+						<td style="text-align: right;">D<span id="deed-rent1">60</span></td>
+					</tr>
+					<tr>
+						<td style="text-align: left;">WITH 2 POLICIES</td>
+						<td style="text-align: right;">D<span id="deed-rent2">180</span></td>
+					</tr>
+					<tr>
+						<td style="text-align: left;">With 3 POLICIES</td>
+						<td style="text-align: right;">D<span id="deed-rent3">500</span></td>
+					</tr>
+					<tr>
+						<td style="text-align: left;">WITH 4 POLICIES</td>
+						<td style="text-align: right;">D<span id="deed-rent4">700</span></td>
+					</tr>
+					<tr>
+						<td style="text-align: left;">WITH LAW</td>
+						<td style="text-align: right;">D<span id="deed-rent5">700</span></td>
+					</tr>
+				</table>
+			</div>
+	
+			<div style="text-align: center;margin-top: 20px;text-transform: uppercase;" id="deed-mortgage-text">
+				<!-- <div style="margin-bottom: 8px;">With HOTEL D<span id="deed-rent5">900</span>.</div> -->
+				<div>Mortgage Value D<span id="deed-mortgage">80</span>.</div>
+				<div>Policies cost D<span id="deed-houseprice">100</span>. each</div>
+				<div>Law costs, D<span id="deed-hotelprice">100</span>. plus 4 Policies</div>
+			</div>
+	
+			<div id="deed-mortgaged">
+				<div id="deed-mortgaged-name"></div>
+				<p>&bull;</p>
+				<div>MORTGAGED</div>
+				<div> for D<span id="deed-mortgaged-mortgage">80</span></div>
+				<p>&bull;</p>
+				<div style="font-style: italic; font-size: 13px; margin: 10px;">Card must be turned this side up if property is mortgaged</div>
+			</div>
+	
+			<div id="deed-special">
+				<div id="deed-special-name"></div>
+				<div id="deed-special-text"></div>
+				<div id="deed-special-footer">
+					Mortgage Value
+					<span style="float: right;">D<span id="deed-special-mortgage">100</span>.</span>
+				</div>
+			</div>
 		</div>
 	</div>
-<!-- </div> -->
+	</div>
+	
+	<div class="center-card" style="line-height: 1.2em;">
+	<div class="center-card-padding" style="text-align: center;padding-top: 30px;">
+	
+	<div style="display: flex;justify-items: center;flex-direction: column;height: 100%;">
+	<div id="backCardInfo"></div>
+	<br>
+	
+		
+	<div style="font-size: 9px; font-style: italic; margin-top: 5px;line-height: 1em;">If a player owns ALL the Lots of any Color-Group, the rent is Doubled on Unimproved Lots in that group.</div>
+	</div>
+	
+	</div>
+	</div>
+	</div>
+
+<div id="popupbackground" style="display:block;"></div>
+<div id="popup" class="animate__animated" style="display:block;">
+		<div id="popupcount"></div>
+	<div style="position: relative;">
+		<img id="popupx" src="images/close.png" title="Close" alt="x" onclick="closePopup()" />
+		<div id="popuptext">
+			
+			Welcome to the online <br> DIGITAL RIGHTS MONOPOLY experience! 
+		<br><br>
+		</div>
+
+	</div>
+</div>
 
 <!--  -->
 <!--  -->
@@ -665,133 +802,13 @@ checkOrientation();
 
 </div>
 
-<div id="centerCards" class="center-cards">
-<div class="center-card">
-<div class="center-card-padding">
-		
 
-<div id="deed" style="display:">
-	<div id="deed-normal" style="display: none;">
-		<div id="deed-header">
-			<div id="deed-name"></div>
-		</div>
-		<table id="deed-table" style="width:100%">
-			<tr>
-				<td>
-					PRICE&nbsp;D<span id=""></span>
-				</td>
-				<td>
-					RENT&nbsp;D<span id="deed-baserent">12</span>.
-				</td>
-			</tr>
-			<tr colspan="2">
-				<td colspan="2">
-					<div style="width:100%;height: 2px;background: #fff;"></div>
-				</td>
-			</tr>
-			<tr colspan="2"><td>&nbsp;</td></tr>
-			<tr>
-				<td style="text-align: left;">WITH 1 POLICY</td>
-				<td style="text-align: right;">D<span id="deed-rent1">60</span></td>
-			</tr>
-			<tr>
-				<td style="text-align: left;">WITH 2 POLICIES</td>
-				<td style="text-align: right;">D<span id="deed-rent2">180</span>.</td>
-			</tr>
-			<tr>
-				<td style="text-align: left;">With 3 POLICIES</td>
-				<td style="text-align: right;">D<span id="deed-rent3">500</span></td>
-			</tr>
-			<tr>
-				<td style="text-align: left;">WITH 4 POLICIES</td>
-				<td style="text-align: right;">D<span id="deed-rent4">700</span></td>
-			</tr>
-			<tr>
-				<td style="text-align: left;">WITH LAW</td>
-				<td style="text-align: right;">D<span id="deed-rent5">700</span></td>
-			</tr>
-		</table>
-	</div>
 
-	<div style="text-align: center;margin-top: 20px;text-transform: uppercase;">
-		<!-- <div style="margin-bottom: 8px;">With HOTEL D<span id="deed-rent5">900</span>.</div> -->
-		<div>Mortgage Value D<span id="deed-mortgage">80</span>.</div>
-		<div>Policies cost D<span id="deed-houseprice">100</span>. each</div>
-		<div>Law costs, D<span id="deed-hotelprice">100</span>. plus 4 Policies</div>
-	</div>
+<!-- Avatar Icons -->
+<div id="avatarIcons">
 
-	<div id="deed-mortgaged">
-		<div id="deed-mortgaged-name"></div>
-		<p>&bull;</p>
-		<div>MORTGAGED</div>
-		<div> for D<span id="deed-mortgaged-mortgage">80</span></div>
-		<p>&bull;</p>
-		<div style="font-style: italic; font-size: 13px; margin: 10px;">Card must be turned this side up if property is mortgaged</div>
-	</div>
-
-	<div id="deed-special">
-		<div id="deed-special-name"></div>
-		<div id="deed-special-text"></div>
-		<div id="deed-special-footer">
-			Mortgage Value
-			<span style="float: right;">D<span id="deed-special-mortgage">100</span>.</span>
-		</div>
-	</div>
-</div>
-</div>
-</div>
-
-<div class="center-card">
-<div class="center-card-padding">
-<div class="close-alert close-card" onclick="tiler(0)">x</div>
-	
-<div style="font-size: 9px; font-style: italic; margin-top: 5px;">If a player owns ALL the Lots of any Color-Group, the rent is Doubled on Unimproved Lots in that group.</div>
 
 </div>
-</div>
-</div>
-
-<div class="avatar" id="avatar1" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
-	<img class="avatar-img" src="images/avatar1.png">
-	<!-- <div id="avatar1money" class="avatar-money">D100</div> -->
-</div>
-<div class="avatar" id="avatar2" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
-	<img class="avatar-img" src="images/avatar2.png">
-	<!-- <div id="avatar2money" class="avatar-money">D1500</div> -->
-</div>
-<div class="avatar" id="avatar3" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
-	<img class="avatar-img" src="images/avatar3.png">
-	<!-- <div id="avatar3money" class="avatar-money">D1500</div> -->
-</div>
-<div class="avatar" id="avatar4" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
-	<img class="avatar-img" src="images/avatar4.png">
-	<!-- <div id="avatar4money" class="avatar-money">D1500</div> -->
-</div>
-<div class="avatar" id="avatar5" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
-	<img class="avatar-img" src="images/avatar5.png">
-	<!-- <div id="avatar5money" class="avatar-money">D1500</div> -->
-</div>
-<div class="avatar" id="avatar6" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
-	<img class="avatar-img" src="images/avatar6.png">
-	<!-- <div id="avatar6money" class="avatar-money">D1500</div> -->
-</div>
-<div class="avatar" id="avatar7" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
-	<img class="avatar-img" src="images/avatar7.png">
-	<!-- <div id="avatar7money" class="avatar-money">D1500</div> -->
-</div>
-<div class="avatar" id="avatar8" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
-	<img class="avatar-img" src="images/avatar8.png">
-	<!-- <div id="avatar8money" class="avatar-money">D1500</div> -->
-</div>
-<div class="avatar" id="avatar9" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
-	<img class="avatar-img" src="images/avatar9.png">
-	<!-- <div id="avatar9money" class="avatar-money">D1500</div> -->
-</div>
-<div class="avatar" id="avatar10" onclick="showCpanelBoard('playerstatscircle','playerstats-board');showStats();">
-	<img class="avatar-img" src="images/avatar10.png">
-	<!-- <div id="avatar10money" class="avatar-money">D1500</div> -->
-</div>
-
 
 
 <div class="black-fade" id=""></div>
@@ -817,7 +834,7 @@ checkOrientation();
 <svg class="board" id="board" width="802" height="600" viewBox="0 0 802 600" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <path d="M95 290L401 515L712 290L401 65L95 290Z" fill="#F7F7E8" stroke="black"/>
 <path onclick="tiler(1)" class="tile" id="tile1" d="M322 522L356 547L401 515L367 490L322 522Z" fill="#F7F7E8" stroke="black"/>
-<path  class="tile" id="tile2" onclick="tiler(2)" d="M186 422L220 447L265 415L231 390L186 422Z" fill="#F7F7E8" stroke="black"/>
+<path  class="tile" id="tile5" onclick="tiler(5)" d="M186 422L220 447L265 415L231 390L186 422Z" fill="#F7F7E8" stroke="black"/>
 <path  class="tile" id="tile3" onclick="tiler(3)" d="M254 472L288 497L333 465L299 440L254 472Z7" fill="#F7F7E8" stroke="black"/>
 <path  class="tile" id="tile7" onclick="tiler(7)" d="M118 372L152 397L197 365L163 340L118 372Z" fill="#F7F7E8" stroke="black"/>
 <path  class="tile" id="tile2" onclick="tiler(2)" d="M288 497L322 522L367 490L333 465L288 497Z" fill="#F7F7E8" stroke="black"/>
@@ -1215,17 +1232,17 @@ checkOrientation();
 
 <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 
-	<script src="js2/audio.js"></script>
-	<script src="js2/jquery.min.js"></script>
-	<script src="js2/dice.js"></script>
-	<script src="js2/custom.js"></script>
-	<script src="js2/pickcard.js"></script>
+	<script src="js/audio.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/dice.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="js/pickcard.js"></script>
 	
-	<script type="text/javascript" src="js2/digraedition.js"></script>
-	<script type="text/javascript" src="js2/ai.js"></script>
-	<script type="text/javascript" src="js2/monopoly.js"></script>
-	<script type="text/javascript" src="js2/tour.js"></script>
-	<script src="js2/animated-alert.js"></script>
+	<script type="text/javascript" src="js/digraedition.js"></script>
+	<script type="text/javascript" src="js/ai.js"></script>
+	<script type="text/javascript" src="js/monopoly.js"></script>
+	<script type="text/javascript" src="js/tour.js"></script>
+	<script src="js/animated-alert.js"></script>
 
 
 </body>

@@ -268,14 +268,13 @@ a{
 }
 
 .center-cards{
-	width: 100%;
-	height: 100vh;
 	position: absolute;
 	display: none;
 	justify-content: center;
 	align-items: center;
-	z-index: 2;
+	z-index: 10;
 	pointer-events: none;
+	top: 50px;
 }
 
 .center-card{
@@ -686,12 +685,18 @@ a{
 	padding-top: 45px;
 	font-family: 'Grandstander', sans-serif;
 	font-weight: 700;
-	top: 50%;
+	top: 30%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	/* transform: translate(-50%, -50%); */
 	border-radius: 20px;
 	border: 3px solid black;
 	display: none;
+
+	/* centering fix */
+	left: 0; 
+	right: 0; 
+	margin-left: auto; 
+	margin-right: auto; 
 }
 .demo-wrap {
   position: relative;
@@ -932,8 +937,72 @@ a{
 	z-index: 2;	
 	position: absolute;
 	width: 40px;
+	pointer-events: none;
 }
 
+/* AUCTION BOARD */
+.auction-board{
+	height: 75vh;
+	background: var(--mustard);
+	border: 3px solid black;
+	position: fixed;
+	z-index: 4;
+	left: 5vw;
+	top: 5vh;
+	border-radius: 20px;
+	display: none;
+	opacity: 0;
+	width: calc(80vw - 300px);
+	min-width: 900px;
+	left: 400px;
+}
+.avatar-auction-row{
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+.avatar-auction-img{
+	width: 70px;
+	height: 70px;
+	border-radius: 200px;
+}
+
+.avatar-auction{
+	/* border: 1px solid black; */
+	text-align: center;
+	padding: 10px;
+	margin: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 15px;
+	transition: 0.3s;
+}
+
+.avatar-auction-name{
+	border-bottom: 1px solid black;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+}
+
+.auction-text{
+	text-align: center;
+}
+
+.auction-top{
+	width: 70%;
+	margin: auto;
+	margin-top: 50px;
+	border-radius: 20px;
+	color: #fff;
+	background: var(--maroon);
+	padding: 20px;
+	text-align: center;
+}
+
+.avatar-auction-highlight{
+	background: rgb(0, 0, 0, 0.1);
+}
 
 /* leaderboard */
 #leaderboard{
@@ -1129,7 +1198,7 @@ a{
 	font-family: 'Grandstander';
 	font-weight: 700;
 	text-align: center;
-	width: 100px;
+	width: 140px;
 }
 
 
