@@ -959,7 +959,7 @@ a{
 .avatar-auction-row{
 	display: flex;
 	justify-content: center;
-	margin-top: 20px;
+	margin-top: 30px;
 }
 .avatar-auction-img{
 	width: 70px;
@@ -1002,6 +1002,11 @@ a{
 
 .avatar-auction-highlight{
 	background: rgb(0, 0, 0, 0.1);
+}
+
+.avatar-auction-highest-bidder{
+	transform: translateY(-10px);
+	font-weight: bolder;
 }
 
 /* leaderboard */
