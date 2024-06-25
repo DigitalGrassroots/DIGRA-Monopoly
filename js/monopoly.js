@@ -318,6 +318,10 @@ function Game() {
 
 				// put bid in the avatar-auction-bid
 				document.getElementById("avatarAuctionBid"+currentbidder).textContent = bid;
+				
+				// add highest bidder class to the highest bidder
+				$(".avatar-auction").removeClass("avatar-auction-highest-bidder");
+				$("#avatarAuction"+highestbidder).addClass("avatar-auction-highest-bidder");
 
 				if (player[currentbidder].human) {
 					this.auctionPass();
