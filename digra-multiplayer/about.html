@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Digital Grassroots Monopoly Game</title>
+
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@100;400;500;700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<script src="js/index.js"></script>
+
+</head>
+<body>
+
+
+<div class="nav">
+<div class="nav-pad">
+
+	<div class="logo" onclick="pager('index.html')"><img src="images/logo.png"></div>
+
+	<div class="nav-links">
+		<a onclick="pager('cookie-disclaimer.html')"><div class="nav-link">Play</div></a>
+		<a onclick="pager('index.html')"><div class="nav-link">Home</div></a>
+		<a onclick="pager('about.html')"><div class="nav-link nav-link-active">About</div></a>
+		<a onclick="pager('rules.html')"><div class="nav-link">Rules</div></a>
+		<a onclick="pager('credits.html')"><div class="nav-link">Credits</div></a>
+	</div>
+
+	<div class="nav-close">
+		<div class="nav-close-x">x</div>
+		<div class="nav-close-text">Close</div>
+	</div>
+
+	<div class="nav-hamburger" id="menu">≡</div>
+
+</div>
+</div>
+
+<script type="text/javascript">
+	$("#menu").on('click', function(){
+		$(".nav-links").css("display","flex")
+		$(".nav-close").css("display","block")
+	})
+
+	$(".nav-close").on('click', function(){
+		$(".nav-links").hide();
+		$(".nav-close").hide();
+	})
+</script>
+
+
+
+<div id="page">
+
+	<img src="images/coin2.png" class="coin2">
+	<img src="images/coin1.png" class="coin1">
+	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="about-title">ABOUT THE GAME</div>
+
+	<br>
+	<br>
+	<br>
+
+
+
+	<div class="about-carousel">
+		<!-- <div class="carousel-ctrl ctrl-left customPrevBtn"><</div>
+		<div class="carousel-ctrl ctrl-right customNextBtn">></div> -->
+
+		<!-- <div class="owl-carousel"> -->
+		<div>Digital Rights Monopoly started as a board game in 2018. It's designed for learning as much as playing. The game is based on real stories from young people in the Digital Grassroots community, which spans over 40 countries. It helps players explore the complex digital world.</div>
+
+		<br>
+		<br>
+
+		<div>Our game was created to address the unequal power dynamics in today's digital landscape. Often, the narrative is controlled by a few, leaving out marginalized voices. This game aims to change that by providing a space for youth with limited digital access to learn, share, and face digital challenges.</div>
+
+		<br>
+		<br>
+
+		<div>In 2023, we took the game online with support from C/Change's 2nd Creative Research & Development Lab. Our open-source platform promotes a decentralized view of the digital world, focusing on inclusivity and fairness. Each move in the game helps you understand digital rights and Internet Governance better, encouraging you to shape your own digital future.</div>
+
+		<!-- </div> -->
+
+		</div>
+
+
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+	</div>
+
+	<!-- <div class="about-board"></div> -->
+
+<script type="text/javascript">
+
+
+	$(document).ready(function(){
+
+	$('.owl-carousel').on('initialized.owl.carousel translated.owl.carousel', function (event) {
+	  var currentIndex = event.item.index;
+	  var itemCount = event.item.count;
+
+	  // Check if it's the last item
+	  if (currentIndex + 1 === itemCount) {
+	    $('.customNextBtn').hide();
+	  } else {
+	    $('.customNextBtn').show();
+	  }
+
+	  if (currentIndex  == 0) {
+	    $('.customPrevBtn').hide();
+	  } else {
+	    $('.customPrevBtn').show();
+	  }
+
+	});
+
+
+	  var owl = $(".owl-carousel").owlCarousel({
+		    loop:false,
+		    margin:10,
+		    // nav:false,
+		    items:1
+	  });
+
+
+	// Go to the next item
+	$('.customNextBtn').click(function() {
+	    owl.trigger('next.owl.carousel');
+	})
+	// Go to the previous item
+	$('.customPrevBtn').click(function() {
+	    // With optional speed parameter
+	    // Parameters has to be in square bracket '[]'
+	    owl.trigger('prev.owl.carousel', [300]);
+	})
+
+})
+</script>
+
+</body>
+</html>

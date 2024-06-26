@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Digital Grassroots Monopoly Game</title>
+
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@100;400;500;700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+
+	<script src="js/index.js"></script>
+
+</head>
+<body>
+
+
+<div class="nav">
+<div class="nav-pad">
+
+	<div class="logo" onclick="pager('index.html')"><img src="images/logo.png"></div>
+
+	<div class="nav-links">
+		<a onclick="pager('setup.html')"><div class="nav-link nav-link-active">Play</div></a>
+		<a onclick="pager('index.html')"><div class="nav-link">Home</div></a>
+		<a onclick="pager('about.html')"><div class="nav-link">About</div></a>
+		<a onclick="pager('rules.html')"><div class="nav-link">Rules</div></a>
+		<a onclick="pager('credits.html')"><div class="nav-link">Credits</div></a>
+	</div>
+
+	<div class="nav-close">
+		<div class="nav-close-x">x</div>
+		<div class="nav-close-text">Close</div>
+	</div>
+
+	<div class="nav-hamburger" id="menu">≡</div>
+
+</div>
+</div>
+
+<script type="text/javascript">
+	$("#menu").on('click', function(){
+		$(".nav-links").css("display","flex")
+		$(".nav-close").css("display","block")
+	})
+
+	$(".nav-close").on('click', function(){
+		$(".nav-links").hide();
+		$(".nav-close").hide();
+	})
+</script>
+
+
+
+<div id="page">
+
+	<img src="images/coin2.png" class="coin2">
+	<img src="images/coin1.png" class="coin1">
+	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="about-title">GLUTEN FREE</div>
+
+	<div class="about-carousel">
+
+	<div class="owl-carousel">
+	  We do not store or share any cookies on our Game servers. <br> However, game data may be stored locally on your browser's local storage to give you the best gaming experience. <a href="cookies.html" style="color: #800022;">View Cookie Policy</a>
+
+	  <br><br>
+
+	  <a class="btn" onclick="pager('setup.html')">Agree and Continue.</a>
+	</div>
+
+	</div>
+
+	<style type="text/css">
+		.btn{
+			background: #800022;
+			font-size: 16px;
+			padding: 10px 15px;
+			cursor: pointer;
+		}.btn:hover{
+			background: black;
+			color: #fff;
+		}
+	</style>
+
+
+</div>
+
+
+</body>
+</html>

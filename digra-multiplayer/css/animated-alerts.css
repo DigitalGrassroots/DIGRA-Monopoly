@@ -1,0 +1,55 @@
+#alertAnimationDiv{
+    position: absolute;
+    display: none;
+    width: 100px;
+    /* border: 2px solid var(--maroon); */
+    background: var(--mustard);
+    padding: 20px 10px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 5;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.05);
+}
+
+#alertAnimationText{
+    font-size: 12px;
+    max-width: 100px;
+    line-height: 16px;
+}
+#alertAnimationIcon{
+    width: 50px;
+    height: 50px;
+}
+
+.winning-story-black{
+    width: 100vw;
+    height: 100vh;
+    z-index: 8;
+    position: fixed;
+    background: rgb(0, 0, 0, 0.8);
+    display: none;
+}
+
+.winning-story-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.winning-story-icon{
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+}
+
+.winning-story-title{
+    margin-top: 20px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    text-shadow: 0 0 10px #000;
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Digital Grassroots Monopoly Game</title>
+
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@100;400;500;700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<script src="js/index.js"></script>
+
+</head>
+<body>
+
+
+<div class="nav">
+<div class="nav-pad">
+
+	<div class="logo" onclick="pager('index.html')"><img src="images/logo.png"></div>
+
+	<div class="nav-links">
+		<a onclick="pager('cookie-disclaimer.html')"><div class="nav-link">Play</div></a>
+		<a onclick="pager('index.html')"><div class="nav-link">Home</div></a>
+		<a onclick="pager('about.html')"><div class="nav-link">About</div></a>
+		<a onclick="pager('rules.html')"><div class="nav-link nav-link-active">Rules</div></a>
+		<a onclick="pager('credits.html')"><div class="nav-link">Credits</div></a>
+	</div>
+
+	<div class="nav-close">
+		<div class="nav-close-x">x</div>
+		<div class="nav-close-text">Close</div>
+	</div>
+
+	<div class="nav-hamburger" id="menu">≡</div>
+
+</div>
+</div>
+
+<script type="text/javascript">
+	$("#menu").on('click', function(){
+		$(".nav-links").css("display","flex")
+		$(".nav-close").css("display","block")
+	})
+
+	$(".nav-close").on('click', function(){
+		$(".nav-links").hide();
+		$(".nav-close").hide();
+	})
+</script>
+
+
+
+<div id="page">
+
+
+	<div class="rules-section">
+
+		<div class="rules-left">
+			<div style="font-size:30px;font-weight: bolder;margin-bottom: 10px;">Content</div>
+
+			<div id="content">
+				<a href="#welcome"><div class="rules-row">Welcome!</div></a>
+				<a href="#objective"><div class="rules-row">Objective</div></a>
+				<a href="#getting"><div class="rules-row">Getting Started</div></a>
+				<a href="#how-to-play"><div class="rules-row">How to Play</div></a>
+				<a href="#important-points"><div class="rules-row">Important Points</div></a>
+			</div>
+		</div>
+
+		<div class="rules-right">
+
+			<br>
+			<br>
+			<br>
+
+			<style>
+				.youtube-video {
+				aspect-ratio: 16 / 9;
+				width: 100%;
+				}
+			</style>
+			<!-- <img src="images/rules/board-city.jpg" style="width: 100%;"> -->
+
+			<iframe class="youtube-video" src="https://www.youtube.com/embed/4JRnO3rvi5I?si=ZBd6gD1h4-kRvAPD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+			<br>
+			<br>
+			<br>
+			<div id="welcome" class="rule-group">
+				<div class="header1">Welcome to Digital Rights Monopoly!</div>
+				<p>
+				Welcome to a world where digital rights take the centre stage! In this game, you will navigate different scenarios, where you can learn and advocate for digital rights.
+				</p>
+			</div>
+
+			<div id="objective" class="rule-group">
+				<div class="header1">Objective</div>
+				<p>Your goal is simple: support digital rights issues and accumulate the most influence and money by the end of the game to win.</p>
+			</div>
+
+			<div id="getting" class="rule-group">
+				<div class="header1">Getting Started</div>
+				<p>
+					<img src="images/rules/select-players.jpg" style="width: 100%;">
+					<ul>
+						<li><b>Number of Players:</b> Form a group of 2 to 8 players for a varied and engaging game experience.</li>
+						<img src="images/rules/setting-players.jpg" style="width: 100%;">
+						<li><b>Setting Players:</b> Before beginning, select the number of players. If you are playing solo or wish for a challenge, you can set a player as a computer</li>
+					</ul>
+					
+					<center><img src="images/rules/avatar.jpg" style="max-width: 100%;"></center>
+					
+					<ul>
+						<li><b>Player Details:</b> Begin by entering your name or a nickname and choose from a selection of pre-made avatars.</li>
+						<center><img src="images/rules/shuffle.jpg" style="width: 100%;max-width: 400px;"></center>
+						<li><b>Who Goes First:</b> Let the game take the lead! Watch as it shuffles the rolls and announces the first player to kick things off.</li>
+						
+						<center><img src="images/rules/starting-funds.jpg" style="width: 100%;"></center>
+						<li><b>Starting Funds:</b> You will start with 1500 DIGRA currency units to buy properties and manage other expenses. The entreprenuer starts with D1500.</li>
+					</ul>
+				</p>
+			</div>
+			
+			<div id="how-to-play" class="rule-group">
+				<div class="header1">How to Play</div>
+				<center>
+				<p>
+						<img src="images/rules/roll.jpg" style="width: 100%;">
+						<div><b>Roll the dice:</b> On your turn, roll the dice to advance your avatar along the board.</div>
+						
+						<br>
+						
+						<img src="images/rules/empty-land.jpg" style="width: 100%;">
+						<div><b>Unowned Space:</b> If you land on an unowned space, a pop-up will explain its associated digital rights issue, giving you the option to buy or auction it.</div>
+						<br>
+						
+						
+						<img src="images/rules/empty-land.jpg" style="width: 100%;">
+						<div><b>Owned Space:</b> Landing on a space owned by another player will prompt you to pay the required fee.</div>
+						<br>
+						
+						<img src="images/rules/chance1.jpg" style="width: 50%;float: left;">
+						<img src="images/rules/chance2.jpg" style="width: 50%;float: left;">
+						<div style="clear: both;"></div>
+						<div><b>Chance or Community:</b> Find yourself in one of these spaces? Draw a card and follow the instructions.</div>
+						<br>
+						
+						
+
+						<div><b>Jail:</b> In jail, you won't collect D200 units on your next turn. To leave, roll matching numbers on both dice or pay a fine. After three failed exit attempts, paying the fine is compulsory.</div>
+				</p>
+				</center>
+			</div>
+
+			<div id="important-points" class="rule-group">
+				<div class="header1">Important Points</div>
+				<p>
+					<ul>
+						<li><b>Board Spaces:</b> Each board space represents a different digital rights issue. Owning them helps you to increase your influence.</li>
+						<li><b>Team Up:</b> Players can form alliances, trade properties, and strategize together to enhance their chances of winning.</li>
+						<li><b>Guidance:</b> If in doubt, refer to the on-screen prompts and hints that are available to guide you.</li>
+					</ul>
+				</p>
+			</div>
+
+
+			<div class="rule-group">
+				Play wisely, learn, and strive for victory while promoting a safer and inclusive digital world. Good luck!
+			</div>
+			
+		</div>
+
+		<div style="clear:both"></div>
+	</div>
+
+	<style>
+	.next{
+		position: fixed;
+		right: 70px;
+		bottom: 50px;
+		cursor: pointer;
+		background: var(--maroon);
+		border:4px solid #fff;
+		color: #fff;
+		height: 40px;
+		text-align: center;
+		padding: 0 30px;
+		display: flex;
+		align-items: center;
+		box-shadow: 10px 10px 0 rgb(0, 0, 0, 0.8);
+	}.next:hover{
+		box-shadow: none;
+		margin-bottom: 10px;
+	}
+	</style>
+	<div class="next" id="nextButton">Next </div>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			const sectionIds = ['welcome', 'objective', 'getting', 'how-to-play', 'important-points'];
+			let currentIndex = 0;
+
+			document.getElementById('nextButton').addEventListener('click', () => {
+				// Increment the index to point to the next section
+				currentIndex = (currentIndex + 1) % sectionIds.length;
+				// Scroll to the next section by ID
+				document.getElementById(sectionIds[currentIndex]).scrollIntoView({ behavior: 'smooth' });
+			});
+		});
+
+	</script>
+</div>
+
+</body>
+</html>
