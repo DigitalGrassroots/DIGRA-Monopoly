@@ -13,7 +13,7 @@ var isAuctionActive = false;
 var gameObjectString;
 
 spectator = true;
-
+var justSwitched = false;
 
 const urlParams = new URLSearchParams(window.location.search);
 const loadParam = urlParams.get('load');
@@ -63,10 +63,7 @@ function Game() {
 		uploadGameData();
 
 		p.pay(0, 0);
-		document.getElementById("nextbutton").value = "Roll Dice";
-		document.getElementById("nextbutton").classList.add('rollbtn');
-		document.getElementById("nextbutton").title = "Roll the dice and move your token accordingly.";
-		
+
 		if (!p.human && p.money < 0) {
 			p.AI.payDebt();
 
@@ -3548,9 +3545,16 @@ function checkTurn(){
 	if(player_turn == turn){
 		console.log('Participant');
 		spectator = false;
+		if(justSwitched){
+			document.getElementById("landed").innerHTML = "It's your turn";
+			document.getElementById("nextbutton").value = "ROLL";
+			document.getElementById("nextbutton").title = "Roll the dice and move your token accordingly.";
+			justSwitched = false;
+		}
 		$('#info').show();
 		return true;
 	}else{
+		justSwitched = true;
 		spectator = true;
 		console.log('Spectator');
 		$('#info').hide();
