@@ -63,6 +63,10 @@ function Game() {
 		uploadGameData();
 
 		p.pay(0, 0);
+		document.getElementById("nextbutton").value = "Roll Dice";
+		document.getElementById("nextbutton").classList.add('rollbtn');
+		document.getElementById("nextbutton").title = "Roll the dice and move your token accordingly.";
+		
 		if (!p.human && p.money < 0) {
 			p.AI.payDebt();
 
@@ -3485,8 +3489,6 @@ function updateGame(){
 
 	console.log("Game updated");
 
-
-
 	} else {
 		alert("No data found");
 	}
@@ -3667,12 +3669,6 @@ window.onload = function() {
 	}
 
 	console.log(first_load);
-	
-	// if(first_load){
-	// 	turn = gameObject.turn;
-	// }else{
-	// 	turn = gameObject.turn-1;
-	// }
 
 	updateProperties();
 	
