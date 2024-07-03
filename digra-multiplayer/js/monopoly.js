@@ -3541,6 +3541,7 @@ function uploadGameData(){
 
 function checkTurn(){
 	console.log(turn);
+	console.log(player_turn);
 	if(player_turn == turn){
 		console.log('Participant');
 		spectator = false;
