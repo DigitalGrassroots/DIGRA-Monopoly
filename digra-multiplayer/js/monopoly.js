@@ -2898,10 +2898,6 @@ function play(firstload=false) {
 	// 	isAuctionActive = false;
 	// }
 
-	turn++;
-	if (turn > pcount) {
-		turn -= pcount;
-	}
 
 	var p = player[turn];
 	// $('.avatar').css("z-index", 2);
@@ -2972,6 +2968,10 @@ function play(firstload=false) {
 	updatePosition();
 	updateOwned();
 
+	turn++;
+	if (turn > pcount) {
+		turn -= pcount;
+	}
 
 	if (!p.human) {
 		if (!p.AI.beforeTurn()) {
@@ -3541,6 +3541,7 @@ function uploadGameData(){
 
 function checkTurn(){
 	console.log(turn);
+	console.log(player_turn);
 	if(player_turn == turn){
 		console.log('Participant');
 		spectator = false;
