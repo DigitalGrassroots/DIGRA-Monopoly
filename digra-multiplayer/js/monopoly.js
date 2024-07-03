@@ -3549,6 +3549,9 @@ function checkTurn(){
 			document.getElementById("landed").innerHTML = "It's your turn";
 			document.getElementById("nextbutton").value = "ROLL";
 			document.getElementById("nextbutton").title = "Roll the dice and move your token accordingly.";
+			// set avatar highlight
+			$('.avatar').removeClass("avatar-highlight");
+			$('#avatar'+player[turn].avatar).addClass("avatar-highlight");
 			justSwitched = false;
 		}
 		$('#info').show();
