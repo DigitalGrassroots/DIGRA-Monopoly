@@ -72,6 +72,10 @@ function Game() {
 				roll();
 			}
 		} else if (areDiceRolled && doublecount === 0) {
+			turn++;
+			if (turn > pcount) {
+				turn -= pcount;
+			}
 			play();
 		} else {
 			roll();
@@ -2968,10 +2972,7 @@ function play(firstload=false) {
 	updatePosition();
 	updateOwned();
 
-	turn++;
-	if (turn > pcount) {
-		turn -= pcount;
-	}
+
 
 	if (!p.human) {
 		if (!p.AI.beforeTurn()) {
