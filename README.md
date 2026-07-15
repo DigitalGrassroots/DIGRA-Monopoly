@@ -1,1 +1,1 @@
-# DIGRA-Monopoly
+# Digital-Rights-Monopoly
